@@ -2,3 +2,5 @@
 .godot/
 /android/
 /.vs
+/CharacterModule/obj
+/DebugProject/obj
