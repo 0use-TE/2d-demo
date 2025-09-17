@@ -15,7 +15,7 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart.Core
         }
         public bool Perception()
         {
-
+            return true;
         }
     }
 }

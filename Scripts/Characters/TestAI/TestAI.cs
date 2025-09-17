@@ -1,14 +1,13 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.StateMachineModule;
+using DDemo.Scripts.CharacterParts.PerceptionPart.BehaviourNodes;
 using Godot;
-using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
 namespace PlatformExplorer.BehaviorTreeTest;
 
 public partial class TestAI : CharacterBody2D
 {
-	[Inject]
-	private ILogger<TestAI> _logger = default!;
+
 
 	private NavigationAgent2D _navigationAgent2D;
 	private AnimatedSprite2D _animatedSprite;
@@ -66,7 +65,6 @@ public partial class TestAI : CharacterBody2D
 
 		_enemyStateMachine.SetInitialState(_enemyIdle);
 
-		_logger.LogInformation("Enemy stateMachine is init!");
 
 		_tree= BehaviorTree.CreateTree()
 			.ConfigurateStateMachine(_enemyStateMachine);
@@ -74,7 +72,7 @@ public partial class TestAI : CharacterBody2D
 		_tree.BuildTree()
 			.Selector()
 				.Sequence()
-					.Condition((delta) => test)
+					.AddChild(new PerceptionPlayerConditionNode()) //感知玩家
 					//跟随玩家
 					.SwitchState(_enemyFollow)
 			.End()

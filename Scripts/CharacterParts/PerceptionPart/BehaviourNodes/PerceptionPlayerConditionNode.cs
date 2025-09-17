@@ -12,14 +12,13 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart.BehaviourNodes
 {
     internal class PerceptionPlayerConditionNode : BehaviourNode
     {
-        private readonly IPerception _perception;
+        private  IPerception _perception;
 
-        public PerceptionPlayerConditionNode()
-        {
-            _perception = new EnemyPerception();
-        }
-
-        public override NodeState Tick(double delta)
+		public override void SetParent(ICompositeNode parent)
+		{
+			_perception = new EnemyPerception();
+		}
+		public override NodeState Tick(double delta)
         {
             return _perception.Perception()? NodeState.Success : NodeState.Failure;
         }

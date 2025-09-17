@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://co3kunw1miigi"]
+
+[ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
+[ext_resource type="PackedScene" uid="uid://5g1ymm86b1bq" path="res://Scene/GameInManager.tscn" id="2_vfxjo"]
+[ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
+
+[node name="MainScene" type="Node2D"]
+texture_filter = 1
+
+[node name="GameInManager" parent="." instance=ExtResource("2_vfxjo")]
+
+[node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
+
+[node name="TestPlayer" parent="." instance=ExtResource("1_hcm6b")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+limit_enabled = false

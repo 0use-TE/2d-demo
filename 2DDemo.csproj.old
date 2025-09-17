@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
 	  <Nullable>enable</Nullable>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>DDemo</RootNamespace>
   </PropertyGroup>
@@ -19,14 +20,14 @@
   <ItemGroup>
     <None Include="Scripts\Characters\TestAI\EnemyStateCollection.cs.uid" />
     <None Include="Scripts\Characters\TestAI\TestAI.cs.uid" />
-    <None Include="Scripts\GameHandler\AudioEventHandler.cs.uid" />
-    <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
-    <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
-    <None Include="Scripts\GameHandler\ObjectPoolEventHandler.cs.uid" />
+    <None Include="Scripts\GameHander\AudioEventHandler.cs.uid" />
+    <None Include="Scripts\GameHander\DependencyInjectionNode.cs.uid" />
+    <None Include="Scripts\GameHander\DiRegistration.cs.uid" />
+    <None Include="Scripts\GameHander\ObjectPoolEventHandler.cs.uid" />
   </ItemGroup>
 
   <ItemGroup>
-   <PackageReference Include="Godot.DependencyInjection" Version="0.4.1" />
+    <PackageReference Include="Godot.DependencyInjection" Version="0.4.1" />
     <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 

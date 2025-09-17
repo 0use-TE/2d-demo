@@ -1,15 +1,14 @@
 using CharacterModule.StateMachineModule;
+using DDemo.Scripts.Characters.Core;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
 using System;
 namespace PlatformExplorer.PlayerScript;
-public partial class Player : CharacterBody2D
+public partial class Player : PlayerBase
 {
 	[Inject]
 	private ILogger<Player> _logger = default!;
-	private CharacterBody2D? _body;
-	private AnimatedSprite2D ?_animatedSprite;
 
 	//Congifure Args
 	[Export]
@@ -23,7 +22,6 @@ public partial class Player : CharacterBody2D
 	private PlayerInput _playerInput = new PlayerInput();
 
 	//State-Related
-	private StateMachine ?_playerStateMachine;
 	private PlayerIdleState ?_playerIdleState;
 	private PlayerWalkState ?_playerWalkState;
 	//Attack
@@ -40,14 +38,12 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		_body = this;
-		_animatedSprite = GetNode<AnimatedSprite2D>(nameof(AnimatedSprite2D));
+		base._Ready();
 
-		_playerStateMachine = new StateMachine();
-		_playerIdleState = new PlayerIdleState(_playerStateMachine);
-		_playerWalkState = new PlayerWalkState(_playerStateMachine);
-		_playerMeleeAttackState = new PlayerMeleeAttackState(_playerStateMachine);
-		_playerRemoteAttackState = new PlayerRemoteAttackState(_playerStateMachine);
+		_playerIdleState = new PlayerIdleState(StateMachine);
+		_playerWalkState = new PlayerWalkState(StateMachine);
+		_playerMeleeAttackState = new PlayerMeleeAttackState(StateMachine);
+		_playerRemoteAttackState = new PlayerRemoteAttackState(StateMachine);
 
 		//Idle
 		_playerIdleState.AddEnter(() => _isIdle = true).AddEnter(() => SetVelocity(0, 0)).
@@ -75,7 +71,7 @@ public partial class Player : CharacterBody2D
 			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _remoteAttackMoveSpeed, 0));
 
 		//Set Initial State
-		_playerStateMachine.SetInitialState(_playerIdleState);
+		StateMachine.SetInitialState(_playerIdleState);
 		_logger.LogInformation("Player Ready");
 	}
 	/// <summary>
@@ -84,11 +80,8 @@ public partial class Player : CharacterBody2D
 	/// <param name="delta"></param>
 	public override void _Process(double delta)
 	{
-		_playerStateMachine?.Process(delta);
-		if (_playerInput.Horizontal > 0.1)
-			_animatedSprite.FlipH = false;
-		else if (_playerInput.Horizontal < -0.1)
-			_animatedSprite.FlipH = true;
+		base._Process(delta);
+		StateMachine?.Process(delta);
 	}
 
 	/// <summary>
@@ -101,24 +94,10 @@ public partial class Player : CharacterBody2D
 	}
 	public override void _PhysicsProcess(double delta)
 	{
-		_playerStateMachine.PhysicsProcess(delta);
+		StateMachine.PhysicsProcess(delta);
 
 		MoveAndSlide();
 	}
 
-	private void SetVelocity(float? x = null, float? y = null)
-	{
-		var velocity = Velocity;
-		if (x.HasValue) velocity.X = x.Value;
-		if (y.HasValue) velocity.Y = y.Value;
-		Velocity = velocity;
-	}
 
-	private void AddVelocity(float? x = null, float? y = null)
-	{
-		var velocity = Velocity;
-		if (x.HasValue) velocity.X += x.Value;
-		if (y.HasValue) velocity.Y += y.Value;
-		Velocity = velocity;
-	}
 }
