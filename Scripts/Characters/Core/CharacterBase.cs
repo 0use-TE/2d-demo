@@ -1,5 +1,8 @@
 using CharacterModule.StateMachineModule;
 using Godot;
+using Godot.DependencyInjection.Attributes;
+using Microsoft.Extensions.Logging;
+using PlatformExplorer.PlayerScript;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,8 @@ namespace DDemo.Scripts.Characters.Core
 {
 public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 	{
+		[Inject]
+		protected ILogger<Player> _logger = default!;
 		public CharacterBody2D CharacterBody2D { get; private set; } = default!;
 
 		public AnimatedSprite2D AnimatedSprite2D { get; private set; } = default!;

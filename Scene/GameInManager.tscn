@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5g1ymm86b1bq"]
 
-[ext_resource type="Script" uid="uid://bcsbxe3n3m8l6" path="res://Scripts/GameHander/DIRegistration.cs" id="1_rd5cv"]
+[ext_resource type="Script" uid="uid://bcsbxe3n3m8l6" path="res://Scripts/GameHandler/DIRegistration.cs" id="1_rd5cv"]
 
 [node name="GameInManager" type="Node2D"]
 

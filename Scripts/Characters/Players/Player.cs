@@ -7,8 +7,7 @@ using System;
 namespace PlatformExplorer.PlayerScript;
 public partial class Player : PlayerBase
 {
-	[Inject]
-	private ILogger<Player> _logger = default!;
+
 
 	//Congifure Args
 	[Export]
@@ -28,7 +27,6 @@ public partial class Player : PlayerBase
 	private PlayerMeleeAttackState ?_playerMeleeAttackState;
 	private PlayerRemoteAttackState? _playerRemoteAttackState;
 
-
 	//Animation Flag
 	private bool _isIdle;
 	private bool _isWalk;
@@ -36,10 +34,8 @@ public partial class Player : PlayerBase
 	private bool _isAttack;
 	private int _attackIndex = 0;
 
-	public override void _Ready()
+	protected override void BuildStateMachine()
 	{
-		base._Ready();
-
 		_playerIdleState = new PlayerIdleState(StateMachine);
 		_playerWalkState = new PlayerWalkState(StateMachine);
 		_playerMeleeAttackState = new PlayerMeleeAttackState(StateMachine);
@@ -75,28 +71,12 @@ public partial class Player : PlayerBase
 		_logger.LogInformation("Player Ready");
 	}
 	/// <summary>
-	/// Called once per frame
-	/// </summary>
-	/// <param name="delta"></param>
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
-		StateMachine?.Process(delta);
-	}
-
-	/// <summary>
 	/// Animation finished  callbacks
 	/// </summary>
 	public void OnAnimationFinished()
 	{
 		_attackIndex = 0;
 		_isAttack = false;
-	}
-	public override void _PhysicsProcess(double delta)
-	{
-		StateMachine.PhysicsProcess(delta);
-
-		MoveAndSlide();
 	}
 
 
