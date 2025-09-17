@@ -13,10 +13,10 @@ namespace DDemo.Scripts.Characters.Core
 		public override void _Ready()
 		{
 			base._Ready();
-			BuildStateMachine();
+			ConfigureStateMachine();
 		}
 
-		protected abstract void BuildStateMachine();
+		protected abstract void ConfigureStateMachine();
 
 		/// <summary>
 		/// Called once per frame

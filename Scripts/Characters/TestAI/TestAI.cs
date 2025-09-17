@@ -15,7 +15,8 @@ public partial class TestAI : AIBase
 	private bool _isIdle;
 	private bool _isWalk;
 
-	protected override void BuildAIByFSMAndBT()
+
+	protected override void ConfigureStateMachine()
 	{
 		//StateMachine
 		_enemyIdle = new EnemyIdle(StateMachine);
@@ -51,15 +52,17 @@ public partial class TestAI : AIBase
 
 		StateMachine.SetInitialState(_enemyIdle);
 
-		BehaviorTree = BehaviorTree.CreateTree()
-			.ConfigurateStateMachine(StateMachine);
 
-		BehaviorTree.BuildTree()
-			.Selector()
-				.Sequence()
-					.AddChild(new PerceptionPlayerConditionNode()) //感知玩家
-					.SwitchState(_enemyFollow)   //跟随玩家
-			.End()
-					.SwitchState(_enemyIdle);
 	}
+	protected override void ConfigureBehaviourTree()
+	{
+		BehaviorTree.BuildTree()
+	.Selector()
+		.Sequence()
+			.Condition((delta)=>true)//感知玩家
+			.SwitchState(_enemyFollow)   //跟随玩家
+	.End()
+			.SwitchState(_enemyIdle);
+	}
+
 }

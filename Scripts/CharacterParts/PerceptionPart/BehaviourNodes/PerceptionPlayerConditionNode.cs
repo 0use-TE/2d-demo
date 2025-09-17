@@ -2,6 +2,7 @@ using CharacterModule.BehaviourTree;
 using CharacterModule.BehaviourTree.ActionNodes;
 using CharacterModule.BehaviourTree.Core;
 using DDemo.Scripts.CharacterParts.PerceptionPart.Core;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,17 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart.BehaviourNodes
     internal class PerceptionPlayerConditionNode : BehaviourNode
     {
         private  IPerception _perception;
+        private float _distance;
+        public PerceptionPlayerConditionNode(float distance)
+        {
+            _distance = distance;
+        }
 
-		public override void SetParent(ICompositeNode parent)
-		{
-			_perception = new EnemyPerception();
-		}
 		public override NodeState Tick(double delta)
         {
-            return _perception.Perception()? NodeState.Success : NodeState.Failure;
+            if(_perception == null)
+                throw new Exception("Perception is null");
+			return _perception.Perception()? NodeState.Success : NodeState.Failure;
         }
     }
 }

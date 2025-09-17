@@ -34,7 +34,7 @@ public partial class Player : PlayerBase
 	private bool _isAttack;
 	private int _attackIndex = 0;
 
-	protected override void BuildStateMachine()
+	protected override void ConfigureStateMachine()
 	{
 		_playerIdleState = new PlayerIdleState(StateMachine);
 		_playerWalkState = new PlayerWalkState(StateMachine);

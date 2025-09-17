@@ -11,15 +11,19 @@ namespace DDemo.Scripts.Characters.Core
 {
 	public abstract partial class AIBase : CharacterBase, IAI
 	{
-		public BehaviorTree ?BehaviorTree { get; protected set; } 
+		public BehaviorTree BehaviorTree { get; protected set; } = default!;
 		public NavigationAgent2D NavigationAgent2D { get; private set; } = default!;
 		public override void _Ready()
 		{
 			base._Ready();
 			NavigationAgent2D = GetNode<NavigationAgent2D>(nameof(NavigationAgent2D));
-			BuildAIByFSMAndBT();
+			BehaviorTree = BehaviorTree.CreateTree().ConfigurateStateMachine(StateMachine);
+
+			ConfigureStateMachine();
+			ConfigureBehaviourTree();
 		}
-		protected abstract void BuildAIByFSMAndBT();
+		protected abstract void ConfigureStateMachine();
+		protected abstract void ConfigureBehaviourTree();
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta)
