@@ -1,0 +1,17 @@
+@startuml PlayerLogic
+state "PlayerLogic State" as PlatformExplorer_player_PlayerLogic_State {
+  state "Idle" as PlatformExplorer_player_PlayerLogic_State_Idle
+  state "Jump" as PlatformExplorer_player_PlayerLogic_State_Jump
+  state "Run" as PlatformExplorer_player_PlayerLogic_State_Run
+}
+
+PlatformExplorer_player_PlayerLogic_State_Idle --> PlatformExplorer_player_PlayerLogic_State_Idle : Move
+PlatformExplorer_player_PlayerLogic_State_Idle --> PlatformExplorer_player_PlayerLogic_State_Jump : Jump
+PlatformExplorer_player_PlayerLogic_State_Idle --> PlatformExplorer_player_PlayerLogic_State_Run : Move
+PlatformExplorer_player_PlayerLogic_State_Jump --> PlatformExplorer_player_PlayerLogic_State_Idle : Land
+PlatformExplorer_player_PlayerLogic_State_Jump --> PlatformExplorer_player_PlayerLogic_State_Jump : Jump
+PlatformExplorer_player_PlayerLogic_State_Run --> PlatformExplorer_player_PlayerLogic_State_Idle : Move
+PlatformExplorer_player_PlayerLogic_State_Run --> PlatformExplorer_player_PlayerLogic_State_Jump : Jump
+PlatformExplorer_player_PlayerLogic_State_Run --> PlatformExplorer_player_PlayerLogic_State_Run : Move
+[*] --> PlatformExplorer_player_PlayerLogic_State_Idle
+@enduml

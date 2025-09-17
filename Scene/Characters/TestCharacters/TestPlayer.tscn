@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://ehm17p0wa3rx"]
+
+[ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Characters/Players/Player.cs" id="1_juf7y"]
+[ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e16dk"]
+atlas = ExtResource("2_ulie7")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brp00"]
+atlas = ExtResource("2_ulie7")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bgjs"]
+atlas = ExtResource("2_ulie7")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygxq0"]
+atlas = ExtResource("2_ulie7")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04plg"]
+atlas = ExtResource("2_ulie7")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl5dv"]
+atlas = ExtResource("2_ulie7")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_juf7y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e16dk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brp00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bgjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygxq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04plg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl5dv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_juf7y"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_juf7y"]
+
+[node name="TestPlayer" type="CharacterBody2D"]
+script = ExtResource("1_juf7y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_juf7y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_juf7y")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_juf7y")
