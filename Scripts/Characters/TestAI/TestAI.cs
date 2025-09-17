@@ -1,6 +1,5 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.StateMachineModule;
-using DDemo.Scripts.CharacterParts.PerceptionPart.BehaviourNodes;
 using DDemo.Scripts.Characters.Core;
 using Godot;
 using Microsoft.Extensions.Logging;
@@ -64,5 +63,6 @@ public partial class TestAI : AIBase
 	.End()
 			.SwitchState(_enemyIdle);
 	}
+
 
 }

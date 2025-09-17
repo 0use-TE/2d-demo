@@ -17,8 +17,11 @@ namespace DDemo.Scripts.Characters.Core
 		{
 			base._Ready();
 			NavigationAgent2D = GetNode<NavigationAgent2D>(nameof(NavigationAgent2D));
-			BehaviorTree = BehaviorTree.CreateTree().ConfigurateStateMachine(StateMachine);
-
+			BehaviorTree = BehaviorTree.CreateTree().ConfigurateStateMachine(StateMachine)
+				.ConfigurateBlackboard(blackboard =>
+				{
+					blackboard.Save(this);
+				});
 			ConfigureStateMachine();
 			ConfigureBehaviourTree();
 		}
