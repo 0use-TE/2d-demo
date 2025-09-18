@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\CharacterModule\\CharacterModule.csproj": {}
+    "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj": {}
   },
   "projects": {
-    "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\CharacterModule\\CharacterModule.csproj": {
+    "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\CharacterModule\\CharacterModule.csproj",
+        "projectUniqueName": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj",
         "projectName": "CharacterModule",
-        "projectPath": "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\CharacterModule\\CharacterModule.csproj",
+        "projectPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\CharacterModule\\obj\\",
+        "outputPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

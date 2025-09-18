@@ -16,7 +16,7 @@ namespace DDemo.Scripts.GameHander
 
             services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             //Used for create object pools
-
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 using CharacterModule.BehaviourTree;
+using DDemo.Scripts.Misc.Enums;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace DDemo.Scripts.Characters.Core
 {
 	public interface IAI:ICharacter
 	{
+		E_TeamType TeamType { get; }
 		BehaviorTree? BehaviorTree { get; }
 		NavigationAgent2D NavigationAgent2D { get; }
 	}
