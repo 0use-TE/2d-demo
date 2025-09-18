@@ -1,5 +1,6 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.StateMachineModule;
+using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
 using Godot;
 using Microsoft.Extensions.Logging;
@@ -43,7 +44,7 @@ public partial class TestAI : AIBase
 				var nextPosition = NavigationAgent2D.GetNextPathPosition();
 				var direction = (nextPosition - GlobalPosition).Normalized();
 
-				Velocity = direction * 32 ;
+				Velocity = direction * 32;
 				MoveAndSlide();
 
 			}))
@@ -56,13 +57,12 @@ public partial class TestAI : AIBase
 	protected override void ConfigureBehaviourTree()
 	{
 		BehaviorTree.BuildTree()
-	.Selector()
-		.Sequence()
-			.Condition((delta)=>true)//感知玩家
-			.SwitchState(_enemyFollow)   //跟随玩家
-	.End()
-			.SwitchState(_enemyIdle);
+		.Selector()
+			.Sequence()
+				.AddChild(new EnemyIsInDistance(30f))//感知玩家
+				.SwitchState(_enemyFollow)   //跟随玩家
+		.End()
+				.SwitchState(_enemyIdle);
 	}
-
 
 }

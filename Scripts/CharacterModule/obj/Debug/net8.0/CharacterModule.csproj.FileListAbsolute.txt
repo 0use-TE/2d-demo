@@ -21,3 +21,15 @@ D:\常用\桌面\MyProject\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\Char
 D:\常用\桌面\MyProject\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\refint\CharacterModule.dll
 D:\常用\桌面\MyProject\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.pdb
 D:\常用\桌面\MyProject\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\ref\CharacterModule.dll
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\bin\Debug\net8.0\CharacterModule.deps.json
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\bin\Debug\net8.0\CharacterModule.dll
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\bin\Debug\net8.0\CharacterModule.pdb
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.AssemblyInfoInputs.cache
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.AssemblyInfo.cs
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.csproj.CoreCompileInputs.cache
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.sourcelink.json
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.dll
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\refint\CharacterModule.dll
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.pdb
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\ref\CharacterModule.dll
