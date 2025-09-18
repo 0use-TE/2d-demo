@@ -1,15 +1,44 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.4.1">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-	  <Nullable>enable</Nullable>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-    <RootNamespace>DDemo</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<RootNamespace>DDemo</RootNamespace>
+
+		<!-- Catch compiler-mismatch issues with the Introspection generator -->
+		<WarningsAsErrors>CS9057</WarningsAsErrors>
+
+	</PropertyGroup>
   <ItemGroup>
     <Compile Remove="Scripts\CharacterModule\**" />
     <Compile Remove="Scripts\DebugProject\**" />
     <EmbeddedResource Remove="Scripts\CharacterModule\**" />
     <EmbeddedResource Remove="Scripts\DebugProject\**" />
+  
+	  
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_connect\src\auto_connect\AutoConnectExtensions.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_connect\src\auto_connect\AutoConnector.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_connect\src\auto_connect\IAutoConnect.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_connect\src\auto_connect\NodeAttribute.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_init\src\auto_init\IAutoInit.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\DependencyAttribute.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\DependencyExceptions.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\DependencyResolver.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\DependentExtensions.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\DependentState.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\IDependent.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\dependent\src\auto_inject\dependent\PendingProvider.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\provider\src\auto_inject\provider\IProvide.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\provider\src\auto_inject\provider\IProvider.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\provider\src\auto_inject\provider\ProviderExtensions.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_inject\provider\src\auto_inject\provider\ProviderState.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_node\src\auto_node\AutoNode.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\auto_on\src\auto_on\IAutoOn.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\misc\src\misc\IReadyAware.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\notifications\src\notifications\NotificationExtensions.cs" />
+    <Compile Remove="C:\Users\Ouse\.nuget\packages\chickensoft.autoinject\2.8.33\contentFiles\cs\any\Chickensoft.AutoInjectsrc\notifications\src\notifications\NotificationState.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
+   <PackageReference Include="Chickensoft.AutoInject" Version="2.8.33" />
+   <PackageReference Include="Chickensoft.AutoInject.Analyzers" Version="2.8.33" />
+   <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.38" />
+   <PackageReference Include="Chickensoft.Introspection" Version="3.0.2" />
+   <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2" />
    <PackageReference Include="Godot.DependencyInjection" Version="0.4.1" />
     <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>

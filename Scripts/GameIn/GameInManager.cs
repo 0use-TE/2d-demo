@@ -1,3 +1,4 @@
+using DDemo.Scripts.GameHander;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.GameIn
 {
-	public partial class GameInManager:Node2D
+	public partial class GameInManager : Node2D
 	{
+		public GameInManager()
+		{
 
+		}
 	}
 }

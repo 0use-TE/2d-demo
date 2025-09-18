@@ -16,7 +16,6 @@ namespace DDemo.Scripts.Characters.Core
 {
 	public abstract partial class AIBase : CharacterBase, IAI
 	{
-
 		public BehaviorTree BehaviorTree { get; protected set; } = default!;
 		public NavigationAgent2D NavigationAgent2D { get; private set; } = default!;
 
