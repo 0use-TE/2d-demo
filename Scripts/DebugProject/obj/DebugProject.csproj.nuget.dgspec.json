@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\DebugProject\\DebugProject.csproj": {}
+    "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj": {}
   },
   "projects": {
-    "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\DebugProject\\DebugProject.csproj": {
+    "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\DebugProject\\DebugProject.csproj",
+        "projectUniqueName": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj",
         "projectName": "DebugProject",
-        "projectPath": "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\DebugProject\\DebugProject.csproj",
+        "projectPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
         "outputPath": "D:\\常用\\桌面\\MYPROJECT\\2D-DEMO\\Scripts\\DebugProject\\obj\\",
         "projectStyle": "PackageReference",

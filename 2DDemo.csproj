@@ -14,15 +14,14 @@
 
   <ItemGroup>
     <Folder Include="Scripts\CharacterParts\PerceptionPart\Core\" />
+    <Folder Include="Scripts\GameIn\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Scripts\Characters\TestAI\EnemyStateCollection.cs.uid" />
     <None Include="Scripts\Characters\TestAI\TestAI.cs.uid" />
-    <None Include="Scripts\GameHandler\AudioEventHandler.cs.uid" />
     <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
     <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
-    <None Include="Scripts\GameHandler\ObjectPoolEventHandler.cs.uid" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,6 +18,7 @@ config/icon="res://Assets/icon.svg"
 [autoload]
 
 DependencyInjectionNode="*res://Scripts/GameHandler/DependencyInjectionNode.cs"
+DiRegistration="*res://Scripts/GameHandler/DIRegistration.cs"
 
 [dotnet]
 

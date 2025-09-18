@@ -8,7 +8,6 @@ namespace PlatformExplorer.PlayerScript;
 public partial class Player : PlayerBase
 {
 
-
 	//Congifure Args
 	[Export]
 	private float _horizontalSpeed = 32 * 2.5f;       // 水平移动速度

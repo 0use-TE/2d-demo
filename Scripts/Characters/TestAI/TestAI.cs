@@ -3,6 +3,7 @@ using CharacterModule.StateMachineModule;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
 using Godot;
+using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
 namespace PlatformExplorer.BehaviorTreeTest;
 
@@ -51,7 +52,6 @@ public partial class TestAI : AIBase
 			.AddExit(() => _isWalk = false);
 
 		StateMachine.SetInitialState(_enemyIdle);
-
 
 	}
 	protected override void ConfigureBehaviourTree()
