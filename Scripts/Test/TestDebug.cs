@@ -11,16 +11,19 @@ using System.Threading.Tasks;
 using Chickensoft.AutoInject;
 namespace DDemo.Scripts.Test
 {
-	[Meta(typeof())]
+	[Meta(typeof(IAutoNode))]
 	public partial class TestDebug:Node2D
 	{
+        public override void _Notification(int what) => this.Notify(what);
 
-        [Inject]
-		private ILogger<TestDebug> _logger = default!;
 		[Inject]
-		private SceneTree SceneTree = default!;
+		public ILogger<TestDebug> Logger { get; set; } = default!;
+        [Node(nameof(Node2D))]
+		private Node2D Node2D { get; set; } = default!;
+
 		public override void _Process(double delta)
 		{
+
 		}
 	}
 }

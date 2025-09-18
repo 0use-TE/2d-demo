@@ -26,3 +26,5 @@ metadata/_custom_type_script = "uid://b6yar8qtap10t"
 
 [node name="Debug" type="Node2D" parent="."]
 script = ExtResource("5_ly247")
+
+[node name="Node2D" type="Node2D" parent="Debug"]
