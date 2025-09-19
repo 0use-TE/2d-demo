@@ -1,6 +1,9 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.StateMachineModule;
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using DDemo.Scripts.GameIn;
+using DDemo.Scripts.GameIn.EnvironmentContext;
 using DDemo.Scripts.Misc.Enums;
 using Godot;
 using Godot.DependencyInjection.Attributes;
@@ -18,14 +21,21 @@ namespace DDemo.Scripts.Characters.Core
     /// AI后面判断需要各种感知组件的支持（即环境上下文），目前是通过GameInManager暴露的(通过AutoInject),
 	/// 先描述下AI需要的信息，首先是玩家(攻击谁)，其次是队伍信息（友军，敌军），其他信息(比如地图，)
     /// </summary>
+    [Meta(typeof(IAutoNode))]
     public abstract partial class AIBase : CharacterBase, IAI
 	{
-		public BehaviorTree BehaviorTree { get; protected set; } = default!;
+        public override void _Notification(int what) => this.Notify(what);
+
+        public BehaviorTree BehaviorTree { get; protected set; } = default!;
 		public NavigationAgent2D NavigationAgent2D { get; private set; } = default!;
 
-		public E_TeamType TeamType { get;protected set; } = E_TeamType.Neutral; 
-		[Inject]
-		public Mediator Mediator { get; set; } = default!;	
+		public E_TeamType TeamType { get;protected set; } = E_TeamType.Neutral;
+
+		[Dependency]
+		protected PlayerContext PlayerContext => this.DependOn<PlayerContext>();
+		[Dependency]
+		protected AIUnitContext AIUnitContext =>this.DependOn<AIUnitContext>();
+
 		public override void _Ready()
 		{
 			base._Ready();
@@ -34,6 +44,8 @@ namespace DDemo.Scripts.Characters.Core
 				.ConfigurateBlackboard(blackboard =>
 				{
 					blackboard.Save(this);
+					blackboard.Save(PlayerContext);
+					blackboard.Save(AIUnitContext);
 				});
 			ConfigureStateMachine();
 			ConfigureBehaviourTree();
@@ -54,6 +66,5 @@ namespace DDemo.Scripts.Characters.Core
 			//StateMachine's process.
 			StateMachine.PhysicsProcess(delta);
 		}
-
 	}
 }

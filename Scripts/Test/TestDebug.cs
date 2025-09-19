@@ -27,7 +27,9 @@ namespace DDemo.Scripts.Test
 		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
         public override void _Process(double delta)
 		{
-			Logger.LogInformation("PlayersCount:{Count}",  _playerContext.Players.Count);
-        }
+		
+			Logger.LogInformation(_playerContext.Players.Count.ToString());
+        
+		}
 	}
 }

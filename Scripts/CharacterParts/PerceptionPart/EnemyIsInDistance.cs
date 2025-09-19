@@ -1,6 +1,8 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.BehaviourTree.Core;
 using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.GameIn.EnvironmentContext;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 	{
 		private float _distance;
 		private AIBase ?_ai;
+		private PlayerContext? _playerContext;
 		public EnemyIsInDistance(float distance)
 		{
 			_distance=distance;
@@ -20,11 +23,12 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
         protected override void OnBlackboardCreated()
         {
 			_ai = Blackboard.Load<AIBase>();
+			_playerContext = Blackboard.Load<PlayerContext>();
         }
 
-		public override NodeState Tick(double delta)
-		{
-			return NodeState.Success;
-		}
-	}
+        public override NodeState Tick(double delta)
+        {
+            return NodeState.Success;
+        }
+    }
 }

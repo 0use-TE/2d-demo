@@ -16,7 +16,6 @@ public partial class TestAI : AIBase
 	private bool _isIdle;
 	private bool _isWalk;
 
-
 	protected override void ConfigureStateMachine()
 	{
 		//StateMachine
@@ -26,7 +25,6 @@ public partial class TestAI : AIBase
 		_enemyIdle.AddEnter(() => _isIdle = true)
 			.AddPhysicsProcess((delta) =>
 			{
-				GD.Print("Idle");
 			})
 			.AddExit(() => _isIdle = false);
 
@@ -59,7 +57,7 @@ public partial class TestAI : AIBase
 		BehaviorTree.BuildTree()
 		.Selector()
 			.Sequence()
-				.AddChild(new EnemyIsInDistance(30f))//感知玩家
+				.AddChild(new EnemyIsInDistance(64f))//感知玩家
 				.SwitchState(_enemyFollow)   //跟随玩家
 		.End()
 				.SwitchState(_enemyIdle);
