@@ -20,15 +20,23 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 		{
 			_distance=distance;
 		}
-        protected override void OnBlackboardCreated()
-        {
+		protected override void OnBlackboardCreated()
+		{
 			_ai = Blackboard.Load<AIBase>();
-			_playerContext = Blackboard.Load<PlayerContext>();
-        }
+			_playerContext=Blackboard.Load<PlayerContext>();
+		}
 
-        public override NodeState Tick(double delta)
-        {
-            return NodeState.Success;
-        }
-    }
+		public override NodeState Tick(double delta)
+		{
+			var player = _playerContext.Players.First();
+			if (player != null)
+			{
+				if(_ai.Position.DistanceTo(player.Position)<_distance)
+				{
+					return NodeState.Success;
+				}
+			}
+			return NodeState.Failure;
+		}
+	}
 }

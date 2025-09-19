@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj": {}
+    "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj": {}
   },
   "projects": {
-    "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj": {
+    "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj",
+        "projectUniqueName": "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj",
         "projectName": "CharacterModule",
-        "projectPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\CharacterModule\\obj\\",
+        "projectPath": "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\CharacterModule\\CharacterModule.csproj",
+        "packagesPath": "C:\\Users\\Ouse\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\CharacterModule\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\StudySoftware\\VisualStudioTools\\NuGetPackages"
+          "C:\\Software\\VS\\SDK\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ouse\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

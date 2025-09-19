@@ -8,23 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
-    "D:\\StudySoftware\\VisualStudioTools\\NuGetPackages": {}
+    "C:\\Users\\Ouse\\.nuget\\packages\\": {},
+    "C:\\Software\\VS\\SDK\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj",
+      "projectUniqueName": "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj",
       "projectName": "DebugProject",
-      "projectPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\常用\\桌面\\MyProject\\2d-demo\\Scripts\\DebugProject\\obj\\",
+      "projectPath": "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\DebugProject\\DebugProject.csproj",
+      "packagesPath": "C:\\Users\\Ouse\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ouse\\Documents\\2d-demo\\Scripts\\DebugProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\StudySoftware\\VisualStudioTools\\NuGetPackages"
+        "C:\\Software\\VS\\SDK\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ouse\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -52,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -73,7 +73,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.1.25451.107/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

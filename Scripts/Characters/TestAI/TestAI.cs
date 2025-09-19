@@ -1,5 +1,7 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.StateMachineModule;
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
 using Godot;
@@ -7,9 +9,12 @@ using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
 namespace PlatformExplorer.BehaviorTreeTest;
 
+[Meta(typeof(IAutoNode))]
 public partial class TestAI : AIBase
 {
-	private EnemyIdle _enemyIdle;
+    public override void _Notification(int what) => this.Notify(what);
+
+    private EnemyIdle _enemyIdle;
 	private EnemyFollow _enemyFollow;
 
 	// 
@@ -57,7 +62,7 @@ public partial class TestAI : AIBase
 		BehaviorTree.BuildTree()
 		.Selector()
 			.Sequence()
-				.AddChild(new EnemyIsInDistance(64f))//感知玩家
+				.AddChild(new EnemyIsInDistance(128f))//感知玩家
 				.SwitchState(_enemyFollow)   //跟随玩家
 		.End()
 				.SwitchState(_enemyIdle);

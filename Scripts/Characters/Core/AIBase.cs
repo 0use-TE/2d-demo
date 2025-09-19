@@ -36,6 +36,7 @@ namespace DDemo.Scripts.Characters.Core
 		[Dependency]
 		protected AIUnitContext AIUnitContext =>this.DependOn<AIUnitContext>();
 
+
 		public override void _Ready()
 		{
 			base._Ready();
@@ -44,13 +45,23 @@ namespace DDemo.Scripts.Characters.Core
 				.ConfigurateBlackboard(blackboard =>
 				{
 					blackboard.Save(this);
-					blackboard.Save(PlayerContext);
-					blackboard.Save(AIUnitContext);
 				});
-			ConfigureStateMachine();
-			ConfigureBehaviourTree();
+
 
 		}
+
+        public void OnResolved()
+        {
+			BehaviorTree.ConfigurateBlackboard(blackboard =>
+			{
+				blackboard.Save(PlayerContext);
+				blackboard.Save(AIUnitContext);
+			});
+
+            ConfigureStateMachine();
+            ConfigureBehaviourTree();
+        }
+        
 		protected abstract void ConfigureStateMachine();
 		protected abstract void ConfigureBehaviourTree();
 

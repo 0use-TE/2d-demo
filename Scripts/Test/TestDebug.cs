@@ -25,11 +25,16 @@ namespace DDemo.Scripts.Test
 
 		[Dependency]
 		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
+        public void OnResolved()
+        {
+            //if (_playerContext != null)
+            //    Logger.LogInformation("获取到服务了");
+        }
         public override void _Process(double delta)
 		{
-		
-			Logger.LogInformation(_playerContext.Players.Count.ToString());
-        
-		}
-	}
+
+      
+
+        }
+    }
 }

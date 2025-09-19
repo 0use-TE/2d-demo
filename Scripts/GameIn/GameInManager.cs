@@ -23,16 +23,20 @@ namespace DDemo.Scripts.GameIn
 		private AIUnitContext _aiUnitContext = new AIUnitContext();
 		PlayerContext IProvide<PlayerContext>.Value() => _playerContext;
 		AIUnitContext IProvide<AIUnitContext>.Value() => _aiUnitContext;
-		
+
+
 		public void OnReady()
 		{
-			this.Provide();
-
-
 			//获取所有玩家，开发场景使用，正常都是游戏外部创建玩家传入的
 			#region
 			_playerContext.Players = GetTree().GetNodesInGroup("Player").OfType<PlayerBase>().ToList();
 			#endregion
 		}
-	}
+
+        public void Setup()
+        {
+            // Call the this.Provide() method once your dependencies have been initialized.
+            this.Provide();
+        }
+    }
 }
