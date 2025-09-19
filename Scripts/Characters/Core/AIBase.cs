@@ -14,7 +14,11 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Characters.Core
 {
-	public abstract partial class AIBase : CharacterBase, IAI
+    /// <summary>
+    /// AI后面判断需要各种感知组件的支持（即环境上下文），目前是通过GameInManager暴露的(通过AutoInject),
+	/// 先描述下AI需要的信息，首先是玩家(攻击谁)，其次是队伍信息（友军，敌军），其他信息(比如地图，)
+    /// </summary>
+    public abstract partial class AIBase : CharacterBase, IAI
 	{
 		public BehaviorTree BehaviorTree { get; protected set; } = default!;
 		public NavigationAgent2D NavigationAgent2D { get; private set; } = default!;
@@ -33,6 +37,7 @@ namespace DDemo.Scripts.Characters.Core
 				});
 			ConfigureStateMachine();
 			ConfigureBehaviourTree();
+
 		}
 		protected abstract void ConfigureStateMachine();
 		protected abstract void ConfigureBehaviourTree();

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chickensoft.AutoInject;
+using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.GameIn.EnvironmentContext;
 namespace DDemo.Scripts.Test
 {
 	[Meta(typeof(IAutoNode))]
@@ -21,9 +23,11 @@ namespace DDemo.Scripts.Test
         [Node(nameof(Node2D))]
 		private Node2D Node2D { get; set; } = default!;
 
-		public override void _Process(double delta)
+		[Dependency]
+		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
+        public override void _Process(double delta)
 		{
-
-		}
+			Logger.LogInformation("PlayersCount:{Count}",  _playerContext.Players.Count);
+        }
 	}
 }

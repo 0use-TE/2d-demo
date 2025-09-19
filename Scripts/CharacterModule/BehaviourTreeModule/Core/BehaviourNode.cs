@@ -18,6 +18,11 @@ namespace CharacterModule.BehaviourTree.Core
         {
             _parent = parent;
             Blackboard= parent.Blackboard;
+            OnBlackboardCreated();
+        }
+        protected virtual void OnBlackboardCreated()
+        {
+
         }
 
         public abstract NodeState Tick(double delta);

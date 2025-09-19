@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Scripts\CharacterParts\PerceptionPart\Core\" />
+    <Folder Include="Scripts\GameIn\GameInHandler\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
     <None Include="Scripts\Characters\TestAI\TestAI.cs.uid" />
     <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
     <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
+    <None Include="Scripts\GameIn\环境上下文设计.md" />
   </ItemGroup>
 
   <ItemGroup>

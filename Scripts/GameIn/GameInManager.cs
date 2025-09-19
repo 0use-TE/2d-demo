@@ -1,4 +1,8 @@
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
+using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.GameHander;
+using DDemo.Scripts.GameIn.EnvironmentContext;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -8,11 +12,29 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.GameIn
 {
-	public partial class GameInManager : Node2D
-	{
-		public GameInManager()
-		{
+    [Meta(typeof(IAutoNode))]
+    public partial class GameInManager : Node2D,
+        IProvide<PlayerContext>,
+        IProvide<AIUnitContext>,
+        IProvide<CharacterContext>
+    {
+        public override void _Notification(int what) => this.Notify(what);
 
-		}
-	}
+        private PlayerContext _playerContext = new PlayerContext();
+        private AIUnitContext _aiUnitContext = new AIUnitContext();
+        private CharacterContext? _characterContext; // 存储实例
+        PlayerContext IProvide<PlayerContext>.Value() => _playerContext;
+        AIUnitContext IProvide<AIUnitContext>.Value() => _aiUnitContext;
+        CharacterContext IProvide<CharacterContext>.Value() => _characterContext??=new CharacterContext(_aiUnitContext,_playerContext);
+
+        public void OnReady()
+        {
+            this.Provide();
+            //获取所有玩家，开发场景使用，正常都是游戏外部创建玩家传入的
+            #region
+            _playerContext.Players = GetTree().GetNodesInGroup("Player").OfType<PlayerBase>().ToList();
+            #endregion
+        }
+    }
 }
+

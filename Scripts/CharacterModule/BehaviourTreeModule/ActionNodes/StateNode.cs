@@ -18,9 +18,8 @@ namespace CharacterModule.BehaviourTree.ActionNodes
             SwitchState();
             return NodeState.Success;
         }
-        public override void SetParent(ICompositeNode parent)
+        protected override void OnBlackboardCreated()
         {
-            base.SetParent(parent);
             _stateMachine = Blackboard.Load<StateMachine>();
         }
         private void SwitchState()
