@@ -2,6 +2,7 @@ using CharacterModule.BehaviourTree;
 using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
+using DDemo.Scripts.Characters.Core.Context;
 using DDemo.Scripts.GameIn;
 using DDemo.Scripts.GameIn.EnvironmentContext;
 using DDemo.Scripts.Misc.Enums;
@@ -28,8 +29,6 @@ namespace DDemo.Scripts.Characters.Core
 
         public BehaviorTree BehaviorTree { get; protected set; } = default!;
 		public NavigationAgent2D NavigationAgent2D { get; private set; } = default!;
-
-		public E_TeamType TeamType { get;protected set; } = E_TeamType.Neutral;
 
 		[Dependency]
 		protected PlayerContext PlayerContext => this.DependOn<PlayerContext>();

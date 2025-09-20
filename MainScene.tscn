@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1ldwv6mxyoke"]
+[gd_scene load_steps=2 format=3 uid="uid://cc565nkwtwgyk"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_1305s"]
 script/source = "using Godot;

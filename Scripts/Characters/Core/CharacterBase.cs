@@ -1,4 +1,5 @@
 using CharacterModule.StateMachineModule;
+using DDemo.Scripts.Misc.Enums;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
@@ -18,9 +19,11 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		public AnimatedSprite2D AnimatedSprite2D { get; private set; } = default!;
 
 		public StateMachine StateMachine { get; private set; } = new StateMachine();
-        
 
-         protected ILogger _logger = default!;
+        public E_TeamType TeamType { get; set; }
+
+
+        protected ILogger _logger = default!;
         [Inject]
         public ILoggerFactory _loggerFactory = default!;
 

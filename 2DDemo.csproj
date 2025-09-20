@@ -39,6 +39,9 @@
    <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2" />
    <PackageReference Include="Godot.DependencyInjection" Version="0.4.1" />
     <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Godot" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

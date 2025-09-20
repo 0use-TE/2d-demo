@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1y7n6xk71s8u"]
+
+[ext_resource type="Script" uid="uid://mlm53fc6phr" path="res://Scripts/Test/TestRaycast.cs" id="1_kgb03"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgb03"]
+size = Vector2(271, 20)
+
+[node name="TestRaycast" type="Node2D"]
+script = ExtResource("1_kgb03")
+_distance = 130.0
+
+[node name="Ouse" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ouse"]
+position = Vector2(94, 31)
+shape = SubResource("RectangleShape2D_kgb03")

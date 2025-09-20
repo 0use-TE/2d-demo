@@ -13,6 +13,8 @@ namespace DDemo.Scripts.Characters.Core
 		public override void _Ready()
 		{
 			base._Ready();
+			//设置阵营
+			TeamType = Misc.Enums.E_TeamType.Player;
 			ConfigureStateMachine();
 		}
 

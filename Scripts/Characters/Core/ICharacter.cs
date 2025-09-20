@@ -1,4 +1,5 @@
 using CharacterModule.StateMachineModule;
+using DDemo.Scripts.Misc.Enums;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace DDemo.Scripts.Characters.Core
 {
 	public interface ICharacter
 	{
-		CharacterBody2D CharacterBody2D { get; }
+        E_TeamType TeamType { get; set; }
+
+        CharacterBody2D CharacterBody2D { get; }
 		AnimatedSprite2D AnimatedSprite2D { get;  }
 		StateMachine StateMachine { get; }
 		int FacingDirection { get; set; } 

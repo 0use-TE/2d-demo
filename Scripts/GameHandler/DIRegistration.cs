@@ -2,6 +2,8 @@ using DDemo.Scripts.GameIn;
 using Godot;
 using Godot.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Sinks.Godot;
 using System;
 using System.Reflection;
 namespace DDemo.Scripts.GameHander
@@ -14,13 +16,21 @@ namespace DDemo.Scripts.GameHander
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            //Godot Logger
-            services.AddGodotLogger();
+            //Log congiguration
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Godot()
+                .CreateLogger();
+
+            services.AddLogging(builder =>
+            {
+                builder.AddSerilog();
+            });
+
             //Godot Services
             services.AddGodotServices();
 
             services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-		}
+        }
     }
 }
