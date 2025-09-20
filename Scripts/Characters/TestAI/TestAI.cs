@@ -36,8 +36,10 @@ public partial class TestAI : AIBase
 		_enemyFollow.AddEnter(() => _isWalk = true)
 			.AddPhysicsProcess((delta =>
 			{
-				var player = GetTree().GetCurrentScene().FindChild("TestPlayer") as CharacterBody2D;
-				if (player == null) return;
+			var player=	TargetContext?.PrimaryTarget?.TargetNode;
+
+				if (player == null) 
+					return;
 
 				// 动态更新目标位置（持续追踪玩家）
 				NavigationAgent2D.TargetPosition = player.GlobalPosition;

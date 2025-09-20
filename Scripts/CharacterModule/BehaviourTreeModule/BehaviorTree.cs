@@ -30,11 +30,6 @@ namespace CharacterModule.BehaviourTree
             configAction.Invoke(_root.Blackboard);
             return this;
         }
-        public BehaviorTree ConfigurateStateMachine(StateMachine stateMachine)
-        {
-            _root.Blackboard.Save(stateMachine);
-            return this;
-        }
         public ICompositeNode BuildTree()
         {
             return _root;

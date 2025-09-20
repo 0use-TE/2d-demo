@@ -67,7 +67,6 @@ public partial class Player : PlayerBase
 
 		//Set Initial State
 		StateMachine.SetInitialState(_playerIdleState);
-		_logger.LogInformation("Player Ready");
 	}
 	/// <summary>
 	/// Animation finished  callbacks

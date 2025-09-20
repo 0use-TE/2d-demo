@@ -11,21 +11,29 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Characters.Core
 {
-public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
+public	abstract partial class CharacterBase: CharacterBody2D, ICharacter 
 	{
-		[Inject]
-		protected ILogger<Player> _logger = default!;
 		public CharacterBody2D CharacterBody2D { get; private set; } = default!;
 
 		public AnimatedSprite2D AnimatedSprite2D { get; private set; } = default!;
 
 		public StateMachine StateMachine { get; private set; } = new StateMachine();
-		public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
+        
+
+         protected ILogger _logger = default!;
+        [Inject]
+        public ILoggerFactory _loggerFactory = default!;
+
+
+        public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
 		public override void _Ready()
 		{
 			base._Ready();
+			_logger = _loggerFactory.CreateLogger(GetType());
+
+
 			CharacterBody2D = this;
-			AnimatedSprite2D= GetNode<AnimatedSprite2D>(nameof(AnimatedSprite2D));
+			AnimatedSprite2D = GetNode<AnimatedSprite2D>(nameof(AnimatedSprite2D));
 		}
 		public void AddVelocity(float? x = null, float? y = null)
 		{
@@ -36,7 +44,12 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		}
 		public override void _Process(double delta)
 		{
-			base._Process(delta);
+            if (_loggerFactory == null)
+            {
+                _logger.LogInformation("进入");
+            }
+
+            base._Process(delta);
 			Filp();
 		}
 

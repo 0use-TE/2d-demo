@@ -14,5 +14,7 @@ namespace DDemo.Scripts.Characters.Core
 		E_TeamType TeamType { get; }
 		BehaviorTree? BehaviorTree { get; }
 		NavigationAgent2D NavigationAgent2D { get; }
+		TargetContext TargetContext { get; }
+
 	}
 }

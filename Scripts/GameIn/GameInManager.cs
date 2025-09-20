@@ -24,7 +24,6 @@ namespace DDemo.Scripts.GameIn
 		PlayerContext IProvide<PlayerContext>.Value() => _playerContext;
 		AIUnitContext IProvide<AIUnitContext>.Value() => _aiUnitContext;
 
-
 		public void OnReady()
 		{
 			//获取所有玩家，开发场景使用，正常都是游戏外部创建玩家传入的

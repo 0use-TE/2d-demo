@@ -322,7 +322,7 @@ states/StartNode/position = Vector2(307, 465)
 states/Walk/node = SubResource("AnimationNodeAnimation_devlm")
 states/Walk/position = Vector2(463, 381)
 transitions = ["Start", "StartNode", SubResource("AnimationNodeStateMachineTransition_lrb8w"), "EndNode", "StartNode", SubResource("AnimationNodeStateMachineTransition_b48k2"), "StartNode", "Idle", SubResource("AnimationNodeStateMachineTransition_4ve05"), "Idle", "EndNode", SubResource("AnimationNodeStateMachineTransition_tgccv"), "StartNode", "Walk", SubResource("AnimationNodeStateMachineTransition_hhnv3"), "Walk", "EndNode", SubResource("AnimationNodeStateMachineTransition_q81g7")]
-graph_offset = Vector2(-4, 275)
+graph_offset = Vector2(-4, 141.757)
 
 [sub_resource type="Animation" id="Animation_pqbyl"]
 length = 1.2
@@ -510,7 +510,8 @@ script = ExtResource("1_7vr7s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
-animation = &""
+animation = &"Idle"
+frame = 5
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pqbyl")

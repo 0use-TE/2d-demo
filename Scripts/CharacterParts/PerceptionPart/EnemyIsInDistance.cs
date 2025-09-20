@@ -3,6 +3,7 @@ using CharacterModule.BehaviourTree.Core;
 using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.GameIn.EnvironmentContext;
 using Godot;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,28 +15,34 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 	public class EnemyIsInDistance : BehaviourNode
 	{
 		private float _distance;
-		private AIBase ?_ai;
-		private PlayerContext? _playerContext;
+		private AIBase _ai=default!;
+		private TargetContext? _targetContext;
+
+		private ILogger _logger=default!;
 		public EnemyIsInDistance(float distance)
 		{
 			_distance=distance;
 		}
 		protected override void OnBlackboardCreated()
 		{
-			_ai = Blackboard.Load<AIBase>();
-			_playerContext=Blackboard.Load<PlayerContext>();
+			_ai = Blackboard.Load<AIBase>()??throw new NullReferenceException("AI没有存入黑板");
+			_targetContext=Blackboard.Load<TargetContext>();
+			_logger = Blackboard.Load<ILogger>()!;
 		}
 
 		public override NodeState Tick(double delta)
 		{
-			var player = _playerContext.Players.First();
-			if (player != null)
-			{
-				if(_ai.Position.DistanceTo(player.Position)<_distance)
-				{
-					return NodeState.Success;
-				}
-			}
+            if (_targetContext?.PrimaryTarget == null)
+                _logger.LogInformation("目标未设置");
+            
+			if (_ai.NavigationAgent2D.IsNavigationFinished())
+				return NodeState.Failure;
+
+
+
+			if(_targetContext?.PrimaryTarget?.Position.DistanceTo(_ai.Position)<_distance)
+				return NodeState.Success;
+		
 			return NodeState.Failure;
 		}
 	}
