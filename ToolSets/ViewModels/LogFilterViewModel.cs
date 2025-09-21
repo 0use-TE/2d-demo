@@ -1,24 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Prism.Commands;
+using Prism.Dialogs;
+using ToolSets.Views;
 
 namespace ToolSets.ViewModels
 {
     internal class LogFilterViewModel : ViewModelBase
     {
-
-        private string? _dllPath;
-        public DelegateCommand OpenSelectDllDIalog => new DelegateCommand(() =>
+        private readonly IDialogService _dialogService;
+        public  LogFilterViewModel(IDialogService dialogService)
         {
-            //打开文件对话框，选择dll
-        });
-        public LogFilterViewModel()
-        {
-
+            _dialogService = dialogService;
         }
-
+        public DelegateCommand OpenConfigDialog => new DelegateCommand(async () =>
+        {
+            await _dialogService.ShowDialogAsync(nameof(LogFilterConfigView));
+        });
     }
 }

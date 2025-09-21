@@ -3,6 +3,8 @@ using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DryIoc;
+using Prism.Container.DryIoc;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -26,7 +28,9 @@ namespace ToolSets
         protected override AvaloniaObject CreateShell()
         {
             Debug.WriteLine("CreateShell()");
-            return Container.Resolve<MainWindow>();
+            var mainWindow = Container.Resolve<MainWindow>();
+            Container.GetContainer().RegisterInstance(mainWindow);
+            return mainWindow;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -39,7 +43,13 @@ namespace ToolSets
 
             // Services
             containerRegistry.RegisterSingleton<INotificationService, NotificationService>();
+
+            containerRegistry.RegisterSingleton<FileDialogService>();
+
             // Dialogs, etc.
+
+            //Dialog
+            containerRegistry.RegisterDialog<LogFilterConfigView>();
 
         }
 

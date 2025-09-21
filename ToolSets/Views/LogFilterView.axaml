@@ -1,4 +1,4 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -12,17 +12,20 @@
   <Border Padding="10" Margin="4" BorderThickness="2"  BorderBrush="LightGray">
     
   <DockPanel >
-      <Grid ColumnDefinitions="*,Auto,*" DockPanel.Dock="Top">
+	  <ScrollViewer DockPanel.Dock="Top"  >
+      <Grid ColumnDefinitions="*,Auto,*">
 
         <Label Grid.Column="0" FontSize="16" FontWeight="Bold">日志过滤器</Label>
 
         <StackPanel Grid.Column="2"  Orientation="Horizontal" VerticalAlignment="Top"  HorizontalAlignment="Right">
                     <Button Content="全部启用"  />
                     <Button Content="全部禁用"  />
-                    <Button Content="重新扫描" />
-                    <Button Content="配置"></Button>
+			<Button Content="扫描" />
+			<Button Content="编译扫描" />
+                    <Button  Content="配置" Command="{Binding OpenConfigDialog}"></Button>
         </StackPanel>
     </Grid>
+	  </ScrollViewer>
      <Separator DockPanel.Dock="Top"></Separator>
 
 <Panel>
