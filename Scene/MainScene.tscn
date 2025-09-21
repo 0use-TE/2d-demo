@@ -14,6 +14,8 @@ script = ExtResource("1_ly247")
 [node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
 
 [node name="TestPlayer" parent="." instance=ExtResource("1_hcm6b")]
+_horizontalSpeed = null
+_verticalSpeed = null
 
 [node name="Camera2D" type="Camera2D" parent="TestPlayer"]
 zoom = Vector2(4, 4)

@@ -27,13 +27,10 @@ namespace DDemo.Scripts.Test
 		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
         public void OnResolved()
         {
-            //if (_playerContext != null)
-            //    Logger.LogInformation("获取到服务了");
+            Logger.LogInformation("DebugLog");
         }
         public override void _Process(double delta)
 		{
-
-      
 
         }
     }

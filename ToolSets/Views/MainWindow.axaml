@@ -1,0 +1,47 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:core="clr-namespace:ToolSets;assembly=ToolSets"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:views="clr-namespace:ToolSets.Views;assembly=ToolSets"
+        xmlns:vm="clr-namespace:ToolSets.ViewModels;assembly=ToolSets"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+        x:Class="ToolSets.Views.MainWindow"
+        x:CompileBindings="True"
+        x:DataType="vm:MainWindowViewModel"
+        Height="500" Width="700"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        Icon="/Assets/logo.ico"
+        Title="{Binding Title}">
+  
+  <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="true">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                                     TintColor="LightGray"
+                                     TintOpacity="1"
+                                     MaterialOpacity="0.65" />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
+
+    <Grid ColumnDefinitions="Auto,*" >
+      <!-- Sidebar -->
+      <Panel Grid.Row="0" Background="LightGray">
+
+        <!--
+          The SidebarView is not using a region on purpose, so it shows in designer mode
+          <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.SidebarRegion}" />
+        -->
+        <views:SidebarView />
+      </Panel>
+
+      <!-- Main Content -->
+      <ContentControl 
+                      Grid.Column="1"
+                      prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
+
+    </Grid>
+  </Panel>
+</Window>

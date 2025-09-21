@@ -12,13 +12,16 @@
   <ItemGroup>
     <Compile Remove="Scripts\CharacterModule\**" />
     <Compile Remove="Scripts\DebugProject\**" />
+    <Compile Remove="ToolSets\**" />
     <EmbeddedResource Remove="Scripts\CharacterModule\**" />
     <EmbeddedResource Remove="Scripts\DebugProject\**" />
+    <EmbeddedResource Remove="ToolSets\**" />
   
 	  
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="addons\" />
     <Folder Include="Scripts\CharacterParts\PerceptionPart\Core\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
   </ItemGroup>
@@ -41,7 +44,6 @@
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
-    <PackageReference Include="Serilog.Sinks.Godot" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
