@@ -7,10 +7,37 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              x:Class="ToolSets.Views.LogFilterView"
-        x:DataType="vm:LogFilterViewModel"
->
-  <StackPanel>
+        x:DataType="vm:LogFilterViewModel">
+
+  <Border Padding="10" Margin="4" BorderThickness="2"  BorderBrush="LightGray">
     
-  </StackPanel>
+  <DockPanel >
+      <Grid ColumnDefinitions="*,Auto,*" DockPanel.Dock="Top">
+
+        <Label Grid.Column="0" FontSize="16" FontWeight="Bold">日志过滤器</Label>
+
+        <StackPanel Grid.Column="2"  Orientation="Horizontal" VerticalAlignment="Top"  HorizontalAlignment="Right">
+                    <Button Content="全部启用"  />
+                    <Button Content="全部禁用"  />
+                    <Button Content="重新扫描" />
+                    <Button Content="配置"></Button>
+        </StackPanel>
+    </Grid>
+     <Separator DockPanel.Dock="Top"></Separator>
+
+<Panel>
+    <ScrollViewer>
+     <ItemsControl>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+     </ItemsControl>    
+    </ScrollViewer>
+</Panel>
+  
+  </DockPanel>
+  </Border>
 
 </UserControl>

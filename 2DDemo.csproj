@@ -12,9 +12,11 @@
   <ItemGroup>
     <Compile Remove="Scripts\CharacterModule\**" />
     <Compile Remove="Scripts\DebugProject\**" />
+    <Compile Remove="ToolSetDebug\**" />
     <Compile Remove="ToolSets\**" />
     <EmbeddedResource Remove="Scripts\CharacterModule\**" />
     <EmbeddedResource Remove="Scripts\DebugProject\**" />
+    <EmbeddedResource Remove="ToolSetDebug\**" />
     <EmbeddedResource Remove="ToolSets\**" />
   
 	  
