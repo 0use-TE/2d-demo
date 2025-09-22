@@ -15,4 +15,10 @@ namespace PlatformExplorer.BehaviorTreeTest
 		{
 		}
 	}
+    public class MeleeAttack : BaseState
+    {
+        public MeleeAttack(StateMachine stateMachine) : base(stateMachine)
+        {
+        }
+    }
 }

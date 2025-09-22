@@ -1,5 +1,3 @@
-using DDemo.Scripts.GameIn;
-using DDemo.Scripts.Test;
 using Godot;
 using Godot.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +7,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using ToolSets.Shared;
+
 namespace DDemo.Scripts.GameHander
 {
     public partial class DIRegistration : Node2D, IServicesConfigurator

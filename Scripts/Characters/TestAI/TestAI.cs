@@ -5,6 +5,8 @@ using Chickensoft.Introspection;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
 using Godot;
+using Microsoft.Extensions.Logging;
+using System;
 namespace PlatformExplorer.BehaviorTreeTest;
 
 [Meta(typeof(IAutoNode))]
@@ -15,9 +17,13 @@ public partial class TestAI : AIBase
     private EnemyIdle _enemyIdle;
 	private EnemyFollow _enemyFollow;
 
+	private MeleeAttack _meleeAttack;
 	// 
 	private bool _isIdle;
 	private bool _isWalk;
+
+	private bool _isAttack;
+	private int _attackIndex;
 
 	protected override void ConfigureStateMachine()
 	{
@@ -30,6 +36,7 @@ public partial class TestAI : AIBase
 		_enemyIdle.AddEnter(() => _isIdle = true)
 			.AddPhysicsProcess((delta) =>
 			{
+
 			})
 			.AddExit(() => _isIdle = false);
 
@@ -56,6 +63,12 @@ public partial class TestAI : AIBase
 			}))
 			.AddExit(() => _isWalk = false);
 
+		_meleeAttack=new MeleeAttack(StateMachine);
+
+		_meleeAttack.AddEnter(() => _isAttack = true).AddEnter(()=>SetVelocity(0,0))
+			.AddEnter(()=>_attackIndex=Random.Shared.Next(2));
+
+
 		StateMachine.SetInitialState(_enemyIdle);
 
 	}
@@ -64,10 +77,27 @@ public partial class TestAI : AIBase
 		BehaviorTree.BuildTree()
 		.Selector()
 			.Sequence()
-				.AddChild(new AcquireTargetNode(200))
+				.AddChild(new TargetIsInAttackRadius(40))
+                .SwitchState(_meleeAttack)
+		.End()
+			.Sequence()
+                .AddChild(new AcquireTargetNode(200))
 				.SwitchState(_enemyFollow)   //跟随玩家
 		.End()
-				.SwitchState(_enemyIdle);
+			.SwitchState(_enemyIdle);
 	}
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+		_logger.LogInformation("是否在攻击:"+_isAttack);
+    }
 
+    /// <summary>
+    /// Animation finished  callbacks
+    /// </summary>
+    public void OnAnimationFinished()
+    {
+        _attackIndex = 0;
+        _isAttack = false;
+    }
 }

@@ -3,8 +3,10 @@ using CharacterModule.BehaviourTree.Core;
 using Chickensoft.Collections;
 using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.Characters.Core.Context;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Microsoft.Extensions.Logging;
+using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +33,6 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
         }
         public override NodeState Tick(double delta)
         {
-     
 
             var world2D = _ai.GetWorld2D();
             var space = world2D.DirectSpaceState;
@@ -65,7 +66,9 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
                         // 判断是否是 CharacterBase
                         if (node is CharacterBase otherAI)
                         {
+
                             // 必须阵营不同，才算敌人
+
                             if (otherAI.TeamType != _ai.TeamType)
                             {
                                 float dist = _ai.GlobalPosition.DistanceTo(otherAI.GlobalPosition);
@@ -87,9 +90,10 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
             // 设置到上下文
             if (nearestEnemy != null)
             {
-                _logger.LogInformation("设置目标完成");
-                
-                _targetContext.PrimaryTarget= new Target
+                _logger.LogBehaviourTreeNodeInformation(this, $"成功检测到了攻击目标{_targetContext?.PrimaryTarget?.TargetNode?.Name}");
+
+
+                _targetContext!.PrimaryTarget= new Target
                 {
                      TargetNode=nearestEnemy
                 };
