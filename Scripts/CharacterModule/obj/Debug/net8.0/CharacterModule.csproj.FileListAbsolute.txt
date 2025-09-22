@@ -33,3 +33,4 @@ C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\Charact
 C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\refint\CharacterModule.dll
 C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.pdb
 C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\ref\CharacterModule.dll
+C:\Users\Ouse\Documents\2d-demo\Scripts\CharacterModule\obj\Debug\net8.0\CharacterModule.csproj.AssemblyReference.cache

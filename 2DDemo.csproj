@@ -36,11 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="docs\战斗系统设计.md" />
+    <None Include="docs\进程.md" />
     <None Include="Scripts\Characters\TestAI\EnemyStateCollection.cs.uid" />
     <None Include="Scripts\Characters\TestAI\TestAI.cs.uid" />
     <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
     <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
-    <None Include="Scripts\GameIn\环境上下文设计.md" />
+    <None Include="docs\环境上下文设计.md" />
   </ItemGroup>
 
   <ItemGroup>
