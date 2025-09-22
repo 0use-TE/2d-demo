@@ -33,7 +33,6 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
         }
         public override NodeState Tick(double delta)
         {
-
             var world2D = _ai.GetWorld2D();
             var space = world2D.DirectSpaceState;
 
@@ -92,11 +91,18 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
             {
                 _logger.LogBehaviourTreeNodeInformation(this, $"成功检测到了攻击目标{_targetContext?.PrimaryTarget?.TargetNode?.Name}");
 
+                if(_targetContext==null)
+                {
+                    _logger.LogBehaviourTreeNodeInformation(this, $"暂未设置目标上下文");
+                        return NodeState.Failure;
+                }
 
-                _targetContext!.PrimaryTarget= new Target
+                _targetContext.PrimaryTarget= new Target
                 {
                      TargetNode=nearestEnemy
                 };
+
+                _logger.LogBehaviourTreeNodeInformation(this, $"位于{_targetContext.PrimaryTarget.TargetNode.Position}的玩家被设置为目标");
                 return NodeState.Success;
             }
 

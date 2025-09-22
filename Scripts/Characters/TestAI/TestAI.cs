@@ -4,9 +4,11 @@ using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics;
 namespace PlatformExplorer.BehaviorTreeTest;
 
 [Meta(typeof(IAutoNode))]
@@ -65,38 +67,58 @@ public partial class TestAI : AIBase
 
 		_meleeAttack=new MeleeAttack(StateMachine);
 
-		_meleeAttack.AddEnter(() => _isAttack = true).AddEnter(()=>SetVelocity(0,0))
+		_meleeAttack.AddEnter(
+			() => {
+				_isAttack = true;
+				_logger.LogInformation("进入轻攻击");
+			}).
+			AddEnter(()=>SetVelocity(0,0))
 			.AddEnter(()=>_attackIndex=Random.Shared.Next(2));
-
 
 		StateMachine.SetInitialState(_enemyIdle);
 
 	}
-	protected override void ConfigureBehaviourTree()
-	{
-		BehaviorTree.BuildTree()
-		.Selector()
-			.Sequence()
-				.AddChild(new TargetIsInAttackRadius(40))
-                .SwitchState(_meleeAttack)
-		.End()
-			.Sequence()
-                .AddChild(new AcquireTargetNode(200))
-				.SwitchState(_enemyFollow)   //跟随玩家
-		.End()
-			.SwitchState(_enemyIdle);
-	}
-    public override void _Process(double delta)
+//    Selector
+//├── Sequence
+//│   ├── Condition(!_isAttack)
+//│   ├── AcquireTargetNode(200)
+//│   └── Selector
+//│       ├── Sequence
+//│       │   ├── TargetIsInAttackRadius(30)
+//│       │   └── SwitchState(_meleeAttack)
+//│       └── Sequence
+//│           └── SwitchState(_enemyFollow)
+//└── SwitchState(_enemyIdle)
+    protected override void ConfigureBehaviourTree()
     {
-        base._Process(delta);
-		_logger.LogInformation("是否在攻击:"+_isAttack);
+		BehaviorTree.BuildTree()
+			.Selector()
+				.Sequence()
+					.Condition((delta => !_isAttack)) // 顶层检查
+					.AddChild(new AcquireTargetNode(200))
+					.Selector()
+						.Sequence()
+							.AddChild(new TargetIsInAttackRadius(30))
+							.SwitchState(_meleeAttack, true)
+						.End()
+						.Sequence()
+							.SwitchState(_enemyFollow)
+						.End()
+					.End()
+				.End();
     }
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+		_logger.LogInformationWithNodeName(this, "当前状态:"+StateMachine.GetCurrentState().GetType().ToString());
+	}
 
     /// <summary>
     /// Animation finished  callbacks
     /// </summary>
     public void OnAnimationFinished()
     {
+		_logger.LogInformationWithNodeName(this,"攻击(_isAttack)被取消!");
         _attackIndex = 0;
         _isAttack = false;
     }

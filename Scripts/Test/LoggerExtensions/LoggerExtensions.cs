@@ -13,7 +13,15 @@ namespace DDemo.Scripts.Test.LoggerExtensions
     {
         public static void LogBehaviourTreeNodeInformation(this ILogger logger,BehaviourNode node,string content)
         {
-            logger.LogInformation($"节点类型:{node.GetType()}信息:{content}");
+            logger.LogInformation($"\nBT节点类型:{node.GetType().Name}\n信息:{content}");
+        }
+
+        public static void LogInformationWithNodeName(this ILogger logger, Node node, string content,bool logTime=false)
+        {
+            logger.LogInformation($"\nGodot节点类型:{node.Name}\n信息:{content}");
+            if(logTime)
+                logger.LogInformation($"\n时间:{DateTime.Now.ToString()}");
+
         }
     }
 }

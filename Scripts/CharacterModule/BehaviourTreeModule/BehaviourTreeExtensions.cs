@@ -39,9 +39,9 @@ namespace CharacterModule.BehaviourTree
             parent.AddChild(conditionNode);
             return parent;
         }
-        public static ICompositeNode SwitchState(this ICompositeNode parent, BaseState state)
+        public static ICompositeNode SwitchState(this ICompositeNode parent, BaseState state,bool canRepeate=false)
         {
-            var switchNode = new StateNode(state);
+            var switchNode = new StateNode(state,canRepeate);
             parent.AddChild(switchNode);
             return parent;
         }

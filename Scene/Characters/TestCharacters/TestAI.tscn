@@ -321,6 +321,7 @@ advance_mode = 2
 advance_expression = "_isAttack&&_attackIndex==0"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_33cw8"]
+switch_mode = 2
 advance_mode = 2
 advance_expression = "!_isAttack"
 
@@ -329,12 +330,13 @@ advance_mode = 2
 advance_expression = "_isAttack&&_attackIndex==1"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hoq64"]
+switch_mode = 2
 advance_mode = 2
 advance_expression = "!_isAttack"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pqbyl"]
 states/Attack1/node = SubResource("AnimationNodeAnimation_7vr7s")
-states/Attack1/position = Vector2(438.4, 179.154)
+states/Attack1/position = Vector2(440.32, 179.154)
 states/Attack2/node = SubResource("AnimationNodeAnimation_gaeqs")
 states/Attack2/position = Vector2(440.8, 258.195)
 states/End/position = Vector2(820, 350)
@@ -348,7 +350,7 @@ states/StartNode/position = Vector2(307, 465)
 states/Walk/node = SubResource("AnimationNodeAnimation_devlm")
 states/Walk/position = Vector2(444.6, 389.8)
 transitions = ["Start", "StartNode", SubResource("AnimationNodeStateMachineTransition_lrb8w"), "EndNode", "StartNode", SubResource("AnimationNodeStateMachineTransition_b48k2"), "StartNode", "Idle", SubResource("AnimationNodeStateMachineTransition_4ve05"), "Idle", "EndNode", SubResource("AnimationNodeStateMachineTransition_tgccv"), "StartNode", "Walk", SubResource("AnimationNodeStateMachineTransition_hhnv3"), "Walk", "EndNode", SubResource("AnimationNodeStateMachineTransition_q81g7"), "StartNode", "Attack1", SubResource("AnimationNodeStateMachineTransition_devlm"), "Attack1", "EndNode", SubResource("AnimationNodeStateMachineTransition_33cw8"), "StartNode", "Attack2", SubResource("AnimationNodeStateMachineTransition_fh4pu"), "Attack2", "EndNode", SubResource("AnimationNodeStateMachineTransition_hoq64")]
-graph_offset = Vector2(-4, 291.151)
+graph_offset = Vector2(-4, 165.983)
 
 [sub_resource type="Animation" id="Animation_pqbyl"]
 length = 1.2
@@ -383,7 +385,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(1.06667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -392,7 +394,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_7vr7s"]
-length = 1.1
+length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -400,7 +402,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3, 0.533333, 0.733333, 0.866667),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
@@ -564,8 +566,8 @@ script = ExtResource("1_7vr7s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
-animation = &"Idle"
-frame = 2
+animation = &"Attack2"
+frame = 5
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pqbyl")

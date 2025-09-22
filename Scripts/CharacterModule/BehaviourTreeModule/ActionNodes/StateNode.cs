@@ -1,6 +1,7 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.BehaviourTree.Core;
 using CharacterModule.StateMachineModule;
+using System.ComponentModel;
 
 namespace CharacterModule.BehaviourTree.ActionNodes
 {
@@ -9,9 +10,11 @@ namespace CharacterModule.BehaviourTree.ActionNodes
         //StateMachine
         private StateMachine? _stateMachine;
         private BaseState _state;
-        public StateNode( BaseState baseState)
+        private bool _canRepeate;
+        public StateNode( BaseState baseState,bool canRepeate)
         {
             _state = baseState;
+            _canRepeate = canRepeate;
         }
         public override NodeState Tick(double delta)
         {
@@ -25,14 +28,13 @@ namespace CharacterModule.BehaviourTree.ActionNodes
         private void SwitchState()
         {
             var currentState = _stateMachine?.GetCurrentState();
-            if (currentState != _state)
-            {
-                _stateMachine?.ChangeState(_state);
-            }
-            else
-            {
+            if (currentState == null) return;
 
-            }
+            if (currentState.GetType() == _state.GetType() && !_canRepeate)
+                return;
+
+            _stateMachine?.ChangeState(_state);
         }
+
     }
 }

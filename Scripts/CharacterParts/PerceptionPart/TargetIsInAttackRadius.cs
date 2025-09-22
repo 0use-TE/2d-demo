@@ -2,6 +2,7 @@ using CharacterModule.BehaviourTree;
 using CharacterModule.BehaviourTree.Core;
 using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.Characters.Core.Context;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -32,17 +33,32 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
         {
             if(_targetContext.PrimaryTarget==null)
             {
-                _logger.LogInformation("没有设置攻击目标");
+                _logger.LogBehaviourTreeNodeInformation(this,"没有设置主目标");
                 return NodeState.Failure;
             }
 
-            if (_ai.Position.DistanceTo(_targetContext.PrimaryTarget.Position) < _distance)
+            if(_targetContext.PrimaryTarget.TargetNode==null)
             {
-                _logger.LogInformation($"敌人{_targetContext.PrimaryTarget?.TargetNode?.Name}进入攻击范围!");
-                return NodeState.Success;
+                _logger.LogBehaviourTreeNodeInformation(this, "没有设置主目标的节点");
+                return NodeState.Failure;
             }
 
-            return NodeState.Failure;
+            if (_ai.Position.DistanceTo(_targetContext.PrimaryTarget.TargetNode.Position) < _distance)
+            {
+                var targetNode = _targetContext.PrimaryTarget.TargetNode;
+                if (targetNode == null)
+                {
+                    _logger.LogBehaviourTreeNodeInformation(this, $"主要目标没有设置目标节点!");
+                    return NodeState.Failure;
+                }
+                _logger.LogBehaviourTreeNodeInformation(this, $"敌人{targetNode.Name}进入攻击范围!");
+                return NodeState.Success;
+            }
+            else
+            {
+                _logger.LogBehaviourTreeNodeInformation(this, $"目标位置{_targetContext.PrimaryTarget.TargetNode.Position}\n当前位置{_ai.Position}");
+                return NodeState.Failure;
+            }
         }
     }
 }

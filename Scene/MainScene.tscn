@@ -25,4 +25,4 @@ script = ExtResource("5_ly247")
 [node name="Node2D" type="Node2D" parent="Debug"]
 
 [node name="TestAi" parent="." instance=ExtResource("5_l7vlk")]
-position = Vector2(31, 1)
+position = Vector2(104, -7)
