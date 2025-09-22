@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
@@ -23,6 +22,14 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
     <PackageReference Include="Prism.Avalonia" Version="9.0.537.11130" />
     <PackageReference Include="Prism.DryIoc.Avalonia" Version="9.0.537.11130" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ToolSets.Shared\ToolSets.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

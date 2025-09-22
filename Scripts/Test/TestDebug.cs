@@ -27,10 +27,10 @@ namespace DDemo.Scripts.Test
 		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
         public void OnResolved()
         {
-            Logger.LogInformation("DebugLog");
         }
         public override void _Process(double delta)
 		{
+            Logger.LogInformation("I am in Debug's Scene");
 
         }
     }

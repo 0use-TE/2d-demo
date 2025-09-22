@@ -1,8 +1,6 @@
 using CharacterModule.StateMachineModule;
 using DDemo.Scripts.Characters.Core;
 using Godot;
-using Godot.DependencyInjection.Attributes;
-using Microsoft.Extensions.Logging;
 using System;
 namespace PlatformExplorer.PlayerScript;
 public partial class Player : PlayerBase
@@ -76,6 +74,5 @@ public partial class Player : PlayerBase
 		_attackIndex = 0;
 		_isAttack = false;
 	}
-
 
 }

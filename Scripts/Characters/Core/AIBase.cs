@@ -34,6 +34,8 @@ namespace DDemo.Scripts.Characters.Core
 		protected PlayerContext PlayerContext => this.DependOn<PlayerContext>();
 		[Dependency]
 		protected AIUnitContext AIUnitContext =>this.DependOn<AIUnitContext>();
+		[Dependency]
+		protected MapContext MapContext=>this.DependOn<MapContext>();
 
         public TargetContext TargetContext { get; private set; } =new TargetContext();
 
@@ -52,6 +54,8 @@ namespace DDemo.Scripts.Characters.Core
 				blackboard.Save(StateMachine);
                 blackboard.Save(PlayerContext);
 				blackboard.Save(AIUnitContext);
+				blackboard.Save(MapContext);
+
 				blackboard.Save(TargetContext);
 
 				blackboard.Save(_logger);

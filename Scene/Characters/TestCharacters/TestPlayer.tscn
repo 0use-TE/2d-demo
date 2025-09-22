@@ -1,13 +1,13 @@
 [gd_scene load_steps=86 format=3 uid="uid://ehm17p0wa3rx"]
 
 [ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Characters/Players/Player.cs" id="1_juf7y"]
-[ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
-[ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
-[ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
-[ext_resource type="Texture2D" uid="uid://2gicvf35nfhd" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack03.png" id="4_tl5dv"]
-[ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
-[ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
-[ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
+[ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
+[ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
+[ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
+[ext_resource type="Texture2D" uid="uid://2gicvf35nfhd" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack03.png" id="4_tl5dv"]
+[ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
+[ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
+[ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mdlc4"]
 atlas = ExtResource("2_ygxq0")

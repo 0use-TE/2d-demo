@@ -9,14 +9,21 @@
 		<WarningsAsErrors>CS9057</WarningsAsErrors>
 
 	</PropertyGroup>
-  <ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DefineConstants>TOOLS</DefineConstants>
+	</PropertyGroup>
+
+	
+	<ItemGroup>
     <Compile Remove="Scripts\CharacterModule\**" />
     <Compile Remove="Scripts\DebugProject\**" />
     <Compile Remove="ToolSetDebug\**" />
+    <Compile Remove="ToolSets.Shared\**" />
     <Compile Remove="ToolSets\**" />
     <EmbeddedResource Remove="Scripts\CharacterModule\**" />
     <EmbeddedResource Remove="Scripts\DebugProject\**" />
     <EmbeddedResource Remove="ToolSetDebug\**" />
+    <EmbeddedResource Remove="ToolSets.Shared\**" />
     <EmbeddedResource Remove="ToolSets\**" />
   
 	  
@@ -50,6 +57,7 @@
 
   <ItemGroup>
     <ProjectReference Include="Scripts\CharacterModule\CharacterModule.csproj" />
+    <ProjectReference Include="ToolSets.Shared\ToolSets.Shared.csproj" />
   </ItemGroup>
 
 </Project>

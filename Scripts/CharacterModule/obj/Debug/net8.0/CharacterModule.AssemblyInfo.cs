@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CharacterModule")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25fa116fadf3f9bcb33091bf09d72203cd9d672a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1098f3b3a5b7c7aefddd8a467172728f1c086880")]
 [assembly: System.Reflection.AssemblyProductAttribute("CharacterModule")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CharacterModule")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

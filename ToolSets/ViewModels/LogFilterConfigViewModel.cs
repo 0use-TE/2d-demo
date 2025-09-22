@@ -8,39 +8,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToolSets.Services;
+using ToolSets.Shared;
 
 namespace ToolSets.ViewModels
 {
     internal class LogFilterConfigViewModel:ViewModelBase,IDialogAware
     {
-        private FileDialogService _dialogService;
+        private readonly FileDialogService _dialogService;
+        private readonly ILogFilterService _logFilterService;
         private string? _dllPath;
         private IReadOnlyList<FilePickerFileType> _filters = [new FilePickerFileType("程序集") { Patterns = ["*.dll"] }];
 
-        public LogFilterConfigViewModel(FileDialogService dialogService)
+        public LogFilterConfigViewModel(FileDialogService dialogService, ILogFilterService logFilterService)
         {
             _dialogService = dialogService;
-        }
-        public DelegateCommand OpenSelectDllDIalog => new DelegateCommand(async () =>
-        {
-            var file = await _dialogService.OpenFileAsync("选择程序集", _filters);
-            Debug.WriteLine(file?.Path.LocalPath);
-            _dllPath = file?.Path.LocalPath;
-        });
+            _logFilterService = logFilterService;
+            _dllPath = _logFilterService.GetDllPath();
 
+            OpenSelectDllDialogCommand = new DelegateCommand(async () => await ExecuteOpenSelectDllDialog());
+            SaveCommand = new DelegateCommand(() => RequestClose.Invoke(new DialogResult(ButtonResult.OK)));
+        }
+
+        public string? DllPath
+        {
+            get => _dllPath;
+            set => SetProperty(ref _dllPath, value);
+        }
+
+        public DelegateCommand OpenSelectDllDialogCommand { get; }
+        public DelegateCommand SaveCommand { get; }
         public DialogCloseListener RequestClose { get; set; }
 
-        public bool CanCloseDialog()
+        private async Task ExecuteOpenSelectDllDialog()
         {
-            return true;
+           using  var file = await _dialogService.OpenFileAsync("选择程序集", _filters);
+            if (file != null)
+            {
+                DllPath = file.Path.LocalPath;
+                _logFilterService.SaveDllPath(DllPath);
+                Debug.WriteLine($"已选择 DLL: {DllPath}");
+            }
         }
 
-        public void OnDialogClosed()
-        {
-        }
-
-        public void OnDialogOpened(IDialogParameters parameters)
-        {
-        }
+        public bool CanCloseDialog() => true;
+        public void OnDialogClosed() { }
+        public void OnDialogOpened(IDialogParameters parameters) { }
     }
 }

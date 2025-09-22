@@ -2,45 +2,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-              xmlns:vm="using:ToolSets.ViewModels"
+             xmlns:vm="using:ToolSets.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              x:Class="ToolSets.Views.LogFilterView"
-        x:DataType="vm:LogFilterViewModel">
-
-  <Border Padding="10" Margin="4" BorderThickness="2"  BorderBrush="LightGray">
-    
-  <DockPanel >
-	  <ScrollViewer DockPanel.Dock="Top"  >
-      <Grid ColumnDefinitions="*,Auto,*">
-
-        <Label Grid.Column="0" FontSize="16" FontWeight="Bold">日志过滤器</Label>
-
-        <StackPanel Grid.Column="2"  Orientation="Horizontal" VerticalAlignment="Top"  HorizontalAlignment="Right">
-                    <Button Content="全部启用"  />
-                    <Button Content="全部禁用"  />
-			<Button Content="扫描" />
-			<Button Content="编译扫描" />
-                    <Button  Content="配置" Command="{Binding OpenConfigDialog}"></Button>
-        </StackPanel>
-    </Grid>
-	  </ScrollViewer>
-     <Separator DockPanel.Dock="Top"></Separator>
-
-<Panel>
-    <ScrollViewer>
-     <ItemsControl>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-     </ItemsControl>    
-    </ScrollViewer>
-</Panel>
-  
-  </DockPanel>
-  </Border>
-
+             x:DataType="vm:LogFilterViewModel">
+	<Border Padding="10" Margin="4" BorderThickness="2" BorderBrush="LightGray">
+		<DockPanel>
+			<ScrollViewer DockPanel.Dock="Top">
+				<Grid ColumnDefinitions="*,Auto,*">
+					<Label Grid.Column="0" FontSize="16" FontWeight="Bold">日志过滤器</Label>
+					<StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+						<Button Content="全部启用" Command="{Binding EnableAllCommand}" />
+						<Button Content="全部禁用" Command="{Binding DisableAllCommand}" />
+						<Button Content="扫描" Command="{Binding ScanCommand}" />
+						<Button Content="配置" Command="{Binding OpenConfigDialogCommand}" />
+					</StackPanel>
+				</Grid>
+			</ScrollViewer>
+			<Separator DockPanel.Dock="Top"></Separator>
+			<Panel>
+				<ScrollViewer>
+					<ItemsControl ItemsSource="{Binding FilterRules}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Grid ColumnDefinitions="*,Auto">
+									<TextBlock Grid.Column="0" Text="{Binding TypeName}" VerticalAlignment="Center"/>
+									<CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled,Mode=TwoWay}" Command="{Binding $parent[UserControl].((vm:LogFilterViewModel)DataContext).SaveCommand}"/>
+								</Grid>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Panel>
+		</DockPanel>
+	</Border>
 </UserControl>

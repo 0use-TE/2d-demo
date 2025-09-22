@@ -6,7 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
+using System.Linq;
 using System.Reflection;
+using ToolSets.Shared;
 namespace DDemo.Scripts.GameHander
 {
     public partial class DIRegistration : Node2D, IServicesConfigurator
@@ -24,6 +26,15 @@ namespace DDemo.Scripts.GameHander
             services.AddLogging(builder =>
             {
                 builder.AddSerilog(dispose: true);
+                builder.AddFilter((category, logLevel) =>
+                {
+                    var rules= LogFilterService.LoadRules();
+                    var rule = rules
+                        .FirstOrDefault(r => r.TypeName == category);
+                    if (rule == null || !rule.IsEnabled)
+                        return false;
+                    return true;
+                });
             });
 
             //Godot Services

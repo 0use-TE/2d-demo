@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -9,7 +7,10 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Navigation.Regions;
+using System.Diagnostics;
+using System.Reflection;
 using ToolSets.Services;
+using ToolSets.Shared;
 using ToolSets.ViewModels;
 using ToolSets.Views;
 
@@ -46,10 +47,12 @@ namespace ToolSets
 
             containerRegistry.RegisterSingleton<FileDialogService>();
 
+            containerRegistry.RegisterSingleton<ILogFilterService, LogFilterService>();
             // Dialogs, etc.
 
             //Dialog
             containerRegistry.RegisterDialog<LogFilterConfigView>();
+
 
         }
 
