@@ -1,13 +1,13 @@
 [gd_scene load_steps=86 format=3 uid="uid://ehm17p0wa3rx"]
 
 [ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Characters/Players/Player.cs" id="1_juf7y"]
-[ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
-[ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
-[ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
-[ext_resource type="Texture2D" uid="uid://2gicvf35nfhd" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack03.png" id="4_tl5dv"]
-[ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
-[ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
-[ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
+[ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
+[ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
+[ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
+[ext_resource type="Texture2D" uid="uid://2gicvf35nfhd" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack03.png" id="4_tl5dv"]
+[ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
+[ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
+[ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mdlc4"]
 atlas = ExtResource("2_ygxq0")
@@ -378,7 +378,6 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_tl5dv"]
 length = 0.75
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -403,24 +402,9 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Attack1"]
 }
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.733333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"OnAnimationFinished"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_1nhyp"]
 length = 0.8
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -445,24 +429,9 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Attack2"]
 }
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.766667),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"OnAnimationFinished"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_mdlc4"]
 length = 0.95
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -470,7 +439,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.333333, 0.433333, 0.566667, 0.666667, 0.766667, 0.866667),
+"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.333333, 0.433333, 0.566667, 0.666667, 0.766667, 0.833333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -486,20 +455,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Attack3"]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.933333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"OnAnimationFinished"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_ola4f"]
@@ -708,7 +663,7 @@ states/StartNode/position = Vector2(291, 395.752)
 states/Walk/node = SubResource("AnimationNodeAnimation_33yth")
 states/Walk/position = Vector2(539, 125)
 transitions = ["Start", "StartNode", SubResource("AnimationNodeStateMachineTransition_enpw6"), "StartNode", "Idle", SubResource("AnimationNodeStateMachineTransition_jvrul"), "Idle", "EndNode", SubResource("AnimationNodeStateMachineTransition_7dife"), "StartNode", "Walk", SubResource("AnimationNodeStateMachineTransition_p3wpo"), "Walk", "EndNode", SubResource("AnimationNodeStateMachineTransition_wosc6"), "StartNode", "Attack1", SubResource("AnimationNodeStateMachineTransition_t3ial"), "Attack1", "EndNode", SubResource("AnimationNodeStateMachineTransition_noeqt"), "StartNode", "Attack2", SubResource("AnimationNodeStateMachineTransition_cyq8k"), "Attack2", "EndNode", SubResource("AnimationNodeStateMachineTransition_y0s0w"), "StartNode", "Attack3", SubResource("AnimationNodeStateMachineTransition_jp05s"), "Attack3", "EndNode", SubResource("AnimationNodeStateMachineTransition_577ts"), "EndNode", "StartNode", SubResource("AnimationNodeStateMachineTransition_yjg1q")]
-graph_offset = Vector2(52, -62.7739)
+graph_offset = Vector2(151, 183.226)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_juf7y"]
 radius = 6.0
@@ -720,7 +675,7 @@ script = ExtResource("1_juf7y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
-animation = &""
+animation = &"Attack3"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

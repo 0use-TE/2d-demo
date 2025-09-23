@@ -1,0 +1,115 @@
+[gd_scene load_steps=14 format=3 uid="uid://cwb5kkyd5e6as"]
+
+[ext_resource type="Script" uid="uid://1f5mvrq3a4bv" path="res://Scripts/Test/TestAnimationEndSignal.cs" id="1_7gsg0"]
+[ext_resource type="Texture2D" uid="uid://bf6840s3gpvew" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc-Walk.png" id="2_kbwwy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14nkr"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dob5o"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hksyd"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wnmt"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0r3f"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qdel"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e77uq"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bolln"]
+atlas = ExtResource("2_kbwwy")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fksn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14nkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dob5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hksyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wnmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0r3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qdel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e77uq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bolln")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_7gsg0"]
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kbwwy"]
+_data = {
+&"default": SubResource("Animation_7gsg0")
+}
+
+[node name="TestAnimationEndSignal" type="Node2D"]
+script = ExtResource("1_7gsg0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fksn4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kbwwy")
+}
+autoplay = "default"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(7.05, 7.05)

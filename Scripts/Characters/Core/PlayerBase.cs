@@ -1,4 +1,6 @@
 using CharacterModule.StateMachineModule;
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Characters.Core
 {
-	 public abstract partial class PlayerBase : CharacterBase, IPlayer
+
+	public abstract partial class PlayerBase : CharacterBase, IPlayer
 	{
 		public override void _Ready()
 		{

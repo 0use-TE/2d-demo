@@ -13,8 +13,10 @@ namespace DDemo.Scripts.Characters.Core
 	{
         E_TeamType TeamType { get; set; }
 
-        CharacterBody2D CharacterBody2D { get; }
+		CharacterBody2D CharacterBody2D { get; }
+		AnimationPlayer AnimationPlayer { get; }
 		AnimatedSprite2D AnimatedSprite2D { get;  }
+		AnimationTree AnimationTree { get; }
 		StateMachine StateMachine { get; }
 		int FacingDirection { get; set; } 
 		void SetVelocity(float? x=null, float? y=null);

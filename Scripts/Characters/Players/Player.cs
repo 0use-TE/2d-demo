@@ -1,10 +1,15 @@
 using CharacterModule.StateMachineModule;
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using System;
 namespace DDemo.Scripts.Characters.Players;
+[Meta(typeof(IAutoNode))]
 public partial class Player : PlayerBase
 {
+	public override void _Notification(int what) => this.Notify(what);
 
 	//Congifure Args
 	[Export]
@@ -31,6 +36,15 @@ public partial class Player : PlayerBase
 	private bool _isAttack;
 	private int _attackIndex = 0;
 
+	/// <summary>
+	/// Animation finished  callbacks
+	/// </summary>
+	protected override void AnimationTree_AnimationFinished(StringName animName)
+	{
+		_logger.LogInformationWithNodeName(this, $"动画(类型为单次):{animName} 播放结束!");
+		_attackIndex = 0;
+		_isAttack = false;
+	}
 	protected override void ConfigureStateMachine()
 	{
 		_playerIdleState = new PlayerIdleState(StateMachine);
@@ -65,14 +79,6 @@ public partial class Player : PlayerBase
 
 		//Set Initial State
 		StateMachine.SetInitialState(_playerIdleState);
-	}
-	/// <summary>
-	/// Animation finished  callbacks
-	/// </summary>
-	public void OnAnimationFinished()
-	{
-		_attackIndex = 0;
-		_isAttack = false;
 	}
 
 }

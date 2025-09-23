@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://co3kunw1miigi"]
+[gd_scene load_steps=5 format=3 uid="uid://co3kunw1miigi"]
 
 [ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
 [ext_resource type="Script" uid="uid://1b2puv4fqdw0" path="res://Scripts/GameIn/GameInManager.cs" id="1_ly247"]
 [ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
-[ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="5_l7vlk"]
 [ext_resource type="Script" uid="uid://dsnlrub0fns4n" path="res://Scripts/Test/TestDebug.cs" id="5_ly247"]
 
-[node name="GameInManager" type="Node2D"]
+[node name="GameInManager2" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_ly247")
 
@@ -15,14 +14,10 @@ script = ExtResource("1_ly247")
 [node name="TestPlayer" parent="." instance=ExtResource("1_hcm6b")]
 
 [node name="Camera2D" type="Camera2D" parent="TestPlayer"]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
 
 [node name="Debug" type="Node2D" parent="."]
+position = Vector2(-128, 7)
 script = ExtResource("5_ly247")
-
-[node name="Node2D" type="Node2D" parent="Debug"]
-
-[node name="TestAi" parent="." instance=ExtResource("5_l7vlk")]
-position = Vector2(104, -7)

@@ -11,10 +11,8 @@ using System;
 using System.Diagnostics;
 namespace DDemo.Scripts.Characters.TestAI;
 
-[Meta(typeof(IAutoNode))]
 public partial class TestAI : AIBase
 {
-    public override void _Notification(int what) => this.Notify(what);
 
     private EnemyIdle _enemyIdle;
 	private EnemyFollow _enemyFollow;
@@ -78,34 +76,12 @@ public partial class TestAI : AIBase
 		StateMachine.SetInitialState(_enemyIdle);
 
 	}
-//    Selector
-//├── Sequence
-//│   ├── Condition(!_isAttack)
-//│   ├── AcquireTargetNode(200)
-//│   └── Selector
-//│       ├── Sequence
-//│       │   ├── TargetIsInAttackRadius(30)
-//│       │   └── SwitchState(_meleeAttack)
-//│       └── Sequence
-//│           └── SwitchState(_enemyFollow)
-//└── SwitchState(_enemyIdle)
+
+
+
     protected override void ConfigureBehaviourTree()
     {
-		BehaviorTree.BuildTree()
-			.Selector()
-				.Sequence()
-					.Condition((delta => !_isAttack)) // 顶层检查
-					.AddChild(new AcquireTargetNode(200))
-					.Selector()
-						.Sequence()
-							.AddChild(new TargetIsInAttackRadius(30))
-							.SwitchState(_meleeAttack, true)
-						.End()
-						.Sequence()
-							.SwitchState(_enemyFollow)
-						.End()
-					.End()
-				.End();
+		BehaviorTree.BuildTree();
     }
 	public override void _Process(double delta)
 	{
@@ -113,13 +89,13 @@ public partial class TestAI : AIBase
 		_logger.LogInformationWithNodeName(this, "当前状态:"+StateMachine.GetCurrentState().GetType().ToString());
 	}
 
-    /// <summary>
-    /// Animation finished  callbacks
-    /// </summary>
-    public void OnAnimationFinished()
-    {
-		_logger.LogInformationWithNodeName(this,"攻击(_isAttack)被取消!");
-        _attackIndex = 0;
-        _isAttack = false;
-    }
+	/// <summary>
+	/// Animation finished  callbacks
+	/// </summary>
+	protected override void AnimationTree_AnimationFinished(StringName animName)
+	{
+		_logger.LogInformationWithNodeName(this, $"动画(类型为单次):{animName} 播放结束!");
+		_attackIndex = 0;
+		_isAttack = false;
+	}
 }

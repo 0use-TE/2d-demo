@@ -25,6 +25,7 @@ namespace DDemo.Scripts.GameHander
             services.AddLogging(builder =>
             {
                 builder.AddSerilog(dispose: true);
+#if TOOLS
                 builder.AddFilter((category, logLevel) =>
                 {
                     var rules= LogFilterService.LoadRules();
@@ -34,8 +35,8 @@ namespace DDemo.Scripts.GameHander
                         return false;
                     return true;
                 });
+#endif
             });
-
             //Godot Services
             services.AddGodotServices();
 

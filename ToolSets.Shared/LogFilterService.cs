@@ -71,28 +71,36 @@ namespace ToolSets.Shared
                     .Select(t => t.FullName!)
                     .ToList();
 
-                // 2. 把旧规则转字典，方便查找
-                var dict = _filterRules.ToDictionary(r => r.TypeName, r => r);
+				// 2. 把旧规则转字典，方便查找
+				var dict = _filterRules.ToDictionary(r => r.TypeName, r => r);
 
-                // 3. 只添加新的，不覆盖旧的状态
-                foreach (var typeName in newTypeNames)
-                {
-                    if (!dict.ContainsKey(typeName))
-                    {
-                        dict[typeName] = new LogFilterRule
-                        {
-                            TypeName = typeName,
-                            FieldOrPropertyName = string.Empty,
-                            IsEnabled = true, // 默认启用
-                            LogLevel = "Information"
-                        };
-                    }
-                }
+				// 3. 同步删除不存在的类型
+				foreach (var key in dict.Keys.ToList())
+				{
+					if (!newTypeNames.Contains(key))
+						dict.Remove(key);
+				}
 
-                // 4. 更新到 _filterRules
-                _filterRules = dict.Values.ToList();
+				// 4. 只添加新的，不覆盖旧的状态
+				foreach (var typeName in newTypeNames)
+				{
+					if (!dict.ContainsKey(typeName))
+					{
+						dict[typeName] = new LogFilterRule
+						{
+							TypeName = typeName,
+							FieldOrPropertyName = string.Empty,
+							IsEnabled = true, // 默认启用
+							LogLevel = "Information"
+						};
+					}
+				}
 
-                return _filterRules;
+				// 5. 更新到 _filterRules
+				_filterRules = dict.Values.ToList();
+                SaveFilterRules(_filterRules);
+
+				return _filterRules;
             }
             catch (Exception ex)
             {

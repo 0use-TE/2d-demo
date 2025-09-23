@@ -1,7 +1,7 @@
 [gd_scene load_steps=63 format=3 uid="uid://824k1705eog2"]
 
 [ext_resource type="Script" uid="uid://c0022j1wffw3u" path="res://Scripts/Characters/TestAI/TestAI.cs" id="1_7vr7s"]
-[ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Properties/Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
+[ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqbyl"]
 atlas = ExtResource("1_pqbyl")

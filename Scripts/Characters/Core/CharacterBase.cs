@@ -1,4 +1,6 @@
 using CharacterModule.StateMachineModule;
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using DDemo.Scripts.Misc.Enums;
 using Godot;
 using Godot.DependencyInjection.Attributes;
@@ -11,18 +13,46 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Characters.Core
 {
+	[Meta(typeof(IAutoNode))]
 public	abstract partial class CharacterBase: CharacterBody2D, ICharacter 
 	{
+		public override void _Notification(int what) => this.Notify(what);
 		public CharacterBody2D CharacterBody2D { get; private set; } = default!;
 
-		public AnimatedSprite2D AnimatedSprite2D { get; private set; } = default!;
+		// 后台字段
+		private AnimatedSprite2D _animatedSprite2D = default!;
+		private AnimationPlayer _animationPlayer = default!;
+		private AnimationTree _animationTree = default!;
 
+		[Node(nameof(AnimatedSprite2D))]
+		public AnimatedSprite2D AnimatedSprite2D
+		{
+			get => _animatedSprite2D;
+			private set => _animatedSprite2D = value ?? throw new InvalidOperationException(
+				$"AnimatedSprite2D 没有正确注入！请检查角色实例是否放置了该节点。");
+		}
+
+		[Node(nameof(AnimationPlayer))]
+		public AnimationPlayer AnimationPlayer
+		{
+			get => _animationPlayer;
+			private set => _animationPlayer = value ?? throw new InvalidOperationException(
+				"AnimationPlayer 没有正确注入！请检查角色实例是否放置了该节点。");
+		}
+
+		[Node(nameof(AnimationTree))]
+		public AnimationTree AnimationTree
+		{
+			get => _animationTree;
+			private set => _animationTree = value ?? throw new InvalidOperationException(
+				"AnimationTree 没有正确注入！请检查角色实例是否放置了该节点。");
+		}
 		public StateMachine StateMachine { get; private set; } = new StateMachine();
 
         public E_TeamType TeamType { get; set; }
 
-
         protected ILogger _logger = default!;
+
         [Inject]
         public ILoggerFactory _loggerFactory = default!;
 
@@ -32,11 +62,12 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		{
 			base._Ready();
 			_logger = _loggerFactory.CreateLogger(GetType());
-
-
 			CharacterBody2D = this;
-			AnimatedSprite2D = GetNode<AnimatedSprite2D>(nameof(AnimatedSprite2D));
+			AnimationTree.AnimationFinished += AnimationTree_AnimationFinished; 
 		}
+
+		protected abstract void AnimationTree_AnimationFinished(StringName animName);
+
 		public void AddVelocity(float? x = null, float? y = null)
 		{
 			var velocity = Velocity;
