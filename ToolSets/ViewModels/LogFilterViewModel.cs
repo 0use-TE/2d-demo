@@ -47,8 +47,8 @@ namespace ToolSets.ViewModels
             var dllPath = _logFilterService.GetDllPath();
             if (string.IsNullOrEmpty(dllPath))
             {
-                _dialogService.ShowDialog("LogFilterConfigView", null, _ => { });
-                dllPath = _logFilterService.GetDllPath();
+                _dialogService.ShowDialog("暂未设置Dll路径!", null, _ => { });
+                return;
             }
 
             if (!string.IsNullOrEmpty(dllPath))

@@ -14,37 +14,34 @@ namespace ToolSets.Shared
         private static string _configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ToolSets", "log_filters.json");
         private static string _dllPathConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ToolSets", "dll_path.json");
         private List<LogFilterRule> _filterRules = [];
-
         public LogFilterService()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(_configPath)!);
             LoadFilterRules();
         }
-
         public List<LogFilterRule> ScanAssembly(string assemblyPath)
         {
-            var rulesDict = new Dictionary<string, LogFilterRule>();
+            if (!File.Exists(assemblyPath))
+            {
+                Console.WriteLine($"DLL文件不存在: {assemblyPath}");
+                return _filterRules;
+            }
+            var direcory= Path.GetDirectoryName(assemblyPath);
+            if (direcory==null)
+            {
+
+                return _filterRules;
+            }
+
+            // 创建自定义 AssemblyLoadContext
+            var context = new CustomAssemblyLoadContext(direcory);
+
             try
             {
-                // 验证DLL文件是否存在
-                if (!File.Exists(assemblyPath))
-                {
-                    Console.WriteLine($"DLL文件不存在: {assemblyPath}");
-                    return _filterRules;
-                }
-
-                // 加载DLL文件
-                byte[] assemblyBytes = File.ReadAllBytes(assemblyPath);
-                var assembly = Assembly.Load(assemblyBytes);
-                if (assembly == null)
-                {
-                    Console.WriteLine("加载程序集失败!");
-                    return _filterRules;
-                }
-
+                // 加载程序集
+                var assembly = context.LoadFromAssemblyPath(assemblyPath);
                 Console.WriteLine($"加载到了程序集: {assembly.FullName}");
 
-                // 获取类型，处理ReflectionTypeLoadException
                 Type[] types;
                 try
                 {
@@ -57,75 +54,55 @@ namespace ToolSets.Shared
                     {
                         Console.WriteLine($"  - 错误: {loaderEx?.Message}");
                     }
-                    types = ex.Types.Where(t => t != null).ToArray(); // 只处理成功加载的类型
+                    types = ex.Types.Where(t => t != null).ToArray()!;
                 }
 
-                // 找出所有继承自Godot.Node2D且包含ILogger或ILoggerFactory的基类
-                var baseLoggerTypes = new HashSet<Type>();
-
-                foreach (var type in types)
-                {
-                    if (type == null || !typeof(Godot.Node2D).IsAssignableFrom(type))
-                        continue;
-
-                    // 检查字段
-                    bool hasLogger = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                        .Any(f => typeof(ILogger).IsAssignableFrom(f.FieldType) ||
-                                  typeof(ILoggerFactory).IsAssignableFrom(f.FieldType));
-
-                    // 检查属性
-                    if (!hasLogger)
-                    {
-                        hasLogger = type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+                // 1. 找到所有目标类型
+                var newTypeNames = types
+                    .Where(t => t != null && typeof(Godot.Node2D).IsAssignableFrom(t))
+                    .Where(t =>
+                        t.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+                            .Any(f => typeof(ILogger).IsAssignableFrom(f.FieldType) ||
+                                      typeof(ILoggerFactory).IsAssignableFrom(f.FieldType)) ||
+                        t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                             .Any(p => typeof(ILogger).IsAssignableFrom(p.PropertyType) ||
-                                      typeof(ILoggerFactory).IsAssignableFrom(p.PropertyType));
-                    }
+                                      typeof(ILoggerFactory).IsAssignableFrom(p.PropertyType))
+                    )
+                    .Select(t => t.FullName!)
+                    .ToList();
 
-                    if (hasLogger)
-                    {
-                        baseLoggerTypes.Add(type);
-                    }
-                }
+                // 2. 把旧规则转字典，方便查找
+                var dict = _filterRules.ToDictionary(r => r.TypeName, r => r);
 
-                // 找出所有继承自带ILogger基类的子类
-                foreach (var type in types)
+                // 3. 只添加新的，不覆盖旧的状态
+                foreach (var typeName in newTypeNames)
                 {
-                    if (type == null || !typeof(Godot.Node2D).IsAssignableFrom(type))
-                        continue;
-
-                    // 是否继承自某个带ILogger的基类
-                    if (baseLoggerTypes.Any(baseType => baseType.IsAssignableFrom(type)))
+                    if (!dict.ContainsKey(typeName))
                     {
-                        string typeName = type.FullName ?? string.Empty;
-                        if (!string.IsNullOrEmpty(typeName) && !rulesDict.ContainsKey(typeName))
+                        dict[typeName] = new LogFilterRule
                         {
-                            rulesDict[typeName] = new LogFilterRule
-                            {
-                                TypeName = typeName,
-                                FieldOrPropertyName = string.Empty,
-                                IsEnabled = true,
-                                LogLevel = "Information"
-                            };
-                        }
+                            TypeName = typeName,
+                            FieldOrPropertyName = string.Empty,
+                            IsEnabled = true, // 默认启用
+                            LogLevel = "Information"
+                        };
                     }
                 }
 
-                var newRules = rulesDict.Values.ToList();
-                UpdateFilterRules(newRules);
-                SaveDllPath(assemblyPath);
+                // 4. 更新到 _filterRules
+                _filterRules = dict.Values.ToList();
+
                 return _filterRules;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"扫描程序集失败: {ex.Message}");
-                if (ex is ReflectionTypeLoadException rtle)
-                {
-                    foreach (var loaderEx in rtle.LoaderExceptions)
-                    {
-                        Console.WriteLine($"  - 详细错误: {loaderEx?.Message}");
-                    }
-                }
                 return _filterRules;
+            }
+            finally
+            {
+                // 卸载 AssemblyLoadContext
+                context.Unload();
             }
         }
         public List<LogFilterRule> GetFilterRules()

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="GodotSharp" Version="4.4.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+    <PackageReference Include="System.Reflection.MetadataLoadContext" Version="8.0.1" />
   </ItemGroup>
 
 </Project>
