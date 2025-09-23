@@ -2,7 +2,7 @@ using CharacterModule.StateMachineModule;
 using DDemo.Scripts.Characters.Core;
 using Godot;
 using System;
-namespace PlatformExplorer.PlayerScript;
+namespace DDemo.Scripts.Characters.Players;
 public partial class Player : PlayerBase
 {
 

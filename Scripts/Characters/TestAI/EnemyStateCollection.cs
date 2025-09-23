@@ -1,7 +1,7 @@
 
 using CharacterModule.StateMachineModule;
 
-namespace PlatformExplorer.BehaviorTreeTest
+namespace DDemo.Scripts.Characters.TestAI
 {
 	public class EnemyIdle : BaseState
 	{

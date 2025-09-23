@@ -9,7 +9,7 @@ using Godot;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
-namespace PlatformExplorer.BehaviorTreeTest;
+namespace DDemo.Scripts.Characters.TestAI;
 
 [Meta(typeof(IAutoNode))]
 public partial class TestAI : AIBase

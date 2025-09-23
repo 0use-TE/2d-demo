@@ -1,7 +1,7 @@
 
 using CharacterModule.StateMachineModule;
 
-namespace PlatformExplorer.PlayerScript
+namespace DDemo.Scripts.Characters.Players
 {
     public partial class Player
     {
