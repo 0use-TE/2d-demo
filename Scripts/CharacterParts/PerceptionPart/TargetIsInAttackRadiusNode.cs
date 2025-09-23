@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.CharacterParts.PerceptionPart
 {
-    public class TargetIsInAttackRadius : BehaviourNode
+    public class TargetIsInAttackRadiusNode : BehaviourNode
     {
         private readonly float _distance;
         private ILogger _logger=default!;
         private AIBase _ai=default!;
         private TargetContext _targetContext=default!;
-        public TargetIsInAttackRadius(float distance)
+        public TargetIsInAttackRadiusNode(float distance)
         {
             _distance = distance;
         }

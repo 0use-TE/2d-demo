@@ -4,6 +4,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Misc.Enums;
 using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Microsoft.Extensions.Logging;
@@ -29,18 +30,18 @@ public partial class TestAI : AIBase
 	protected override void ConfigureStateMachine()
 	{
 		//StateMachine
-		TeamType = DDemo.Scripts.Misc.Enums.E_TeamType.Enemy;
+		TeamType = E_TeamType.Enemy;
 	}
-
 
     protected override void ConfigureBehaviourTree()
     {
 		BehaviorTree.BuildTree()
 			.Selector()
 				.Sequence()
-					.AddChild(new AcquireTargetNode(200))
+					.AddChild(new AcquireTargetNode(100))
 					.AddChild(new FollowTargetNode(32*2))
 				.End();
+				
     }
 
 	/// <summary>

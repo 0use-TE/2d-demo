@@ -9,8 +9,6 @@ public partial class TestRaycast : Node2D
     [Export]
     private float _distance;
 
-    [Inject]
-    private ILogger<TestRaycast> _logger = default!;
     public override void _Process(double delta)
     {
         var world2D = GetWorld2D();

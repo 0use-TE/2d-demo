@@ -19,7 +19,7 @@ namespace CharacterModule.BehaviourTree.Core
             return this;
         }
 
-        public ICompositeNode GetParent()
+        public ICompositeNode? GetParent()
         {
             return _parent;
         }
