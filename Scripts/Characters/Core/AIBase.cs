@@ -1,20 +1,9 @@
 using CharacterModule.BehaviourTree;
-using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.Characters.Core.Context;
-using DDemo.Scripts.GameIn;
 using DDemo.Scripts.GameIn.EnvironmentContext;
-using DDemo.Scripts.Misc.Enums;
 using Godot;
-using Godot.DependencyInjection.Attributes;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Characters.Core
 {
@@ -28,21 +17,19 @@ namespace DDemo.Scripts.Characters.Core
         public override void _Notification(int what) => this.Notify(what);
 
         public BehaviorTree BehaviorTree { get; protected set; } = default!;
+		[Node(nameof(NavigationAgent2D))]
 		public NavigationAgent2D NavigationAgent2D { get; private set; } = default!;
-
 		[Dependency]
 		protected PlayerContext PlayerContext => this.DependOn<PlayerContext>();
 		[Dependency]
 		protected AIUnitContext AIUnitContext =>this.DependOn<AIUnitContext>();
 		[Dependency]
 		protected MapContext MapContext=>this.DependOn<MapContext>();
-
         public TargetContext TargetContext { get; private set; } =new TargetContext();
 
         public override void _Ready()
 		{
 			base._Ready();
-			NavigationAgent2D = GetNode<NavigationAgent2D>(nameof(NavigationAgent2D));
 			BehaviorTree = BehaviorTree.CreateTree();
 		}
 
@@ -68,7 +55,6 @@ namespace DDemo.Scripts.Characters.Core
 		protected abstract void ConfigureStateMachine();
 		protected abstract void ConfigureBehaviourTree();
 
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
@@ -76,9 +62,7 @@ namespace DDemo.Scripts.Characters.Core
 		public override void _PhysicsProcess(double delta)
 		{
 			//BT tick
-			BehaviorTree?.Tick(delta);
-			//StateMachine's process.
-			StateMachine.PhysicsProcess(delta);
+			BehaviorTree.Tick(delta);
 		}
 	}
 }

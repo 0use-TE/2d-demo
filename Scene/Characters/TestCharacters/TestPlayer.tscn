@@ -604,7 +604,8 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jvrul"]
 advance_mode = 2
-advance_expression = "_isIdle
+advance_expression = "
+
 "
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7dife"]
@@ -663,7 +664,7 @@ states/StartNode/position = Vector2(291, 395.752)
 states/Walk/node = SubResource("AnimationNodeAnimation_33yth")
 states/Walk/position = Vector2(539, 125)
 transitions = ["Start", "StartNode", SubResource("AnimationNodeStateMachineTransition_enpw6"), "StartNode", "Idle", SubResource("AnimationNodeStateMachineTransition_jvrul"), "Idle", "EndNode", SubResource("AnimationNodeStateMachineTransition_7dife"), "StartNode", "Walk", SubResource("AnimationNodeStateMachineTransition_p3wpo"), "Walk", "EndNode", SubResource("AnimationNodeStateMachineTransition_wosc6"), "StartNode", "Attack1", SubResource("AnimationNodeStateMachineTransition_t3ial"), "Attack1", "EndNode", SubResource("AnimationNodeStateMachineTransition_noeqt"), "StartNode", "Attack2", SubResource("AnimationNodeStateMachineTransition_cyq8k"), "Attack2", "EndNode", SubResource("AnimationNodeStateMachineTransition_y0s0w"), "StartNode", "Attack3", SubResource("AnimationNodeStateMachineTransition_jp05s"), "Attack3", "EndNode", SubResource("AnimationNodeStateMachineTransition_577ts"), "EndNode", "StartNode", SubResource("AnimationNodeStateMachineTransition_yjg1q")]
-graph_offset = Vector2(151, 183.226)
+graph_offset = Vector2(190, 62.2261)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_juf7y"]
 radius = 6.0
@@ -675,7 +676,8 @@ script = ExtResource("1_juf7y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
-animation = &"Attack3"
+animation = &"Idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -2,6 +2,7 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.Misc.Enums;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
@@ -77,15 +78,11 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		}
 		public override void _Process(double delta)
 		{
-            if (_loggerFactory == null)
-            {
-                _logger.LogInformation("进入");
-            }
-
-            base._Process(delta);
+			_logger.LogInformationWithNodeName(this, "当前状态:" + StateMachine.GetCurrentState().GetType().Name);
+			base._Process(delta);
 			Filp();
 		}
-
+		
 		public void Filp()
 		{
 			if (Velocity.X > 0 && FacingDirection < 0)

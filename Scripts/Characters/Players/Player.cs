@@ -6,7 +6,7 @@ using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using System;
 namespace DDemo.Scripts.Characters.Players;
-[Meta(typeof(IAutoNode))]
+[Meta(typeof(IAutoConnect))]
 public partial class Player : PlayerBase
 {
 	public override void _Notification(int what) => this.Notify(what);

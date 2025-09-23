@@ -1,6 +1,7 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.BehaviourTree.Core;
 using Chickensoft.Collections;
+using DDemo.Scripts.CharacterParts.Extensions;
 using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.Characters.Core.Context;
 using DDemo.Scripts.Test.LoggerExtensions;
@@ -27,9 +28,9 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
         }
         protected override void OnBlackboardCreated()
         {
-            _ai = Blackboard.Load<AIBase>() ?? throw new NullReferenceException("AI没有存入黑板");
-            _targetContext = Blackboard.Load<TargetContext>()!;
-            _logger = Blackboard.Load<ILogger>()!;
+            _ai = Blackboard.LoadOrThrow<AIBase>();
+            _targetContext = Blackboard.LoadOrThrow<TargetContext>();
+            _logger = Blackboard.LoadOrThrow<ILogger>();
         }
         public override NodeState Tick(double delta)
         {

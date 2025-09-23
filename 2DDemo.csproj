@@ -33,6 +33,7 @@
     <Folder Include="addons\" />
     <Folder Include="Scripts\CharacterParts\PerceptionPart\Core\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
+    <Folder Include="Scripts\Misc\CustomExceptions\" />
   </ItemGroup>
 
   <ItemGroup>

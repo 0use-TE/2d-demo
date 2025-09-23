@@ -16,12 +16,13 @@ namespace DDemo.Scripts.Test.LoggerExtensions
             logger.LogInformation($"\nBT节点类型:{node.GetType().Name}\n信息:{content}");
         }
 
-        public static void LogInformationWithNodeName(this ILogger logger, Node node, string content,bool logTime=false)
+        public static void LogInformationWithNodeName(this ILogger logger, Node node, string content, bool logTime = false)
         {
-            logger.LogInformation($"\nGodot节点类型:{node.Name}\n信息:{content}");
-            if(logTime)
-                logger.LogInformation($"\n时间:{DateTime.Now.ToString()}");
-
+            var msg = $"\nGodot节点类型:{node.Name}\n信息:{content}";
+            if (logTime)
+                msg += $"\n时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}";
+            msg += "\n";
+            logger.LogInformation(msg);
         }
     }
 }
