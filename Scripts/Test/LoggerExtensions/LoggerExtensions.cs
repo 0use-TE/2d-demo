@@ -13,7 +13,7 @@ namespace DDemo.Scripts.Test.LoggerExtensions
     {
         public static void LogBehaviourTreeNodeInformation(this ILogger logger,BehaviourNode node,string content)
         {
-            logger.LogInformation($"\nBT节点类型:{node.GetType().Name}\n信息:{content}");
+            logger.LogInformation($"\nBT节点类型:{node.GetType().Name}\n信息:{content}\n");
         }
 
         public static void LogInformationWithNodeName(this ILogger logger, Node node, string content, bool logTime = false)

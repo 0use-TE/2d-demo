@@ -4,6 +4,7 @@ using DDemo.Scripts.CharacterParts.Extensions;
 using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.Characters.Core.Context;
 using DDemo.Scripts.Test.LoggerExtensions;
+using Godot;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -29,32 +30,37 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 		}
 		public override NodeState Tick(double delta)
 		{
-			if (_targetContext?.PrimaryTarget?.TargetNode == null)
+			var targetNode = _targetContext?.PrimaryTarget?.TargetNode;
+			if (targetNode == null)
 			{
-				_logger.LogBehaviourTreeNodeInformation(this, "主目标或者是主目标的节点没有设置");
+				_logger.LogBehaviourTreeNodeInformation(this, "主目标或者主目标节点未设置");
 				return NodeState.Failure;
 			}
 
-			var targetPos = _targetContext.PrimaryTarget.TargetNode.Position;
-			var currentPos = _ai.Position;
-			var direction = targetPos - currentPos;
-			var distance = direction.Length();
+			// 设置目标位置给 NavigationAgent2D
+			_ai.NavigationAgent2D.TargetPosition = targetNode.GlobalPosition;
 
-			if (distance < 0.01f)
+			// 计算距离
+			Vector2 toTarget = targetNode.GlobalPosition - _ai.GlobalPosition;
+			if (toTarget.Length() < 32.0f)
 			{
-				// 已到达目标
-				_ai.NavigationAgent2D.TargetPosition = targetPos;
-				_logger.LogBehaviourTreeNodeInformation(this, "AI已经到达目标!");
+				_logger.LogBehaviourTreeNodeInformation(this, "已到达目标附近");
+				_ai.NavigationAgent2D.TargetPosition = _ai.GlobalPosition; // 停止移动
 				return NodeState.Success;
 			}
 
-			direction = direction.Normalized();
-			var moveDistance = (float)(_speed * delta);
-			var nextPos = distance <= moveDistance ? targetPos : currentPos + direction * moveDistance;
+			// 获取 NavigationAgent2D 的下一步速度向量
+			Vector2 nextVelocity = _ai.NavigationAgent2D.GetNextPathPosition() - _ai.GlobalPosition;
 
-			_ai.Position = nextPos;
-			_logger.LogBehaviourTreeNodeInformation(this, $"{_ai.Name}正在Follow");
+			nextVelocity = nextVelocity.Normalized() * _speed;
+			_ai.Velocity = nextVelocity;
+			_ai.MoveAndSlide();
+
+			_logger.LogBehaviourTreeNodeInformation(this, $"跟踪目标: 速度 {_ai.Velocity}, 当前距离 {toTarget.Length()}");
+
 			return NodeState.Running;
 		}
+
+
 	}
 }

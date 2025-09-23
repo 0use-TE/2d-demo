@@ -61,6 +61,7 @@ namespace DDemo.Scripts.Characters.Core
 		}
 		public override void _PhysicsProcess(double delta)
 		{
+			base._PhysicsProcess(delta);
 			//BT tick
 			BehaviorTree.Tick(delta);
 		}

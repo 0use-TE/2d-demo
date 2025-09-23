@@ -510,7 +510,7 @@ script = ExtResource("1_7vr7s")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
 animation = &"Idle"
-frame = 1
+frame = 2
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pqbyl")
@@ -528,6 +528,7 @@ position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_7vr7s")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 25.0
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.490381, 0.000178373, 0.49372, 1)

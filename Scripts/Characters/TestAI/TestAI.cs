@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 namespace DDemo.Scripts.Characters.TestAI;
-[Meta(typeof(IAutoConnect))]
+[Meta(typeof(IAutoNode))]
 public partial class TestAI : AIBase
 {
 	public override void _Notification(int what) => this.Notify(what);
@@ -37,11 +37,10 @@ public partial class TestAI : AIBase
     {
 		BehaviorTree.BuildTree()
 			.Selector()
-				.Action((delta) =>
-				{
-					GD.Print("调试!");
-					return NodeState.Success;
-				});
+				.Sequence()
+					.AddChild(new AcquireTargetNode(200))
+					.AddChild(new FollowTargetNode(32*2))
+				.End();
     }
 
 	/// <summary>

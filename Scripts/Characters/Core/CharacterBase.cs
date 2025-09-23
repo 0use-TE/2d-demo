@@ -78,7 +78,6 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		}
 		public override void _Process(double delta)
 		{
-			_logger.LogInformationWithNodeName(this, "当前状态:" + StateMachine.GetCurrentState().GetType().Name);
 			base._Process(delta);
 			Filp();
 		}
