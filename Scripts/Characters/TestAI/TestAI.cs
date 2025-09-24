@@ -51,20 +51,11 @@ public partial class TestAI : AIBase
     {
 		BehaviorTree.BuildTree()
 			.Selector()
-				.Sequence()
-					.AddChild(new AcquireTargetNode(_maxRadius))
-					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
-						.AddChild(new FollowTargetNode(_speed, _maxRadius))
-						.SwitchAnimation(_enemyFollow)
-					.End()
-				.End()
-					.AddChild(new AcquireTargetNode(_maxRadius))
-					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
-						.AddChild(new TargetAbsentNode())
-						.SwitchAnimation(_enemyIdle)
-					.End();
+				//Follow分支
+				.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
+					.SwitchAnimation(_enemyFollow)
+				.End();
 	}
-
 	/// <summary>
 	/// Animation finished  callbacks
 	/// </summary>
