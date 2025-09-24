@@ -11,7 +11,6 @@ namespace CharacterModule.BehaviourTree.Core
     public abstract class BehaviourNode:INode
     {
         protected ICompositeNode? _parent;
-
         public IBlackboard Blackboard { get; set; } = new DefaultBlackboard();
 
         public  virtual  void SetParent(ICompositeNode parent)

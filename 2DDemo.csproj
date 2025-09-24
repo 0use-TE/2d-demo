@@ -32,7 +32,7 @@
   <ItemGroup>
     <Folder Include="addons\" />
     <Folder Include="Scripts\CharacterParts\Extensions\" />
-    <Folder Include="Scripts\CharacterParts\PerceptionPart\Core\" />
+    <Folder Include="Scripts\CharacterParts\PerceptionPart\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
     <Folder Include="Scripts\Misc\CustomExceptions\" />
   </ItemGroup>

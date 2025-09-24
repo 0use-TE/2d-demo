@@ -46,7 +46,15 @@ public partial class TestAI : AIBase
 
 		StateMachine.SetInitialState(_enemyIdle);
 	}
-
+    /*
+	Root (Selector)
+└── Sequence
+    ├── Condition: DetectTarget (Success/Failure)
+    ├── AnimationNode: SwitchAnimation (Success)
+    └── Parallel (AllRunning, AnyFailure)
+         ├── Condition: CheckTargetDistance (Running/Failure)
+         └── Action: FollowTarget (Running)
+	 */
     protected override void ConfigureBehaviourTree()
     {
 		BehaviorTree.BuildTree()

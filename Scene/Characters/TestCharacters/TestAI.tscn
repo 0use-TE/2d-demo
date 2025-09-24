@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://824k1705eog2"]
+[gd_scene load_steps=58 format=3 uid="uid://824k1705eog2"]
 
 [ext_resource type="Script" uid="uid://c0022j1wffw3u" path="res://Scripts/Characters/TestAI/TestAI.cs" id="1_7vr7s"]
 [ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
@@ -504,6 +504,9 @@ _data = {
 radius = 6.0
 height = 18.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vr7s"]
+radius = 81.5843
+
 [node name="TestAi" type="CharacterBody2D"]
 texture_filter = 1
 script = ExtResource("1_7vr7s")
@@ -511,7 +514,7 @@ script = ExtResource("1_7vr7s")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
 animation = &"Idle"
-frame = 4
+frame = 2
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pqbyl")
@@ -533,3 +536,9 @@ target_desired_distance = 25.0
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.490381, 0.000178373, 0.49372, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7vr7s")
+debug_color = Color(0.908358, 0.167003, 0.618607, 0.42)

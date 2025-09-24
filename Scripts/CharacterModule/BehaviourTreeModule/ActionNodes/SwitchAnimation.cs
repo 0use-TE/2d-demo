@@ -52,7 +52,7 @@ namespace CharacterModule.BehaviourTreeModule.ActionNodes
 					_logger?.LogInformation($"切换到了动画:{_newState.GetType().Name}");
 					_stateMachine.ChangeState(_newState);
 				}
-				return NodeState.Running;
+				return NodeState.Success;
 			}
 		}
 	}
