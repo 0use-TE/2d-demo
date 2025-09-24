@@ -51,13 +51,13 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 			}
 
 			//设置目标点
-			if (targetContext.BaseTarget?.TargetNode == null)
+			if (targetContext.MainBaseTarget?.TargetNode == null)
 			{
 				var firstTarget = mapContext.TargetPos.FirstOrDefault();
 				if (firstTarget != null)
 				{
 					logger.LogInformationWithNodeName(ai, $"设置BaseTarget为{firstTarget.Name}");
-					targetContext.BaseTarget = new Target { TargetNode =firstTarget  };
+					targetContext.MainBaseTarget = new Target { TargetNode =firstTarget  };
 				}
 				else
 				{

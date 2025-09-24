@@ -4,8 +4,10 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.CharacterParts;
+using DDemo.Scripts.CharacterParts.AttakNodes;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Characters.Core.Context;
 using DDemo.Scripts.Misc.Enums;
 using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
@@ -43,8 +45,9 @@ public partial class TestAI : AIBase
 		TeamType = E_TeamType.Enemy;
 		_enemyFollow = new EnemyFollow(StateMachine);
 		_enemyIdle = new EnemyIdle(StateMachine);
+        _meleeAttack=new MeleeAttack(StateMachine);
 
-		_enemyIdle.AddEnter(() => _isIdle = true)
+        _enemyIdle.AddEnter(() => _isIdle = true)
 			.AddExit(() => _isIdle = false);
 
 		_enemyFollow.AddEnter(() => _isWalk = true)
@@ -52,30 +55,30 @@ public partial class TestAI : AIBase
 
 		StateMachine.SetInitialState(_enemyIdle);
 	}
-    /*
-	Root (Selector)
-└── Sequence
-    ├── Condition: DetectTarget (Success/Failure)
-    ├── AnimationNode: SwitchAnimation (Success)
-    └── Parallel (AllRunning, AnyFailure)
-         ├── Condition: CheckTargetDistance (Running/Failure)
-         └── Action: FollowTarget (Running)
-	 */
     protected override void ConfigureBehaviourTree()
     {
 		BehaviorTree.BuildTree()
 			.Selector()
-				.Sequence()
-					.AddChild(new DetectTargetBTNode())
-					.SwitchAnimation(_enemyFollow)
-					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
-						.AddChild(new CheckTargetDistanceBTNode())
-						.AddChild(new FollowTargetBTNode(_speed))
+				//攻击一
+				.Selector()
+					//尝试攻击
+					.Sequence()
+						.Action(delta => NodeState.Failure)
+					.End()
+					//尝试追踪
+					.Sequence()
+						.SwitchAnimation(_enemyFollow)
+						.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
+							//在攻击范围退出
+							.AddChild(new CheckTargetInFollowRangeNode(80, E_TargetType.Character))
+							.AddChild(new FollowTargetNode(E_TargetType.Character, _speed))
+						.End()
 					.End()
 				.End()
 				.Sequence()
-					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any);
-	}
+					.SwitchAnimation(_enemyIdle);
+				
+    }
 	/// <summary>
 	/// Animation finished  callbacks
 	/// </summary>
