@@ -1,4 +1,5 @@
 using CharacterModule.BehaviourTree;
+using CharacterModule.BehaviourTree.CompositeNodes;
 using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
@@ -23,7 +24,10 @@ public partial class TestAI : AIBase
 	// 
 	private bool _isIdle=true;
 	private bool _isWalk;
-
+	[Export]
+	private float _maxRadius=200;
+	[Export]
+	private float _speed=50;
 	private bool _isAttack;
 	private int _attackIndex;
 
@@ -31,6 +35,16 @@ public partial class TestAI : AIBase
 	{
 		//StateMachine
 		TeamType = E_TeamType.Enemy;
+		_enemyFollow = new EnemyFollow(StateMachine);
+		_enemyIdle = new EnemyIdle(StateMachine);
+
+		_enemyIdle.AddEnter(() => _isIdle = true)
+			.AddExit(() => _isIdle = false);
+
+		_enemyFollow.AddEnter(() => _isWalk = true)
+			.AddExit(() => _isWalk = false);
+
+		StateMachine.SetInitialState(_enemyIdle);
 	}
 
     protected override void ConfigureBehaviourTree()
@@ -38,11 +52,18 @@ public partial class TestAI : AIBase
 		BehaviorTree.BuildTree()
 			.Selector()
 				.Sequence()
-					.AddChild(new AcquireTargetNode(100))
-					.AddChild(new FollowTargetNode(32*2))
-				.End();
-				
-    }
+					.AddChild(new AcquireTargetNode(_maxRadius))
+					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
+						.AddChild(new FollowTargetNode(_speed, _maxRadius))
+						.SwitchAnimation(_enemyFollow)
+					.End()
+				.End()
+					.AddChild(new AcquireTargetNode(_maxRadius))
+					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
+						.AddChild(new TargetAbsentNode())
+						.SwitchAnimation(_enemyIdle)
+					.End();
+	}
 
 	/// <summary>
 	/// Animation finished  callbacks

@@ -1,6 +1,8 @@
 using CharacterModule.BehaviourTree.ActionNodes;
 using CharacterModule.BehaviourTree.CompositeNodes;
 using CharacterModule.BehaviourTree.Core;
+using CharacterModule.BehaviourTreeModule.ActionNodes;
+using CharacterModule.BehaviourTreeModule.DecorateNodes;
 using CharacterModule.StateMachineModule;
 using System;
 
@@ -20,9 +22,9 @@ namespace CharacterModule.BehaviourTree
             parent.AddChild(sequence);
             return sequence;
         }
-        public static ICompositeNode Parallel(this ICompositeNode parent, ParallelPolicy successPolicy, ParallelPolicy failurePolicy)
+        public static ICompositeNode Parallel(this ICompositeNode parent, ParallelPolicy successPolicy, ParallelPolicy failurePolicy,RunningPolicy runningPolicy=RunningPolicy.WaitAny)
         {
-            var parallel = new CompositeNodes.Parallel(successPolicy, failurePolicy);
+            var parallel = new CompositeNodes.Parallel(successPolicy, failurePolicy,runningPolicy);
             parent.AddChild(parallel);
             return parallel;
         }
@@ -39,9 +41,30 @@ namespace CharacterModule.BehaviourTree
             parent.AddChild(conditionNode);
             return parent;
         }
+        public static ICompositeNode SwitchAnimation(this ICompositeNode parent,BaseState _newState)
+        {
+            var switchAnimationNode=new SwitchAnimation(_newState);
+            parent.AddChild(switchAnimationNode);
+            return parent;
+        }
         public static ICompositeNode End(this ICompositeNode parent)
         {
             return parent.GetParent() ?? throw new NullReferenceException("This node has not parent!");
         }
+
+        //装饰节点
+
+        /// <summary>
+        /// 将返回装饰节点本身
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static ICompositeNode Decorator_Inverter(this ICompositeNode parent)
+        {
+            var inverter = new Decorator_Inverter();
+            parent.AddChild(inverter);
+            return inverter;
+        }
+
     }
 }

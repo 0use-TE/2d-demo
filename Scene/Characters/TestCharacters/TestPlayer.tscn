@@ -604,6 +604,9 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jvrul"]
 advance_mode = 2
+advance_expression = "
+
+"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7dife"]
 advance_mode = 2

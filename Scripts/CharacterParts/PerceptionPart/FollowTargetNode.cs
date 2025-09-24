@@ -16,9 +16,11 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 		private AIBase _ai=default!;
 		private ILogger _logger = default!;
 		private float _speed;
-		public FollowTargetNode(float  speed)
+		private float _followRadius;
+		public FollowTargetNode(float  speed,float followRadius) 
 		{
 			_speed = speed;
+			_followRadius = followRadius;
 		}
 		protected override void OnBlackboardCreated()
 		{
@@ -42,11 +44,19 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
 
 			// 计算距离
 			Vector2 toTarget = targetNode.GlobalPosition - _ai.GlobalPosition;
+
+			if (toTarget.Length() > _followRadius)
+			{
+				_logger.LogBehaviourTreeNodeInformation(this, $"目标{targetNode.Name}已经脱离了追踪范围!");
+				return NodeState.Failure;
+			}
+
+			
 			if (toTarget.Length() < 32.0f)
 			{
-				_logger.LogBehaviourTreeNodeInformation(this, "已到达目标附近");
+				_logger.LogBehaviourTreeNodeInformation(this, $"已到达目标:{targetNode.Name}附近");
 				_ai.NavigationAgent2D.TargetPosition = _ai.GlobalPosition; // 停止移动
-				return NodeState.Success;
+				return NodeState.Failure;
 			}
 
 			// 获取 NavigationAgent2D 的下一步速度向量

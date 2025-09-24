@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BehaviourTreeModule\DecorateNodes\" />
     <Folder Include="BehaviourTreeModule\Properties\" />
   </ItemGroup>
 

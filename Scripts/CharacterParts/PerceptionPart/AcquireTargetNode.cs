@@ -90,15 +90,17 @@ namespace DDemo.Scripts.CharacterParts.PerceptionPart
             // 设置到上下文
             if (nearestEnemy != null)
             {
-                _logger.LogBehaviourTreeNodeInformation(this, $"成功检测到了攻击目标{_targetContext?.PrimaryTarget?.TargetNode?.Name}");
+                _logger.LogBehaviourTreeNodeInformation(this, $"成功检测到了攻击目标{_targetContext.PrimaryTarget?.TargetNode?.Name}");
 
-                if(_targetContext==null)
+
+                if(_targetContext.PrimaryTarget?.TargetNode==nearestEnemy)
                 {
-                    _logger.LogBehaviourTreeNodeInformation(this, $"暂未设置目标上下文");
-                        return NodeState.Failure;
+                    _logger.LogBehaviourTreeNodeInformation(this, "目标暂没有发生改变");
+                    return NodeState.Success;
                 }
+	
 
-                _targetContext.PrimaryTarget= new Target
+				_targetContext.PrimaryTarget= new Target
                 {
                      TargetNode=nearestEnemy
                 };
