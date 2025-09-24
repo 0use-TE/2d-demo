@@ -3,6 +3,7 @@ using CharacterModule.BehaviourTree.CompositeNodes;
 using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
+using DDemo.Scripts.CharacterParts;
 using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core;
 using DDemo.Scripts.Misc.Enums;
@@ -10,6 +11,7 @@ using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 namespace DDemo.Scripts.Characters.TestAI;
 [Meta(typeof(IAutoNode))]
@@ -31,6 +33,10 @@ public partial class TestAI : AIBase
 	private bool _isAttack;
 	private int _attackIndex;
 
+	protected override void ConfigurateTargetEvaluator(IList<ITargetEvaluator> targetEvaluators)
+	{
+		targetEvaluators.Add(new TestTargetEvaluator());
+	}
 	protected override void ConfigureStateMachine()
 	{
 		//StateMachine
@@ -59,10 +65,16 @@ public partial class TestAI : AIBase
     {
 		BehaviorTree.BuildTree()
 			.Selector()
-				//Follow分支
-				.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
+				.Sequence()
+					.AddChild(new DetectTargetBTNode())
 					.SwitchAnimation(_enemyFollow)
-				.End();
+					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
+						.AddChild(new CheckTargetDistanceBTNode())
+						.AddChild(new FollowTargetBTNode(_speed))
+					.End()
+				.End()
+				.Sequence()
+					.Parallel(ParallelPolicy.Any, ParallelPolicy.Any);
 	}
 	/// <summary>
 	/// Animation finished  callbacks
@@ -73,4 +85,6 @@ public partial class TestAI : AIBase
 		_attackIndex = 0;
 		_isAttack = false;
 	}
+
+
 }

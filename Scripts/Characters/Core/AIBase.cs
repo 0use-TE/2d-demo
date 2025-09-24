@@ -1,9 +1,13 @@
 using CharacterModule.BehaviourTree;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
+using DDemo.Scripts.CharacterParts.PerceptionPart;
 using DDemo.Scripts.Characters.Core.Context;
 using DDemo.Scripts.GameIn.EnvironmentContext;
+using DDemo.Scripts.Misc;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
+using System.Collections.Generic;
 
 namespace DDemo.Scripts.Characters.Core
 {
@@ -25,15 +29,77 @@ namespace DDemo.Scripts.Characters.Core
 		protected AIUnitContext AIUnitContext =>this.DependOn<AIUnitContext>();
 		[Dependency]
 		protected MapContext MapContext=>this.DependOn<MapContext>();
+		[Node(nameof(Area2D))]
+		protected Area2D Area2D { get; private set; } = default!;
         public TargetContext TargetContext { get; private set; } =new TargetContext();
+		private IList<CharacterBase> _characters=new List<CharacterBase>();
 
-        public override void _Ready()
+		private IList<ITargetEvaluator> targetEvaluators = new List<ITargetEvaluator>();
+		private Timer? _evaluationTimer;
+		public override void _Ready()
 		{
 			base._Ready();
 			BehaviorTree = BehaviorTree.CreateTree();
+			Area2D.BodyEntered += Area2D_BodyEntered; ;
+			Area2D.BodyExited += Area2D_BodyExited; ;
+
+			_evaluationTimer = new Timer()
+			{
+				Autostart = true,
+				WaitTime = GlobalConstant.PerceptionIntervel,
+				OneShot = false
+			};
+			_evaluationTimer.Timeout += OnEvaluationTimeout;
+			AddChild(_evaluationTimer);
 		}
 
-        public void OnResolved()
+		private void Area2D_BodyExited(Node2D body)
+		{
+			if (body is CharacterBase character)
+			{
+				if (character.TeamType != TeamType)
+				{
+					_logger.LogInformationWithNodeName(this, $"角色{character.Name}退出了攻击范围");
+					_characters.Remove(character);
+				}
+			}
+			else
+			{
+				_logger.LogInformationWithNodeName(this, $"刚体{body.Name}退出了攻击范围");
+			}
+		
+		}
+
+		private void Area2D_BodyEntered(Node2D body)
+		{
+			if (body is CharacterBase character)
+			{
+				if (character.TeamType != TeamType)
+				{
+					_logger.LogInformationWithNodeName(this, $"角色{character.Name}进入了攻击范围");
+					_characters.Add(character);
+				}
+			}
+			else
+			{
+				_logger.LogInformationWithNodeName(this, $"刚体{body.Name}进入了攻击范围");
+			}
+		}
+
+		/// <summary>
+		/// 用于决策AI的
+		/// </summary>
+		private void OnEvaluationTimeout()
+		{
+			foreach (var evaluator in targetEvaluators)
+			{
+				_logger.LogInformationWithNodeName(this, $"执行了策略{evaluator.GetType().Name}");
+				evaluator.Evaluate(this,TargetContext,_characters, MapContext,_logger);
+			}
+		}
+
+
+		public void OnResolved()
         {
 			BehaviorTree.ConfigurateBlackboard(blackboard =>
 			{
@@ -50,10 +116,13 @@ namespace DDemo.Scripts.Characters.Core
 
             ConfigureStateMachine();
             ConfigureBehaviourTree();
-        }
+			ConfigurateTargetEvaluator(targetEvaluators);
+		}
         
 		protected abstract void ConfigureStateMachine();
 		protected abstract void ConfigureBehaviourTree();
+		protected abstract void ConfigurateTargetEvaluator(IList<ITargetEvaluator> targetEvaluators);
+
 
 		public override void _Process(double delta)
 		{

@@ -1,5 +1,6 @@
 using CharacterModule.BehaviourTree;
 using CharacterModule.BehaviourTree.Core;
+using DDemo.Scripts.CharacterParts.AIBehaviourTreeNode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,19 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.CharacterParts
 {
-    internal class CheckTargetDistanceBTNode : BehaviourNode
+    internal class CheckTargetDistanceBTNode : AIBehaviourNode
     {
+        private float _minDistance;
         public override NodeState Tick(double delta)
         {
-            throw new NotImplementedException();
+            if (_targetContext.CharacterTarget?.TargetNode == null)
+            {
+                return NodeState.Failure;
+            }
+            else
+            {
+                return NodeState.Running;
+            }
         }
     }
 }
