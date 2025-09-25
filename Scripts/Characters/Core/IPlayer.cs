@@ -1,4 +1,5 @@
 using CharacterModule.StateMachineModule;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,8 @@ namespace DDemo.Scripts.Characters.Core
 {
 	public interface IPlayer:ICharacter
 	{
-	}
+        AnimationTree AnimationTree { get; }
+        StateMachine StateMachine { get; }
+
+    }
 }

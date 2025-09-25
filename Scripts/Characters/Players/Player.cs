@@ -41,9 +41,7 @@ public partial class Player : PlayerBase
 	/// </summary>
 	protected override void AnimationTree_AnimationFinished(StringName animName)
 	{
-		_logger.LogInformationWithNodeName(this, $"动画(类型为单次):{animName} 播放结束!");
-		_attackIndex = 0;
-		_isAttack = false;
+
 	}
 	protected override void ConfigureStateMachine()
 	{
@@ -80,5 +78,10 @@ public partial class Player : PlayerBase
 		//Set Initial State
 		StateMachine.SetInitialState(_playerIdleState);
 	}
-
+	public void Test()
+	{
+        _logger.LogInformationWithNodeName(this, $"动画Attack播放结束!");
+        _isAttack = false;
+        _attackIndex = 0;
+    }
 }

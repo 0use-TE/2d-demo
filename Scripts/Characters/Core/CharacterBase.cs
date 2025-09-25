@@ -19,19 +19,9 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 	{
 		public override void _Notification(int what) => this.Notify(what);
 		public CharacterBody2D CharacterBody2D { get; private set; } = default!;
-
 		// 后台字段
-		private AnimatedSprite2D _animatedSprite2D = default!;
 		private AnimationPlayer _animationPlayer = default!;
-		private AnimationTree _animationTree = default!;
-
-		[Node(nameof(AnimatedSprite2D))]
-		public AnimatedSprite2D AnimatedSprite2D
-		{
-			get => _animatedSprite2D;
-			private set => _animatedSprite2D = value ?? throw new InvalidOperationException(
-				$"AnimatedSprite2D 没有正确注入！请检查角色实例是否放置了该节点。");
-		}
+		private AnimatedSprite2D _animatedSprite2D = default!;
 
 		[Node(nameof(AnimationPlayer))]
 		public AnimationPlayer AnimationPlayer
@@ -40,15 +30,13 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 			private set => _animationPlayer = value ?? throw new InvalidOperationException(
 				"AnimationPlayer 没有正确注入！请检查角色实例是否放置了该节点。");
 		}
-
-		[Node(nameof(AnimationTree))]
-		public AnimationTree AnimationTree
-		{
-			get => _animationTree;
-			private set => _animationTree = value ?? throw new InvalidOperationException(
-				"AnimationTree 没有正确注入！请检查角色实例是否放置了该节点。");
-		}
-		public StateMachine StateMachine { get; private set; } = new StateMachine();
+        [Node(nameof(AnimatedSprite2D))]
+        public AnimatedSprite2D AnimatedSprite2D
+        {
+            get => _animatedSprite2D;
+            private set => _animatedSprite2D= value ?? throw new InvalidOperationException(
+                "AnimatedSprite2D 没有正确注入！请检查角色实例是否放置了该节点。");
+        }
 
         public E_TeamType TeamType { get; set; }
 
@@ -64,10 +52,7 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 			base._Ready();
 			_logger = _loggerFactory.CreateLogger(GetType());
 			CharacterBody2D = this;
-			AnimationTree.AnimationFinished += AnimationTree_AnimationFinished; 
 		}
-
-		protected abstract void AnimationTree_AnimationFinished(StringName animName);
 
 		public void AddVelocity(float? x = null, float? y = null)
 		{

@@ -1,6 +1,5 @@
-[gd_scene load_steps=64 format=3 uid="uid://824k1705eog2"]
+[gd_scene load_steps=49 format=3 uid="uid://824k1705eog2"]
 
-[ext_resource type="Script" uid="uid://c0022j1wffw3u" path="res://Scripts/Characters/TestAI/TestAI.cs" id="1_7vr7s"]
 [ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqbyl"]
@@ -274,80 +273,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gaeqs"]
-animation = &"Attack1"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_devlm"]
-animation = &"Attack2"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7vr7s"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4p1rw"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gaeqs"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7vr7s"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lrb8w"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b48k2"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ve05"]
-advance_mode = 2
-advance_expression = "
-
-"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tgccv"]
-advance_mode = 2
-advance_expression = "!_isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4p1rw"]
-advance_mode = 2
-advance_expression = "_isWalk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gaeqs"]
-advance_mode = 2
-advance_expression = "!_isWalk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hhnv3"]
-advance_mode = 2
-advance_expression = "_isAttack&&_attackIndex==1"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q81g7"]
-advance_mode = 2
-advance_expression = "_isAttack&&_attackIndex==0"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_33cw8"]
-advance_mode = 2
-advance_expression = "!_isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fh4pu"]
-advance_mode = 2
-advance_expression = "!_isAttack"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pqbyl"]
-states/Attack1/node = SubResource("AnimationNodeAnimation_gaeqs")
-states/Attack1/position = Vector2(441.8, 176.328)
-states/Attack2/node = SubResource("AnimationNodeAnimation_devlm")
-states/Attack2/position = Vector2(441.832, 236.328)
-states/End/position = Vector2(820, 350)
-states/EndNode/node = SubResource("AnimationNodeStateMachine_7vr7s")
-states/EndNode/position = Vector2(610, 465)
-states/Idle/node = SubResource("AnimationNodeAnimation_4p1rw")
-states/Idle/position = Vector2(449.8, 368)
-states/Start/position = Vector2(141.6, 453.6)
-states/StartNode/node = SubResource("AnimationNodeStateMachine_gaeqs")
-states/StartNode/position = Vector2(307, 465)
-states/Walk/node = SubResource("AnimationNodeAnimation_7vr7s")
-states/Walk/position = Vector2(456, 280.983)
-transitions = ["Start", "StartNode", SubResource("AnimationNodeStateMachineTransition_lrb8w"), "EndNode", "StartNode", SubResource("AnimationNodeStateMachineTransition_b48k2"), "StartNode", "Idle", SubResource("AnimationNodeStateMachineTransition_4ve05"), "Idle", "EndNode", SubResource("AnimationNodeStateMachineTransition_tgccv"), "StartNode", "Walk", SubResource("AnimationNodeStateMachineTransition_4p1rw"), "Walk", "EndNode", SubResource("AnimationNodeStateMachineTransition_gaeqs"), "StartNode", "Attack2", SubResource("AnimationNodeStateMachineTransition_hhnv3"), "StartNode", "Attack1", SubResource("AnimationNodeStateMachineTransition_q81g7"), "Attack2", "EndNode", SubResource("AnimationNodeStateMachineTransition_33cw8"), "Attack1", "EndNode", SubResource("AnimationNodeStateMachineTransition_fh4pu")]
-graph_offset = Vector2(53, 149.925)
-
 [sub_resource type="Animation" id="Animation_7vr7s"]
 length = 1.2
 tracks/0/type = "value"
@@ -531,19 +456,20 @@ height = 18.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vr7s"]
 radius = 100.0
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_7vr7s"]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_4p1rw"]
+blackboard_plan = SubResource("BlackboardPlan_7vr7s")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_pqbyl"]
+
 [node name="TestAi" type="CharacterBody2D"]
 texture_filter = 1
-script = ExtResource("1_7vr7s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
-animation = &"Attack1"
-frame = 5
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_pqbyl")
-advance_expression_base_node = NodePath("..")
-anim_player = NodePath("../AnimationPlayer")
+animation = &"Death"
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -566,3 +492,7 @@ debug_path_custom_color = Color(0.490381, 0.000178373, 0.49372, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_7vr7s")
 debug_color = Color(0.908358, 0.167003, 0.618607, 0.42)
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_4p1rw")
+blackboard_plan = SubResource("BlackboardPlan_pqbyl")

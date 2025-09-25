@@ -9,7 +9,6 @@ namespace DDemo.Scripts.Characters.Players
         {
             public PlayerIdleState(StateMachine sm) : base(sm) { }
         }
-
         internal class PlayerWalkState : BaseState
         {
             public PlayerWalkState(StateMachine sm) : base(sm) { }

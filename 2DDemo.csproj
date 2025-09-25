@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <Folder Include="addons\" />
-    <Folder Include="Scripts\CharacterParts\Extensions\" />
+    <Folder Include="Scripts\Characters\TestAI\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
     <Folder Include="Scripts\Misc\CustomExceptions\" />
   </ItemGroup>
@@ -39,8 +39,6 @@
   <ItemGroup>
     <None Include="docs\战斗系统设计.md" />
     <None Include="docs\进程.md" />
-    <None Include="Scripts\Characters\TestAI\EnemyStateCollection.cs.uid" />
-    <None Include="Scripts\Characters\TestAI\TestAI.cs.uid" />
     <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
     <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
     <None Include="docs\环境上下文设计.md" />
