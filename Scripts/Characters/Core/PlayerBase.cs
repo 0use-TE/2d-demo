@@ -17,26 +17,15 @@ namespace DDemo.Scripts.Characters.Core
 	{
         public override void _Notification(int what) => this.Notify(what);
 
-        private AnimationTree _animationTree = default!;
         public StateMachine StateMachine { get; private set; } = new StateMachine();
 
-        [Node(nameof(AnimationTree))]
-        public AnimationTree AnimationTree
-        {
-            get => _animationTree;
-            private set => _animationTree = value ?? throw new InvalidOperationException(
-                "AnimationTree 没有正确注入！请检查角色实例是否放置了该节点。");
-        }
         public override void _Ready()
 		{
 			base._Ready();
 			//设置阵营
 			TeamType = Misc.Enums.E_TeamType.Player;
-            AnimationTree.AnimationFinished += AnimationTree_AnimationFinished;
             ConfigureStateMachine();
         }
-        protected abstract void AnimationTree_AnimationFinished(StringName animName);
-
 
         protected abstract void ConfigureStateMachine();
 

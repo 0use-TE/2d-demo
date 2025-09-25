@@ -29,51 +29,42 @@ public partial class Player : PlayerBase
 	private PlayerMeleeAttackState ?_playerMeleeAttackState;
 	private PlayerRemoteAttackState? _playerRemoteAttackState;
 
-	//Animation Flag
-	private bool _isIdle;
-	private bool _isWalk;
-
 	private bool _isAttack;
 	private int _attackIndex = 0;
 
-	/// <summary>
-	/// Animation finished  callbacks
-	/// </summary>
-	protected override void AnimationTree_AnimationFinished(StringName animName)
-	{
-
-	}
 	protected override void ConfigureStateMachine()
 	{
 		_playerIdleState = new PlayerIdleState(StateMachine);
 		_playerWalkState = new PlayerWalkState(StateMachine);
 		_playerMeleeAttackState = new PlayerMeleeAttackState(StateMachine);
 		_playerRemoteAttackState = new PlayerRemoteAttackState(StateMachine);
-
+		
 		//Idle
-		_playerIdleState.AddEnter(() => _isIdle = true).AddEnter(() => SetVelocity(0, 0)).
+		_playerIdleState.AddEnter(() => AnimationPlayer.Play("Idle")).AddEnter(() => SetVelocity(0, 0)).
 				AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) > 0.1f || Mathf.Abs(_playerInput.Vertical) > .1f, _playerWalkState).
 				AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
 				AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
-				AddExit(() => _isIdle = false);
+				AddExit(() => AnimationPlayer.Stop());
 		//Walk
-		_playerWalkState.AddEnter(() => _isWalk = true).
+		_playerWalkState.AddEnter(() => AnimationPlayer.Play("Walk")).
 			AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) < 0.1f && Mathf.Abs(_playerInput.Vertical) < .1f, _playerIdleState).
 			AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
 			AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
 			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _horizontalSpeed, _playerInput.Vertical * _verticalSpeed)).
-			AddExit(() => _isWalk = false);
+			AddExit(() => AnimationPlayer.Stop());
 
 		//MeleeAttack
-		_playerMeleeAttackState.AddEnter(() => _isAttack = true).AddEnter(() => SetVelocity(0, 0)).
-			AddEnter(() => _attackIndex = Random.Shared.Next(0, 2)).
-			AddTransitions(() => !_isAttack, _playerIdleState).
-			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _meleeAttackMoveSpeed, _playerInput.Vertical * _meleeAttackMoveSpeed));
+		_playerMeleeAttackState.AddEnter(() => _isAttack = true).AddEnter(() => SetVelocity(0, 0))
+			.AddEnter(() => _attackIndex = Random.Shared.Next(0, 2))
+			.AddEnter(()=>AnimationPlayer.Play("Attack"+(_attackIndex+1)))
+			.AddTransitions(() => !_isAttack, _playerIdleState)
+			.AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _meleeAttackMoveSpeed, _playerInput.Vertical * _meleeAttackMoveSpeed));
 
 		//RemoteAttack
-		_playerRemoteAttackState.AddEnter(() => _isAttack = true).AddEnter(() => _attackIndex = 2).
-			AddTransitions(() => !_isAttack, _playerIdleState).
-			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _remoteAttackMoveSpeed, 0));
+		_playerRemoteAttackState.AddEnter(() => _isAttack = true).AddEnter(() => _attackIndex = 2)
+            .AddEnter(() => AnimationPlayer.Play("Attack" + (_attackIndex+1)))
+            .AddTransitions(() => !_isAttack, _playerIdleState)
+			.AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _remoteAttackMoveSpeed, 0));
 
 		//Set Initial State
 		StateMachine.SetInitialState(_playerIdleState);

@@ -10,7 +10,6 @@ namespace DDemo.Scripts.Characters.Core
 {
 	public interface IPlayer:ICharacter
 	{
-        AnimationTree AnimationTree { get; }
         StateMachine StateMachine { get; }
 
     }
