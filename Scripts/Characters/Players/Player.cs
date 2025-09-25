@@ -38,20 +38,18 @@ public partial class Player : PlayerBase
 		_playerWalkState = new PlayerWalkState(StateMachine);
 		_playerMeleeAttackState = new PlayerMeleeAttackState(StateMachine);
 		_playerRemoteAttackState = new PlayerRemoteAttackState(StateMachine);
-		
+
 		//Idle
 		_playerIdleState.AddEnter(() => AnimationPlayer.Play("Idle")).AddEnter(() => SetVelocity(0, 0)).
 				AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) > 0.1f || Mathf.Abs(_playerInput.Vertical) > .1f, _playerWalkState).
 				AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
-				AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
-				AddExit(() => AnimationPlayer.Stop());
+				AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState);
 		//Walk
 		_playerWalkState.AddEnter(() => AnimationPlayer.Play("Walk")).
 			AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) < 0.1f && Mathf.Abs(_playerInput.Vertical) < .1f, _playerIdleState).
 			AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
 			AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
-			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _horizontalSpeed, _playerInput.Vertical * _verticalSpeed)).
-			AddExit(() => AnimationPlayer.Stop());
+			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _horizontalSpeed, _playerInput.Vertical * _verticalSpeed));
 
 		//MeleeAttack
 		_playerMeleeAttackState.AddEnter(() => _isAttack = true).AddEnter(() => SetVelocity(0, 0))
@@ -69,9 +67,9 @@ public partial class Player : PlayerBase
 		//Set Initial State
 		StateMachine.SetInitialState(_playerIdleState);
 	}
-	public void Test()
+    protected override void AnimationPlayer_AnimationFinished(StringName animName)
 	{
-        _logger.LogInformationWithNodeName(this, $"动画Attack播放结束!");
+        _logger.LogInformationWithNodeName(this, $"动画{animName}播放结束!");
         _isAttack = false;
         _attackIndex = 0;
     }

@@ -25,7 +25,10 @@ namespace DDemo.Scripts.Characters.Core
 			//设置阵营
 			TeamType = Misc.Enums.E_TeamType.Player;
             ConfigureStateMachine();
+            AnimationPlayer.AnimationFinished += AnimationPlayer_AnimationFinished;
         }
+
+		protected abstract void AnimationPlayer_AnimationFinished(StringName animName);
 
         protected abstract void ConfigureStateMachine();
 
