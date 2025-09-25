@@ -1,6 +1,7 @@
 using CharacterModule.BehaviourTree;
 using DDemo.Scripts.CharacterParts.AIBehaviourTreeNode;
 using DDemo.Scripts.Characters.Core.Context;
+using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace DDemo.Scripts.CharacterParts.AttakNodes
                 // 5. 更新位置 
                 _ai.MoveAndSlide();
 
+                _logger.LogBehaviourTreeNodeInformation(this, $"正在跟随角色{targetNode.Name}");
                 return NodeState.Running;
             }
             else

@@ -53,6 +53,8 @@ public partial class TestAI : AIBase
 		_enemyFollow.AddEnter(() => _isWalk = true)
 			.AddExit(() => _isWalk = false);
 
+		_meleeAttack.AddEnter(() => _isAttack = true);
+
 		StateMachine.SetInitialState(_enemyIdle);
 	}
     protected override void ConfigureBehaviourTree()
@@ -61,22 +63,24 @@ public partial class TestAI : AIBase
 			.Selector()
 				//攻击一
 				.Selector()
-					//尝试攻击
-					.Sequence()
-						.Action(delta => NodeState.Failure)
+					.RuningExitParallel()
+                        //一般来说是攻击动画结束了才退出
+                        .SwitchAnimation(_meleeAttack)
+                        .Action(delta =>
+						{
+							if (_isAttack)
+								return NodeState.Running;
+							else return NodeState.Failure;
+						})
 					.End()
 					//尝试追踪
-					.Sequence()
+					.RuningExitParallel()
+						//在攻击范围退出
 						.SwitchAnimation(_enemyFollow)
-						.Parallel(ParallelPolicy.Any, ParallelPolicy.Any)
-							//在攻击范围退出
-							.AddChild(new CheckTargetInFollowRangeNode(80, E_TargetType.Character))
-							.AddChild(new FollowTargetNode(E_TargetType.Character, _speed))
-						.End()
+						.AddChild(new CheckTargetInFollowRangeNode(40, E_TargetType.Character))
+						.AddChild(new FollowTargetNode(E_TargetType.Character, _speed))
 					.End()
-				.End()
-				.Sequence()
-					.SwitchAnimation(_enemyIdle);
+				.End();
 				
     }
 	/// <summary>
@@ -88,6 +92,5 @@ public partial class TestAI : AIBase
 		_attackIndex = 0;
 		_isAttack = false;
 	}
-
 
 }

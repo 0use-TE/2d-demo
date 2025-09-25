@@ -1,6 +1,7 @@
 using CharacterModule.BehaviourTree;
 using DDemo.Scripts.CharacterParts.AIBehaviourTreeNode;
 using DDemo.Scripts.Characters.Core.Context;
+using DDemo.Scripts.Test.LoggerExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace DDemo.Scripts.CharacterParts.AttakNodes
             {
                 if(_ai.GlobalPosition.DistanceTo(target.TargetNode.GlobalPosition)<_attackRange)
                 {
+                    _logger.LogBehaviourTreeNodeInformation(this, $"{target.TargetNode.Name}处在攻击范围");
                     return NodeState.Failure;
                 }
                 else

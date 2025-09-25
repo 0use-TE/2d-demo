@@ -2,6 +2,7 @@ using CharacterModule.BehaviourTree.ActionNodes;
 using CharacterModule.BehaviourTree.CompositeNodes;
 using CharacterModule.BehaviourTree.Core;
 using CharacterModule.BehaviourTreeModule.ActionNodes;
+using CharacterModule.BehaviourTreeModule.CompositeNodes;
 using CharacterModule.BehaviourTreeModule.DecorateNodes;
 using CharacterModule.StateMachineModule;
 using System;
@@ -25,6 +26,12 @@ namespace CharacterModule.BehaviourTree
         public static ICompositeNode Parallel(this ICompositeNode parent, ParallelPolicy successPolicy, ParallelPolicy failurePolicy,RunningPolicy runningPolicy=RunningPolicy.WaitAny)
         {
             var parallel = new CompositeNodes.Parallel(successPolicy, failurePolicy,runningPolicy);
+            parent.AddChild(parallel);
+            return parallel;
+        }
+        public static ICompositeNode RuningExitParallel(this ICompositeNode parent)
+        {
+            var parallel = new RuningExitParallel();
             parent.AddChild(parallel);
             return parallel;
         }

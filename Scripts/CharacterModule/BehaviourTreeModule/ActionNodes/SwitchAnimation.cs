@@ -29,31 +29,13 @@ namespace CharacterModule.BehaviourTreeModule.ActionNodes
 		public override NodeState Tick(double delta)
 		{
 			var currentState = _stateMachine.GetCurrentState();
-			if (currentState == null)
-			{
-				_stateMachine.ChangeState(_newState);
-				return NodeState.Success;
-			}
 
-				//暂时两种动画类型 内部动画切换逻辑好像一样?
-			if (_isOneShot)
+			if (currentState.GetType() != _newState.GetType())
 			{
-				if (currentState.GetType() != _newState.GetType())
-				{
-					_stateMachine.ChangeState(_newState);
-					_logger?.LogInformation($"切换到了动画:{_newState.GetType().Name}");
-				}
-				return NodeState.Success;
+				_logger?.LogInformation($"切换到了动画:{_newState.GetType().Name}");
+				_stateMachine.ChangeState(_newState);
 			}
-			else
-			{
-				if (currentState.GetType() != _newState.GetType())
-				{
-					_logger?.LogInformation($"切换到了动画:{_newState.GetType().Name}");
-					_stateMachine.ChangeState(_newState);
-				}
-				return NodeState.Success;
-			}
+			return NodeState.Running;
 		}
 	}
 }
