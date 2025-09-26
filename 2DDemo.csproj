@@ -4,6 +4,7 @@
 		<Nullable>enable</Nullable>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<RootNamespace>DDemo</RootNamespace>
+		<NoWarn>$(NoWarn);NU1605</NoWarn>
 
 		<!-- Catch compiler-mismatch issues with the Introspection generator -->
 		<WarningsAsErrors>CS9057</WarningsAsErrors>
@@ -31,6 +32,7 @@
 
   <ItemGroup>
     <Folder Include="addons\" />
+    <Folder Include="Scripts\Characters\AIPerception\Imps\" />
     <Folder Include="Scripts\Characters\TestAI\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
     <Folder Include="Scripts\Misc\CustomExceptions\" />
@@ -45,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <PackageVersion Include="GodotSharp" Version="4.4.1-limboai-v1.4.1.gha" />
    <PackageReference Include="Chickensoft.AutoInject" Version="2.8.33" />
    <PackageReference Include="Chickensoft.AutoInject.Analyzers" Version="2.8.33" />
    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.38" />
@@ -54,6 +57,8 @@
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+
+
   </ItemGroup>
 
   <ItemGroup>

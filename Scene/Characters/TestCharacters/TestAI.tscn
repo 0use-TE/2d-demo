@@ -1,6 +1,7 @@
-[gd_scene load_steps=49 format=3 uid="uid://824k1705eog2"]
+[gd_scene load_steps=48 format=3 uid="uid://824k1705eog2"]
 
 [ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
+[ext_resource type="BehaviorTree" uid="uid://cyt4e2fv2tlqh" path="res://ai/trees/TestTree.tres" id="2_7vr7s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqbyl"]
 atlas = ExtResource("1_pqbyl")
@@ -456,11 +457,6 @@ height = 18.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vr7s"]
 radius = 100.0
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_7vr7s"]
-
-[sub_resource type="BehaviorTree" id="BehaviorTree_4p1rw"]
-blackboard_plan = SubResource("BlackboardPlan_7vr7s")
-
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_pqbyl"]
 
 [node name="TestAi" type="CharacterBody2D"]
@@ -468,8 +464,8 @@ texture_filter = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
-animation = &"Death"
-frame = 3
+animation = &"Attack1"
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -494,5 +490,5 @@ shape = SubResource("CircleShape2D_7vr7s")
 debug_color = Color(0.908358, 0.167003, 0.618607, 0.42)
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
-behavior_tree = SubResource("BehaviorTree_4p1rw")
+behavior_tree = ExtResource("2_7vr7s")
 blackboard_plan = SubResource("BlackboardPlan_pqbyl")

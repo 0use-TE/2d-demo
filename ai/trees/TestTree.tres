@@ -1,11 +1,30 @@
-[gd_resource type="BehaviorTree" load_steps=4 format=3 uid="uid://cyt4e2fv2tlqh"]
+[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://cyt4e2fv2tlqh"]
+
+[ext_resource type="Script" uid="uid://ce8hbm2hc670l" path="res://ai/tasks/CheckTargetRadiusTask.cs" id="1_c0ysr"]
+[ext_resource type="Script" uid="uid://bnt2tacaphrby" path="res://ai/tasks/FollowTargetTask.cs" id="2_gfif7"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_np7cm"]
 
-[sub_resource type="BTSequence" id="BTSequence_np7cm"]
+[sub_resource type="BTCondition" id="BTCondition_gfif7"]
+script = ExtResource("1_c0ysr")
+
+[sub_resource type="BBNode" id="BBNode_np7cm"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_c0ysr"]
+animation_player = SubResource("BBNode_np7cm")
+animation_name = &"Walk"
+
+[sub_resource type="BTAction" id="BTAction_kjsci"]
+script = ExtResource("2_gfif7")
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_np7cm"]
+custom_name = "FollowTargetSequence"
+children = [SubResource("BTCondition_gfif7"), SubResource("BTPlayAnimation_c0ysr"), SubResource("BTAction_kjsci")]
 
 [sub_resource type="BTSelector" id="BTSelector_np7cm"]
-children = [SubResource("BTSequence_np7cm")]
+children = [SubResource("BTDynamicSequence_np7cm")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_np7cm")
