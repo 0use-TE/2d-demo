@@ -1,6 +1,6 @@
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
-using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Entity.Core;
 using DDemo.Scripts.GameHander;
 using DDemo.Scripts.GameIn.EnvironmentContext;
 using DDemo.Scripts.Test.LoggerExtensions;
@@ -34,10 +34,7 @@ namespace DDemo.Scripts.GameIn
             
 		public void OnReady()
 		{
-			//获取所有玩家，开发场景使用，正常都是游戏外部创建玩家传入的
-			#region
-			_playerContext.Players = GetTree().GetNodesInGroup("Player").OfType<PlayerBase>().ToList();
-			#endregion
+
 		}
 
         public void Setup()

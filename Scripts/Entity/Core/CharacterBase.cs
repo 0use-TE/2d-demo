@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDemo.Scripts.Characters.Core
+namespace DDemo.Scripts.Entity.Core
 {
 	[Meta(typeof(IAutoNode))]
 public	abstract partial class CharacterBase: CharacterBody2D, ICharacter 
@@ -40,20 +40,18 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 
         public E_TeamType TeamType { get; set; }
 
-        protected ILogger _logger = default!;
+		public ILogger ILogger { get; set; } = default!;
 
         [Inject]
         public ILoggerFactory _loggerFactory = default!;
-
 
         public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
 		public override void _Ready()
 		{
 			base._Ready();
-			_logger = _loggerFactory.CreateLogger(GetType());
+			ILogger = _loggerFactory.CreateLogger(GetType());
 			CharacterBody2D = this;
 		}
-
 		public void AddVelocity(float? x = null, float? y = null)
 		{
 			var velocity = Velocity;
@@ -66,7 +64,6 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 			base._Process(delta);
 			Filp();
 		}
-		
 		public void Filp()
 		{
 			if (Velocity.X > 0 && FacingDirection < 0)
@@ -80,7 +77,6 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 				AnimatedSprite2D.FlipH = true;
 			}
 		}
-
 		public void SetVelocity(float? x = null, float? y = null)
 		{
 			var velocity = Velocity;

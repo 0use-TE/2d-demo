@@ -1,4 +1,4 @@
-using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Entity.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

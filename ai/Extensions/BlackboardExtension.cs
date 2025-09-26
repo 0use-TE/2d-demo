@@ -9,17 +9,17 @@ namespace DDemo.ai.Extensions
 {
     public static class BlackboardExtensions
     {
-        public static void Set<[MustBeVariant] T>(this Blackboard blackboard, T value)
+        public static void Set<T>(this Blackboard blackboard, T value) where T:GodotObject
         {
             var key = typeof(T).FullName!;
-            blackboard.Set(key, Variant.From(value));
+            blackboard.SetVar(key, value);
+
         }
 
-        public static T Get<[MustBeVariant] T>(this Blackboard blackboard)
+        public static T Get<[MustBeVariant]T>(this Blackboard blackboard) where T : GodotObject
         {
             var key = typeof(T).FullName!;
-            var variant = blackboard.Get(key);
-            return variant.As<T>();
+            return blackboard.GetVar(key).As<T>();
         }
     }
 }

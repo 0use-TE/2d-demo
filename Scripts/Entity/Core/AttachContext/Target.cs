@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDemo.Scripts.Characters.Core.Context
+namespace DDemo.Scripts.Entity.Core.Context
 {
     public class Target
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDemo.Scripts.Characters.Core
+namespace DDemo.Scripts.Entity.Core
 {
 	public interface ICharacter
 	{

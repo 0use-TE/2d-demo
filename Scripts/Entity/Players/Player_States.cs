@@ -1,7 +1,7 @@
 
 using CharacterModule.StateMachineModule;
 
-namespace DDemo.Scripts.Characters.Players
+namespace DDemo.Scripts.Entity.Players
 {
     public partial class Player
     {

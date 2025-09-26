@@ -4,6 +4,11 @@
 [ext_resource type="Script" uid="uid://bnt2tacaphrby" path="res://ai/tasks/FollowTargetTask.cs" id="2_gfif7"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_np7cm"]
+var/var/name = &"var"
+var/var/type = 28
+var/var/value = []
+var/var/hint = 0
+var/var/hint_string = ""
 
 [sub_resource type="BTCondition" id="BTCondition_gfif7"]
 script = ExtResource("1_c0ysr")
@@ -18,6 +23,7 @@ animation_name = &"Walk"
 
 [sub_resource type="BTAction" id="BTAction_kjsci"]
 script = ExtResource("2_gfif7")
+_speed = 30.0
 
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_np7cm"]
 custom_name = "FollowTargetSequence"

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
 [ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="5_l7vlk"]
 [ext_resource type="Script" uid="uid://dsnlrub0fns4n" path="res://Scripts/Test/TestDebug.cs" id="5_ly247"]
-[ext_resource type="Script" uid="uid://0rlgvfw3f8fo" path="res://Scripts/Characters/TestAI/TestAi.cs" id="6_ly247"]
+[ext_resource type="Script" uid="uid://0rlgvfw3f8fo" path="res://Scripts/Entity/AI/TestAI/TestAi.cs" id="6_ly247"]
 
 [node name="GameInManager" type="Node2D"]
 texture_filter = 1

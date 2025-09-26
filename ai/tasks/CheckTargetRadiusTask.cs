@@ -1,19 +1,27 @@
+using DDemo.ai.Extensions;
+using DDemo.Scripts.Entity.Core;
 using Godot;
 using System;
 
 public partial class CheckTargetRadiusTask : BTCondition
 {
+    public override void _Setup()
+    {
+    }
     public override Status _Tick(double delta)
     {
-        var player = Blackboard.Get("Player").As<Node2D>();
-        if(player!=null)
+       var _ai = Blackboard.Get<AIBase>();
+
+        var targetContext = _ai.TargetContext;
+        if(targetContext.CharacterTarget==null)
         {
-            GD.Print("检测到了玩家");
-            return Status.Success;
+            _ai.LoggerBTNode(this, $"角色目标为null");
+            return Status.Failure;
         }
         else
         {
-            return Status.Failure;
+            _ai.LoggerBTNode(this, $"检测到角色{targetContext.CharacterTarget.TargetNode?.Name}");
+            return Status.Success;
         }
     }
 }

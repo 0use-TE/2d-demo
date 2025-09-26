@@ -4,7 +4,7 @@
 	using System.Text;
 	using System.Threading.Tasks;
 
-namespace DDemo.Scripts.Characters.Core.Context
+namespace DDemo.Scripts.Entity.Core.Context
 {
 	public enum E_TargetType
 	{
@@ -17,15 +17,15 @@ namespace DDemo.Scripts.Characters.Core.Context
 		/// <summary>
 		/// 范围内的角色目标
 		/// </summary>
-		public Target? CharacterTarget { get; set; }
+		public Target CharacterTarget { get; set; } = new Target();
 		/// <summary>
 		/// 范围内的建筑目标
 		/// </summary>
-		public Target? BuildingTarget { get; set; }
+		public Target BuildingTarget { get; set; }=new Target();
 		/// <summary>
 		/// 固定的大本营目标
 		/// </summary>
-		public Target? MainBaseTarget { get; set; }
+		public Target MainBaseTarget { get; set; } = new Target();
 		public Target? GetTarget(E_TargetType targetType)
 		{
             var target = targetType switch
@@ -37,6 +37,5 @@ namespace DDemo.Scripts.Characters.Core.Context
             };
 			return target;
         }
-
 	}
 }

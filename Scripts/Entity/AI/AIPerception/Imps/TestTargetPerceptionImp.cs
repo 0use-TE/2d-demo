@@ -1,0 +1,36 @@
+using DDemo.Scripts.Entity.AI.AIPerception.Core;
+using DDemo.Scripts.Entity.Core;
+using DDemo.Scripts.Entity.Core.Context;
+using DDemo.Scripts.GameIn.EnvironmentContext;
+using DDemo.Scripts.Test.LoggerExtensions;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DDemo.Scripts.Entity.AI.AIPerception.Imps
+{
+    internal class TestTargetPerceptionImp : ITargetPerception
+    {
+        public void TargetPerception(AIBase ai,IList<CharacterBase> characters,IList<BuildingBase> buildings, MapContext mapContext, ILogger logger, TargetContext targetContext)
+        {
+            if(targetContext.MainBaseTarget.TargetNode==null&&mapContext.TargetPos.Count>0)
+            {
+                var mainBase= mapContext.TargetPos.FirstOrDefault();
+                logger.LogInformationWithNodeName(ai,$"{mainBase?.Name}被设置为了大本营!");
+               targetContext.MainBaseTarget.TargetNode=mainBase;
+            }
+
+            var nearestCharacter = characters
+             .OrderBy(c => c.GlobalPosition.DistanceTo(ai.GlobalPosition))
+             .FirstOrDefault();
+            if (nearestCharacter != null)
+            {
+                logger.LogInformationWithNodeName(ai, $"角色{nearestCharacter.Name}被设置为了角色攻击目标!");
+                targetContext.CharacterTarget.TargetNode = nearestCharacter;
+            }
+        }
+    }
+}

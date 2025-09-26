@@ -1,11 +1,11 @@
 using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
-using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Entity.Core;
 using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using System;
-namespace DDemo.Scripts.Characters.Players;
+namespace DDemo.Scripts.Entity.Players;
 [Meta(typeof(IAutoConnect))]
 public partial class Player : PlayerBase
 {
@@ -69,7 +69,7 @@ public partial class Player : PlayerBase
 	}
     protected override void AnimationPlayer_AnimationFinished(StringName animName)
 	{
-        _logger.LogInformationWithNodeName(this, $"动画{animName}播放结束!");
+        ILogger.LogInformationWithNodeName(this, $"动画{animName}播放结束!");
         _isAttack = false;
         _attackIndex = 0;
     }
