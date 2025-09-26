@@ -18,7 +18,7 @@ namespace DDemo.ai.Extensions
         }
         public static void LoggerBTNode(this AIBase ai, BTTask btTask, string message)
         {
-            ai.ILogger.LogInformation($"\n行为树节点{btTask.GetType().Name}\n{message}");
+            ai.ILogger.LogInformation($"\n行为树节点{btTask.GetType().Name}\n{message}\n");
         }
     }
 }

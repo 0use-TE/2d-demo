@@ -15,27 +15,8 @@ namespace DDemo.Scripts.Entity.Core.Context
 	public class TargetContext
 	{
 		/// <summary>
-		/// 范围内的角色目标
+		/// 当前的目标
 		/// </summary>
-		public Target CharacterTarget { get; set; } = new Target();
-		/// <summary>
-		/// 范围内的建筑目标
-		/// </summary>
-		public Target BuildingTarget { get; set; }=new Target();
-		/// <summary>
-		/// 固定的大本营目标
-		/// </summary>
-		public Target MainBaseTarget { get; set; } = new Target();
-		public Target? GetTarget(E_TargetType targetType)
-		{
-            var target = targetType switch
-            {
-                E_TargetType.Character => CharacterTarget,
-                E_TargetType.Building => BuildingTarget,
-                E_TargetType.MainBase => MainBaseTarget,
-                _ => null // 兜底，避免没有匹配情况
-            };
-			return target;
-        }
+		public Target CurrentTarget { get; set; } = new Target();
 	}
 }

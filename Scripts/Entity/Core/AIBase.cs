@@ -22,8 +22,10 @@ namespace DDemo.Scripts.Entity.Core
         public override void _Notification(int what) => this.Notify(what);
         [Node(nameof(BTPlayer))]
         protected BTPlayer BTPlayer { get; set; } = default!;
+
         [Node(nameof(Area2D))]
         private Area2D Area2D { get; set; } = default!;
+
         private Timer? _timer;
         private IList<CharacterBase> _characters = new List<CharacterBase>();
         private IList<BuildingBase> _buildings = new List<BuildingBase>();
@@ -51,7 +53,6 @@ namespace DDemo.Scripts.Entity.Core
             //配置感知
             ConfigurateTargetPenetration(_targetPerceptions);
             BTPlayer.Blackboard.Set(this);
-
         }
 
         public void OnResolved()
@@ -87,9 +88,8 @@ namespace DDemo.Scripts.Entity.Core
                 if (character.TeamType != TeamType)
                 {
                     ILogger.LogInformationWithNodeName(this, $"角色{character.Name}退出了攻击范围!");
-                    //移除
-                    if (TargetContext.CharacterTarget.TargetNode == character)
-                        TargetContext.CharacterTarget.TargetNode =null;
+                    if (TargetContext.CurrentTarget.TargetNode == character)
+                        TargetContext.CurrentTarget.TargetNode =null;
 
                     _characters.Remove(character);
                 }
@@ -114,6 +114,10 @@ namespace DDemo.Scripts.Entity.Core
                 ILogger.LogInformationWithNodeName(this, $"执行了策略{item.GetType().Name}");
                 item.TargetPerception(this, _characters, _buildings, MapContext, ILogger, TargetContext);
             }
+        }
+        public void FacingTarget()
+        {
+
         }
     }
 }

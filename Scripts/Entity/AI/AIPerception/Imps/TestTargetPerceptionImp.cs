@@ -16,12 +16,6 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.Imps
     {
         public void TargetPerception(AIBase ai,IList<CharacterBase> characters,IList<BuildingBase> buildings, MapContext mapContext, ILogger logger, TargetContext targetContext)
         {
-            if(targetContext.MainBaseTarget.TargetNode==null&&mapContext.TargetPos.Count>0)
-            {
-                var mainBase= mapContext.TargetPos.FirstOrDefault();
-                logger.LogInformationWithNodeName(ai,$"{mainBase?.Name}被设置为了大本营!");
-               targetContext.MainBaseTarget.TargetNode=mainBase;
-            }
 
             var nearestCharacter = characters
              .OrderBy(c => c.GlobalPosition.DistanceTo(ai.GlobalPosition))
@@ -29,8 +23,18 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.Imps
             if (nearestCharacter != null)
             {
                 logger.LogInformationWithNodeName(ai, $"角色{nearestCharacter.Name}被设置为了角色攻击目标!");
-                targetContext.CharacterTarget.TargetNode = nearestCharacter;
+                targetContext.CurrentTarget.TargetNode = nearestCharacter;
             }
+            else
+            {
+                var manBaseNode = mapContext.TargetPos.FirstOrDefault();
+                if (manBaseNode != null)
+                {
+                    logger.LogInformationWithNodeName(ai, $"大本营{manBaseNode.Name}被设置为了角色攻击目标!");
+                    targetContext.CurrentTarget.TargetNode = manBaseNode;
+                }
+            }
+            logger.LogInformationWithNodeName(ai, $"找不到任何攻击目标!");
         }
     }
 }

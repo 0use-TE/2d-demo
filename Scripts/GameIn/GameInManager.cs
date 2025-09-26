@@ -22,6 +22,8 @@ namespace DDemo.Scripts.GameIn
 		IProvide<MapContext>
 	{
 		public override void _Notification(int what) => this.Notify(what);
+		[Export]
+		private Node2D? TestMainBase { get; set; }
 		[Inject]
 		private ILogger<GameInManager> _logger=default!;
 
@@ -34,7 +36,8 @@ namespace DDemo.Scripts.GameIn
             
 		public void OnReady()
 		{
-
+			if(TestMainBase != null) 
+			_mapContext.TargetPos.Add(TestMainBase);
 		}
 
         public void Setup()

@@ -13,14 +13,14 @@ public partial class CheckTargetRadiusTask : BTCondition
        var _ai = Blackboard.Get<AIBase>();
 
         var targetContext = _ai.TargetContext;
-        if(targetContext.CharacterTarget==null)
+        if(targetContext.CurrentTarget.TargetNode==null)
         {
             _ai.LoggerBTNode(this, $"角色目标为null");
             return Status.Failure;
         }
         else
         {
-            _ai.LoggerBTNode(this, $"检测到角色{targetContext.CharacterTarget.TargetNode?.Name}");
+            _ai.LoggerBTNode(this, $"检测到角色{targetContext.CurrentTarget.TargetNode?.Name}");
             return Status.Success;
         }
     }
