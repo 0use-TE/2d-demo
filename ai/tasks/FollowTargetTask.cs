@@ -9,7 +9,7 @@ public partial class FollowTargetTask : BTAction
     private float _speed;
     public override void _Setup()
     {
-
+        _speed = Blackboard.GetVar("MoveSpeed").As<float>();
     }
     public override Status _Tick(double delta)
     {

@@ -11,7 +11,7 @@
 [node name="GameInManager" type="Node2D" node_paths=PackedStringArray("TestMainBase")]
 texture_filter = 1
 script = ExtResource("1_ly247")
-TestMainBase = NodePath("TestMainBase")
+TestMainBase = NodePath("MainBase")
 
 [node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
 
@@ -30,7 +30,7 @@ script = ExtResource("5_ly247")
 position = Vector2(133, -12)
 script = ExtResource("6_ly247")
 
-[node name="TestMainBase" type="Sprite2D" parent="."]
-position = Vector2(-183, -130)
-scale = Vector2(0.23, 0.23)
+[node name="MainBase" type="Sprite2D" parent="."]
+position = Vector2(-186, 226)
+scale = Vector2(0.415, 0.415)
 texture = ExtResource("7_nr04c")

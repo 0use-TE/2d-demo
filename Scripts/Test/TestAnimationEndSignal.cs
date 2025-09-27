@@ -1,6 +1,6 @@
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
-using DDemo.Scripts.Test.LoggerExtensions;
+using DDemo.Scripts.Misc.Extensions;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;

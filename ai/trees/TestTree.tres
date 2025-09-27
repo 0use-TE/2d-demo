@@ -1,15 +1,15 @@
-[gd_resource type="BehaviorTree" load_steps=19 format=3 uid="uid://cyt4e2fv2tlqh"]
+[gd_resource type="BehaviorTree" load_steps=17 format=3 uid="uid://cyt4e2fv2tlqh"]
 
 [ext_resource type="Script" uid="uid://ce8hbm2hc670l" path="res://ai/tasks/CheckTargetRadiusTask.cs" id="1_c0ysr"]
 [ext_resource type="Script" uid="uid://clm3wmbgvgq1" path="res://ai/tasks/CheckTargetInAttackRadiusTask.cs" id="1_kjsci"]
 [ext_resource type="Script" uid="uid://bnt2tacaphrby" path="res://ai/tasks/FollowTargetTask.cs" id="2_gfif7"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_np7cm"]
-var/var/name = &"var"
-var/var/type = 28
-var/var/value = []
-var/var/hint = 0
-var/var/hint_string = ""
+var/MoveSpeed/name = &"MoveSpeed"
+var/MoveSpeed/type = 3
+var/MoveSpeed/value = 30.0
+var/MoveSpeed/hint = 0
+var/MoveSpeed/hint_string = "30"
 
 [sub_resource type="BTCondition" id="BTCondition_mhc1f"]
 script = ExtResource("1_kjsci")
@@ -48,22 +48,14 @@ animation_name = &"Walk"
 
 [sub_resource type="BTAction" id="BTAction_kjsci"]
 script = ExtResource("2_gfif7")
-_speed = 30.0
+_speed = 0.0
 
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_np7cm"]
-custom_name = "FollowTargetSequence"
+custom_name = "FollowTarget"
 children = [SubResource("BTCondition_gfif7"), SubResource("BTInvert_mhc1f"), SubResource("BTPlayAnimation_c0ysr"), SubResource("BTAction_kjsci")]
 
-[sub_resource type="BBNode" id="BBNode_kjsci"]
-resource_name = "AnimationPlayer"
-saved_value = NodePath("AnimationPlayer")
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_mhc1f"]
-animation_player = SubResource("BBNode_kjsci")
-animation_name = &"Idle"
-
 [sub_resource type="BTSelector" id="BTSelector_np7cm"]
-children = [SubResource("BTSequence_kjsci"), SubResource("BTDynamicSequence_np7cm"), SubResource("BTPlayAnimation_mhc1f")]
+children = [SubResource("BTSequence_kjsci"), SubResource("BTDynamicSequence_np7cm")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_np7cm")

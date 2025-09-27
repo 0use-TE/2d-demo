@@ -2,7 +2,6 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.Misc.Enums;
-using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;

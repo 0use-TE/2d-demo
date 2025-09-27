@@ -1,5 +1,5 @@
 using DDemo.Scripts.Entity.Core;
-using DDemo.Scripts.Test.LoggerExtensions;
+using DDemo.Scripts.Misc.Extensions;
 using Godot;
 using Microsoft.Extensions.Logging;
 using System;

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CharacterStatsResource" load_steps=2 format=3 uid="uid://b50x558mqtlau"]
+
+[ext_resource type="Script" uid="uid://bk2wdi4x4yuts" path="res://Scripts/Stats/PlayerStats/CharacterStatsResource.cs" id="1_ckg6b"]
+
+[resource]
+script = ExtResource("1_ckg6b")
+Speed = 0.0
+metadata/_custom_type_script = "uid://bk2wdi4x4yuts"

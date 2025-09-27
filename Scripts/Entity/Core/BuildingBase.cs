@@ -9,5 +9,6 @@ namespace DDemo.Scripts.Entity.Core
 {
     public partial class BuildingBase:StaticBody2D,IBuilding
     {
+
     }
 }

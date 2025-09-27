@@ -2,7 +2,7 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.Scripts.Entity.Core;
-using DDemo.Scripts.Test.LoggerExtensions;
+using DDemo.Scripts.Misc.Extensions;
 using Godot;
 using System;
 namespace DDemo.Scripts.Entity.Players;

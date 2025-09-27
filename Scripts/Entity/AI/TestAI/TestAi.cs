@@ -6,7 +6,6 @@ using DDemo.Scripts.Entity.Core;
 using DDemo.Scripts.Entity.Core.Context;
 using DDemo.Scripts.GameIn.EnvironmentContext;
 using DDemo.Scripts.Misc.Enums;
-using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using System;
 using System.Collections;

@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDemo.Scripts.Test.LoggerExtensions
+namespace DDemo.Scripts.Misc.Extensions
 {
     public static class LoggerExtensions
     {
-
         public static void LogInformationWithNodeName(this ILogger logger, Node node, string content, bool logTime = false)
         {
             var msg = $"\nGodot节点类型:{node.Name}\n信息:{content}";

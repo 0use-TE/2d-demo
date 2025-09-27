@@ -2,7 +2,7 @@ using DDemo.Scripts.Entity.AI.AIPerception.Core;
 using DDemo.Scripts.Entity.Core;
 using DDemo.Scripts.Entity.Core.Context;
 using DDemo.Scripts.GameIn.EnvironmentContext;
-using DDemo.Scripts.Test.LoggerExtensions;
+using DDemo.Scripts.Misc.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

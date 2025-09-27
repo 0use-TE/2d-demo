@@ -465,7 +465,7 @@ texture_filter = 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
 animation = &"Attack1"
-frame_progress = 0.885224
+frame_progress = 0.480308
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

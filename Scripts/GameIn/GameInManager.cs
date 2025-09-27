@@ -3,7 +3,6 @@ using Chickensoft.Introspection;
 using DDemo.Scripts.Entity.Core;
 using DDemo.Scripts.GameHander;
 using DDemo.Scripts.GameIn.EnvironmentContext;
-using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;

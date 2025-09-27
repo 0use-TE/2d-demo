@@ -5,8 +5,9 @@ using DDemo.Scripts.Entity.AI.AIPerception.Core;
 using DDemo.Scripts.Entity.AI.AIPerception.Imps;
 using DDemo.Scripts.Entity.Core.Context;
 using DDemo.Scripts.GameIn.EnvironmentContext;
+using DDemo.Scripts.Misc;
 using DDemo.Scripts.Misc.Enums;
-using DDemo.Scripts.Test.LoggerExtensions;
+using DDemo.Scripts.Misc.Extensions;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace DDemo.Scripts.Entity.Core
     public abstract partial class AIBase:CharacterBase
     {
         public override void _Notification(int what) => this.Notify(what);
+
         [Node(nameof(BTPlayer))]
         protected BTPlayer BTPlayer { get; set; } = default!;
 
@@ -33,6 +35,7 @@ namespace DDemo.Scripts.Entity.Core
 
         [Dependency]
         public MapContext MapContext => this.DependOn<MapContext>();
+
         [Node(nameof(NavigationAgent2D))]
         public NavigationAgent2D NavigationAgent2D { get; set; } = default!;
         public TargetContext TargetContext { get; set; } = new TargetContext();
@@ -44,7 +47,7 @@ namespace DDemo.Scripts.Entity.Core
             _timer = new Timer()
             {
                 Autostart = true,
-                WaitTime = 1
+                WaitTime = GlobalConstant.PerceptionIntervel
             };
             _timer.Timeout += _timer_Timeout;
             AddChild(_timer);
