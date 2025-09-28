@@ -39,7 +39,12 @@ namespace DDemo.Scripts.Entity.Core
         [Node(nameof(NavigationAgent2D))]
         public NavigationAgent2D NavigationAgent2D { get; set; } = default!;
         public TargetContext TargetContext { get; set; } = new TargetContext();
-
+        [Node(nameof(AttackRadius))]
+        public Node2D AttackRadius { get; set; } = default!;
+        public override void _EnterTree()
+        {
+            BTPlayer.Blackboard.Set(this);
+        }
         public override void _Ready()
         {
             base._Ready();
@@ -55,9 +60,20 @@ namespace DDemo.Scripts.Entity.Core
             Area2D.BodyExited += Area2D_BodyExited;
             //配置感知
             ConfigurateTargetPenetration(_targetPerceptions);
-            BTPlayer.Blackboard.Set(this);
         }
 
+        public override void _Process(double delta)
+        {
+            base._Process(delta);
+            if (FacingDirection > 0 && AttackRadius.Scale.X<0)
+            {
+                AttackRadius.Scale = new Vector2(1, AttackRadius.Scale.Y);
+            }
+            else if(FacingDirection<0&&AttackRadius.Scale.X>0) 
+            {
+                AttackRadius.Scale = new Vector2(-1, AttackRadius.Scale.Y);
+            }
+        }
         public void OnResolved()
         {
             //配置黑板

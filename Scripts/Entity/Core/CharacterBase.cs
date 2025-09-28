@@ -1,5 +1,6 @@
 using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
+using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using DDemo.Scripts.Misc.Enums;
 using Godot;
@@ -21,6 +22,8 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		// 后台字段
 		private AnimationPlayer _animationPlayer = default!;
 		private AnimatedSprite2D _animatedSprite2D = default!;
+		[Export]
+		public Area2D[] Areas { get; set; } = [];
 
 		[Node(nameof(AnimationPlayer))]
 		public AnimationPlayer AnimationPlayer
@@ -38,9 +41,7 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
         }
 
         public E_TeamType TeamType { get; set; }
-
 		public ILogger ILogger { get; set; } = default!;
-
         [Inject]
         public ILoggerFactory _loggerFactory = default!;
 
@@ -61,21 +62,23 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
-			Filp();
+			Flip();
 		}
-		public void Filp()
+		public void Flip()
 		{
-			if (Velocity.X > 0 && FacingDirection < 0)
-			{
-				FacingDirection = 1;
-				AnimatedSprite2D.FlipH = false;
-			}
-			else if (Velocity.X < 0 && FacingDirection > 0)
+			//朝右
+			if (FacingDirection > 0 && Velocity.X < -0.1)
 			{
 				FacingDirection = -1;
 				AnimatedSprite2D.FlipH = true;
 			}
-		}
+
+			if (FacingDirection<0&&Velocity.X>0.1)
+			{
+				FacingDirection = 1;
+                AnimatedSprite2D.FlipH = false;
+            }
+        }
 		public void SetVelocity(float? x = null, float? y = null)
 		{
 			var velocity = Velocity;

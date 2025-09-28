@@ -19,6 +19,6 @@ namespace DDemo.Scripts.Entity.Core
 		int FacingDirection { get; set; } 
 		void SetVelocity(float? x=null, float? y=null);
 		void AddVelocity(float? x = null, float? y = null);
-		void Filp();
+		void Flip();
 	}
 }

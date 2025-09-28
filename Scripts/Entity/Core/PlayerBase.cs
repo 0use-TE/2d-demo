@@ -25,8 +25,10 @@ namespace DDemo.Scripts.Entity.Core
 			//设置阵营
 			TeamType = Misc.Enums.E_TeamType.Player;
             ConfigureStateMachine();
+			InitChatacterStats();
             AnimationPlayer.AnimationFinished += AnimationPlayer_AnimationFinished;
         }
+		public abstract void InitChatacterStats();
 
 		protected abstract void AnimationPlayer_AnimationFinished(StringName animName);
 
@@ -46,6 +48,5 @@ namespace DDemo.Scripts.Entity.Core
 			StateMachine.PhysicsProcess(delta);
 			MoveAndSlide();
 		}
-
 	}
 }

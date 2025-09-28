@@ -4,5 +4,9 @@
 
 [resource]
 script = ExtResource("1_ckg6b")
-Speed = 0.0
+HP = 100.0
+VerticalMoveSpeed = 64.0
+HorizontalMoveSpeed = 64.0
+MeleeAttackMoveSpeed = 0.0
+RemoteAttackMoveSpeed = 1.1
 metadata/_custom_type_script = "uid://bk2wdi4x4yuts"

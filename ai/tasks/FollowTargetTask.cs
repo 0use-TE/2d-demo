@@ -2,18 +2,21 @@ using DDemo.ai.Extensions;
 using DDemo.Scripts.Entity.Core;
 using Godot;
 using System;
-
+/// <summary>
+/// 存在攻击目标跟随，返回Running，否则返回Failure
+/// </summary>
 public partial class FollowTargetTask : BTAction
 {
-    [Export]
     private float _speed;
     public override void _Setup()
     {
+        
         _speed = Blackboard.GetVar("MoveSpeed").As<float>();
+
     }
     public override Status _Tick(double delta)
     {
-            var    _ai = Blackboard.Get<AIBase>();
+        var _ai = Blackboard.Get<AIBase>();
 
         var targetContext = _ai.TargetContext;
         if (targetContext.CurrentTarget.TargetNode != null)
