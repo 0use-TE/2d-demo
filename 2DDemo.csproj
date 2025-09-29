@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="addons\" />
     <Folder Include="Scripts\Entity\Building\" />
+    <Folder Include="Scripts\Entity\Core\AttackSystem\Imps\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
     <Folder Include="Scripts\Misc\CustomExceptions\" />
   </ItemGroup>

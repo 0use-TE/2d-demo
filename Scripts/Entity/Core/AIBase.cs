@@ -2,25 +2,22 @@ using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using DDemo.ai.Extensions;
 using DDemo.Scripts.Entity.AI.AIPerception.Core;
-using DDemo.Scripts.Entity.AI.AIPerception.Imps;
 using DDemo.Scripts.Entity.Core.Context;
 using DDemo.Scripts.GameIn.EnvironmentContext;
 using DDemo.Scripts.Misc;
 using DDemo.Scripts.Misc.Enums;
 using DDemo.Scripts.Misc.Extensions;
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core
 {
     [Meta(typeof(IAutoNode))]
-    public abstract partial class AIBase:CharacterBase
+    public abstract partial class AIBase:CharacterBase, IProvide<AIBase>
     {
         public override void _Notification(int what) => this.Notify(what);
+
+        public AIBase Value() => this;
 
         [Node(nameof(BTPlayer))]
         protected BTPlayer BTPlayer { get; set; } = default!;
@@ -39,8 +36,8 @@ namespace DDemo.Scripts.Entity.Core
         [Node(nameof(NavigationAgent2D))]
         public NavigationAgent2D NavigationAgent2D { get; set; } = default!;
         public TargetContext TargetContext { get; set; } = new TargetContext();
-        [Node(nameof(AttackRadius))]
-        public Node2D AttackRadius { get; set; } = default!;
+        [Node(nameof(AttackNodes))]
+        public Node2D AttackNodes { get; set; } = default!;
         public override void _EnterTree()
         {
             BTPlayer.Blackboard.Set(this);
@@ -65,13 +62,13 @@ namespace DDemo.Scripts.Entity.Core
         public override void _Process(double delta)
         {
             base._Process(delta);
-            if (FacingDirection > 0 && AttackRadius.Scale.X<0)
+            if (FacingDirection > 0 && AttackNodes.Scale.X<0)
             {
-                AttackRadius.Scale = new Vector2(1, AttackRadius.Scale.Y);
+                AttackNodes.Scale = new Vector2(1, AttackNodes.Scale.Y);
             }
-            else if(FacingDirection<0&&AttackRadius.Scale.X>0) 
+            else if(FacingDirection<0&&AttackNodes.Scale.X>0) 
             {
-                AttackRadius.Scale = new Vector2(-1, AttackRadius.Scale.Y);
+                AttackNodes.Scale = new Vector2(-1, AttackNodes.Scale.Y);
             }
         }
         public void OnResolved()
@@ -137,6 +134,12 @@ namespace DDemo.Scripts.Entity.Core
         public void FacingTarget()
         {
 
+        }
+
+        public void Setup()
+        {
+            // Call the this.Provide() method once your dependencies have been initialized.
+            this.Provide();
         }
     }
 }

@@ -8,6 +8,6 @@ namespace DDemo.Scripts.Entity.Core.AttackSystem.Core
 {
     internal interface IDamageable
     {
-        void TakeDamage(CharacterBase attacker);
+        void TakeDamage();
     }
 }

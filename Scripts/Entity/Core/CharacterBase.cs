@@ -2,6 +2,7 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using DDemo.Scripts.Entity.Core.AttackSystem.Core;
 using DDemo.Scripts.Misc.Enums;
 using Godot;
 using Godot.DependencyInjection.Attributes;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace DDemo.Scripts.Entity.Core
 {
 	[Meta(typeof(IAutoNode))]
-public	abstract partial class CharacterBase: CharacterBody2D, ICharacter 
+public	abstract partial class CharacterBase: CharacterBody2D, ICharacter ,IDamageable
 	{
 		public override void _Notification(int what) => this.Notify(what);
 		public CharacterBody2D CharacterBody2D { get; private set; } = default!;
@@ -86,5 +87,10 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter
 			if (y.HasValue) velocity.Y = y.Value;
 			Velocity = velocity;
 		}
-	}
+
+        public void TakeDamage()
+        {
+
+        }
+    }
 }

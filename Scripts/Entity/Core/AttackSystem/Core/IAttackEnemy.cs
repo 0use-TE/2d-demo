@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core.AttackSystem.Core
 {
-    internal interface IAttackDetector
+    internal interface IAttackEnemy
     {
-        void AttackDetector();
+        void AttackEnemy();
     }
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=50 format=3 uid="uid://824k1705eog2"]
+[gd_scene load_steps=52 format=3 uid="uid://824k1705eog2"]
 
 [ext_resource type="Script" uid="uid://0rlgvfw3f8fo" path="res://Scripts/Entity/AI/TestAI/TestAi.cs" id="1_4p1rw"]
 [ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
 [ext_resource type="BehaviorTree" uid="uid://cyt4e2fv2tlqh" path="res://ai/trees/TestTree.tres" id="2_7vr7s"]
+[ext_resource type="Script" uid="uid://cjfb4ywwvfh2q" path="res://Scripts/Entity/AI/AIPerception/AttackDetect/AttackArea.cs" id="4_gaeqs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqbyl"]
 atlas = ExtResource("1_pqbyl")
@@ -459,9 +460,12 @@ height = 18.0
 radius = 100.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_pqbyl"]
+binding/EnemyInAttackRadius1 = NodePath("../AttackNodes/Attack1:InAttackAreaDetector")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vr7s"]
-size = Vector2(15, 22)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p1rw"]
+size = Vector2(12, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gaeqs"]
 
 [node name="TestAi" type="CharacterBody2D"]
 texture_filter = 1
@@ -469,7 +473,8 @@ script = ExtResource("1_4p1rw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")
-animation = &"Attack2"
+animation = &"Attack1"
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -497,11 +502,23 @@ debug_color = Color(0.418368, 0.561269, 0.619598, 0.42)
 behavior_tree = ExtResource("2_7vr7s")
 blackboard_plan = SubResource("BlackboardPlan_pqbyl")
 
-[node name="AttackRadius" type="Node2D" parent="."]
+[node name="AttackNodes" type="Node2D" parent="."]
 
-[node name="AttackRadius1" type="Area2D" parent="AttackRadius"]
+[node name="Attack1" type="Node2D" parent="AttackNodes"]
 position = Vector2(15, 0)
+script = ExtResource("4_gaeqs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRadius/AttackRadius1"]
-shape = SubResource("RectangleShape2D_7vr7s")
-debug_color = Color(0.698284, 0.471367, 0.403687, 0.42)
+[node name="Detector" type="Area2D" parent="AttackNodes/Attack1"]
+position = Vector2(-4.5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackNodes/Attack1/Detector"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_4p1rw")
+debug_color = Color(0.37331, 0.495853, 0.945945, 0.42)
+
+[node name="HitBox" type="Area2D" parent="AttackNodes/Attack1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackNodes/Attack1/HitBox"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_gaeqs")
+debug_color = Color(0.523777, 0.569474, 0.18963, 0.42)
