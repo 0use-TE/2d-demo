@@ -1,0 +1,61 @@
+[gd_resource type="BehaviorTree" load_steps=17 format=3 uid="uid://cyt4e2fv2tlqh"]
+
+[ext_resource type="Script" uid="uid://ce8hbm2hc670l" path="res://ai/tasks/CheckTargetRadiusTask.cs" id="1_c0ysr"]
+[ext_resource type="BlackboardPlan" uid="uid://cmpawfdivj57d" path="res://Resources/AI/TestAI.tres" id="1_mhc1f"]
+[ext_resource type="Script" uid="uid://bnt2tacaphrby" path="res://ai/tasks/FollowTargetTask.cs" id="2_gfif7"]
+
+[sub_resource type="BBVariant" id="BBVariant_mhc1f"]
+resource_name = "true"
+saved_value = true
+type = 1
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_u28hq"]
+variable = &"EnemyInAttackRadius1"
+value = SubResource("BBVariant_mhc1f")
+
+[sub_resource type="BBNode" id="BBNode_u28hq"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_5y3gw"]
+await_completion = 1.5
+animation_player = SubResource("BBNode_u28hq")
+animation_name = &"Attack1"
+
+[sub_resource type="BTSequence" id="BTSequence_kjsci"]
+custom_name = "AttemptToAttack"
+children = [SubResource("BTCheckVar_u28hq"), SubResource("BTPlayAnimation_5y3gw")]
+
+[sub_resource type="BTCondition" id="BTCondition_gfif7"]
+script = ExtResource("1_c0ysr")
+
+[sub_resource type="BBVariant" id="BBVariant_kjsci"]
+resource_name = "<null>"
+saved_value = false
+type = 1
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_mhc1f"]
+variable = &"EnemyInAttackRadius1"
+value = SubResource("BBVariant_kjsci")
+
+[sub_resource type="BBNode" id="BBNode_np7cm"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_c0ysr"]
+animation_player = SubResource("BBNode_np7cm")
+animation_name = &"Walk"
+
+[sub_resource type="BTAction" id="BTAction_kjsci"]
+script = ExtResource("2_gfif7")
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_np7cm"]
+custom_name = "FollowTarget"
+children = [SubResource("BTCondition_gfif7"), SubResource("BTCheckVar_mhc1f"), SubResource("BTPlayAnimation_c0ysr"), SubResource("BTAction_kjsci")]
+
+[sub_resource type="BTSelector" id="BTSelector_np7cm"]
+children = [SubResource("BTSequence_kjsci"), SubResource("BTDynamicSequence_np7cm")]
+
+[resource]
+blackboard_plan = ExtResource("1_mhc1f")
+root_task = SubResource("BTSelector_np7cm")

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterStatsResource" load_steps=2 format=3 uid="uid://b50x558mqtlau"]
+
+[ext_resource type="Script" uid="uid://bk2wdi4x4yuts" path="res://Scripts/Stats/PlayerStats/CharacterStatsResource.cs" id="1_ckg6b"]
+
+[resource]
+script = ExtResource("1_ckg6b")
+HP = 100.0
+VerticalMoveSpeed = 64.0
+HorizontalMoveSpeed = 64.0
+MeleeAttackMoveSpeed = 0.0
+RemoteAttackMoveSpeed = 1.1
+metadata/_custom_type_script = "uid://bk2wdi4x4yuts"

@@ -1,3 +1,4 @@
+using DDemo.Scripts.Stats.PlayerStats;
 using Godot;
 using Godot.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,11 @@ namespace DDemo.Scripts.GameHander
             });
             //Godot Services
             services.AddGodotServices();
+            services.AddAutoMapper(configAction =>
+            {
+                configAction.CreateMap<CharacterStatsResource, CharacterStatsDto>();
+
+            });
 
             services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 

@@ -1,9 +1,8 @@
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
-using DDemo.Scripts.Characters.Core;
+using DDemo.Scripts.Entity.Core;
 using DDemo.Scripts.GameHander;
 using DDemo.Scripts.GameIn.EnvironmentContext;
-using DDemo.Scripts.Test.LoggerExtensions;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
@@ -22,6 +21,8 @@ namespace DDemo.Scripts.GameIn
 		IProvide<MapContext>
 	{
 		public override void _Notification(int what) => this.Notify(what);
+		[Export]
+		private Node2D? TestMainBase { get; set; }
 		[Inject]
 		private ILogger<GameInManager> _logger=default!;
 
@@ -34,10 +35,8 @@ namespace DDemo.Scripts.GameIn
             
 		public void OnReady()
 		{
-			//获取所有玩家，开发场景使用，正常都是游戏外部创建玩家传入的
-			#region
-			_playerContext.Players = GetTree().GetNodesInGroup("Player").OfType<PlayerBase>().ToList();
-			#endregion
+			if(TestMainBase != null) 
+			_mapContext.TargetPos.Add(TestMainBase);
 		}
 
         public void Setup()

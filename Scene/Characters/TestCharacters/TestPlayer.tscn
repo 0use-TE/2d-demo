@@ -1,6 +1,6 @@
-[gd_scene load_steps=86 format=3 uid="uid://ehm17p0wa3rx"]
+[gd_scene load_steps=66 format=3 uid="uid://ehm17p0wa3rx"]
 
-[ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Characters/Players/Player.cs" id="1_juf7y"]
+[ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Entity/Players/Player.cs" id="1_juf7y"]
 [ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
 [ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
 [ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
@@ -580,92 +580,6 @@ _data = {
 &"Walk": SubResource("Animation_enpw6")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tl5dv"]
-animation = &"Attack1"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1nhyp"]
-animation = &"Attack2"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mdlc4"]
-animation = &"Attack3"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ola4f"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fhdix"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tl5dv"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_33yth"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_enpw6"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jvrul"]
-advance_mode = 2
-advance_expression = "
-
-"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7dife"]
-advance_mode = 2
-advance_expression = "!_isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p3wpo"]
-advance_mode = 2
-advance_expression = "_isWalk
-"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wosc6"]
-advance_mode = 2
-advance_expression = "!_isWalk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t3ial"]
-advance_mode = 2
-advance_expression = "_isAttack&&_attackIndex==0"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_noeqt"]
-advance_mode = 2
-advance_expression = "!_isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cyq8k"]
-advance_mode = 2
-advance_expression = "_isAttack&&_attackIndex==1"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y0s0w"]
-advance_mode = 2
-advance_expression = "!_isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jp05s"]
-advance_mode = 2
-advance_expression = "_isAttack&&_attackIndex==2"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_577ts"]
-advance_mode = 2
-advance_expression = "!_isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yjg1q"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_juf7y"]
-states/Attack1/node = SubResource("AnimationNodeAnimation_tl5dv")
-states/Attack1/position = Vector2(538, 210)
-states/Attack2/node = SubResource("AnimationNodeAnimation_1nhyp")
-states/Attack2/position = Vector2(538, 270)
-states/Attack3/node = SubResource("AnimationNodeAnimation_mdlc4")
-states/Attack3/position = Vector2(536, 330.752)
-states/EndNode/node = SubResource("AnimationNodeStateMachine_ola4f")
-states/EndNode/position = Vector2(786, 395.752)
-states/Idle/node = SubResource("AnimationNodeAnimation_fhdix")
-states/Idle/position = Vector2(539, 40)
-states/StartNode/node = SubResource("AnimationNodeStateMachine_tl5dv")
-states/StartNode/position = Vector2(291, 395.752)
-states/Walk/node = SubResource("AnimationNodeAnimation_33yth")
-states/Walk/position = Vector2(539, 125)
-transitions = ["Start", "StartNode", SubResource("AnimationNodeStateMachineTransition_enpw6"), "StartNode", "Idle", SubResource("AnimationNodeStateMachineTransition_jvrul"), "Idle", "EndNode", SubResource("AnimationNodeStateMachineTransition_7dife"), "StartNode", "Walk", SubResource("AnimationNodeStateMachineTransition_p3wpo"), "Walk", "EndNode", SubResource("AnimationNodeStateMachineTransition_wosc6"), "StartNode", "Attack1", SubResource("AnimationNodeStateMachineTransition_t3ial"), "Attack1", "EndNode", SubResource("AnimationNodeStateMachineTransition_noeqt"), "StartNode", "Attack2", SubResource("AnimationNodeStateMachineTransition_cyq8k"), "Attack2", "EndNode", SubResource("AnimationNodeStateMachineTransition_y0s0w"), "StartNode", "Attack3", SubResource("AnimationNodeStateMachineTransition_jp05s"), "Attack3", "EndNode", SubResource("AnimationNodeStateMachineTransition_577ts"), "EndNode", "StartNode", SubResource("AnimationNodeStateMachineTransition_yjg1q")]
-graph_offset = Vector2(190, -50.7095)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_juf7y"]
 radius = 6.0
 height = 18.0
@@ -676,19 +590,13 @@ script = ExtResource("1_juf7y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
-animation = &"Idle"
-frame = 5
+animation = &"Attack1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_jvrul")
 }
 autoplay = "Idle"
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_juf7y")
-advance_expression_base_node = NodePath("..")
-anim_player = NodePath("../AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)

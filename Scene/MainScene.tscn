@@ -1,18 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://co3kunw1miigi"]
+[gd_scene load_steps=8 format=3 uid="uid://co3kunw1miigi"]
 
 [ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
 [ext_resource type="Script" uid="uid://1b2puv4fqdw0" path="res://Scripts/GameIn/GameInManager.cs" id="1_ly247"]
 [ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
+[ext_resource type="Resource" uid="uid://b50x558mqtlau" path="res://Resources/Player/TestPlayer.tres" id="4_i8335"]
 [ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="5_l7vlk"]
 [ext_resource type="Script" uid="uid://dsnlrub0fns4n" path="res://Scripts/Test/TestDebug.cs" id="5_ly247"]
+[ext_resource type="Texture2D" uid="uid://b32226umijxtp" path="res://Assets/icon.svg" id="7_nr04c"]
 
-[node name="GameInManager2" type="Node2D"]
+[node name="GameInManager" type="Node2D" node_paths=PackedStringArray("TestMainBase")]
 texture_filter = 1
 script = ExtResource("1_ly247")
+TestMainBase = NodePath("MainBase")
 
 [node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
 
 [node name="TestPlayer" parent="." instance=ExtResource("1_hcm6b")]
+CharacterStatsResource = ExtResource("4_i8335")
 
 [node name="Camera2D" type="Camera2D" parent="TestPlayer"]
 zoom = Vector2(3, 3)
@@ -24,4 +28,9 @@ position = Vector2(-128, 7)
 script = ExtResource("5_ly247")
 
 [node name="TestAi" parent="." instance=ExtResource("5_l7vlk")]
-position = Vector2(125, -15)
+position = Vector2(133, -12)
+
+[node name="MainBase" type="Sprite2D" parent="."]
+position = Vector2(-186, 226)
+scale = Vector2(0.415, 0.415)
+texture = ExtResource("7_nr04c")

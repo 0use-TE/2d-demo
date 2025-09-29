@@ -1,0 +1,19 @@
+[gd_resource type="BlackboardPlan" format=3 uid="uid://cmpawfdivj57d"]
+
+[resource]
+var/MoveSpeed/name = &"MoveSpeed"
+var/MoveSpeed/type = 3
+var/MoveSpeed/value = 45.0
+var/MoveSpeed/hint = 0
+var/MoveSpeed/hint_string = "45"
+var/Attack1Radius/name = &"Attack1Radius"
+var/Attack1Radius/type = 3
+var/Attack1Radius/value = 30.0
+var/Attack1Radius/hint = 0
+var/Attack1Radius/hint_string = "50"
+var/EnemyInAttackRadius1/name = &"EnemyInAttackRadius1"
+var/EnemyInAttackRadius1/type = 1
+var/EnemyInAttackRadius1/value = false
+var/EnemyInAttackRadius1/hint = 0
+var/EnemyInAttackRadius1/hint_string = ""
+binding/EnemyInAttackRadius1 = NodePath("AttackRadius/AttackRadius1:HasEnemyInAttackRadius")

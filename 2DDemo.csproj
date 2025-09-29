@@ -1,9 +1,10 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.4.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.4.1-limboai-v1.4.1.gha">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<RootNamespace>DDemo</RootNamespace>
+		<NoWarn>$(NoWarn);NU1605</NoWarn>
 
 		<!-- Catch compiler-mismatch issues with the Introspection generator -->
 		<WarningsAsErrors>CS9057</WarningsAsErrors>
@@ -31,7 +32,8 @@
 
   <ItemGroup>
     <Folder Include="addons\" />
-    <Folder Include="Scripts\CharacterParts\Extensions\" />
+    <Folder Include="Scripts\Entity\Building\" />
+    <Folder Include="Scripts\Entity\Core\AttackSystem\Imps\" />
     <Folder Include="Scripts\GameIn\GameInHandler\" />
     <Folder Include="Scripts\Misc\CustomExceptions\" />
   </ItemGroup>
@@ -39,14 +41,14 @@
   <ItemGroup>
     <None Include="docs\战斗系统设计.md" />
     <None Include="docs\进程.md" />
-    <None Include="Scripts\Characters\TestAI\EnemyStateCollection.cs.uid" />
-    <None Include="Scripts\Characters\TestAI\TestAI.cs.uid" />
     <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
     <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
     <None Include="docs\环境上下文设计.md" />
   </ItemGroup>
 
   <ItemGroup>
+	  <PackageVersion Include="GodotSharp" Version="4.4.1-limboai-v1.4.1.gha" />
+	  <PackageReference Include="AutoMapper" Version="15.0.1" />
    <PackageReference Include="Chickensoft.AutoInject" Version="2.8.33" />
    <PackageReference Include="Chickensoft.AutoInject.Analyzers" Version="2.8.33" />
    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.38" />
@@ -56,6 +58,8 @@
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+
+
   </ItemGroup>
 
   <ItemGroup>

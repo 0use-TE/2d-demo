@@ -26,20 +26,16 @@ namespace ToolSets.Shared
                 Console.WriteLine($"DLL文件不存在: {assemblyPath}");
                 return _filterRules;
             }
-            var direcory= Path.GetDirectoryName(assemblyPath);
-            if (direcory==null)
+            var directory = Path.GetDirectoryName(assemblyPath);
+            if (directory == null)
             {
-
                 return _filterRules;
             }
-
-            // 创建自定义 AssemblyLoadContext
-            var context = new CustomAssemblyLoadContext(direcory);
 
             try
             {
                 // 加载程序集
-                var assembly = context.LoadFromAssemblyPath(assemblyPath);
+                var assembly = Assembly.LoadFrom(assemblyPath);
                 Console.WriteLine($"加载到了程序集: {assembly.FullName}");
 
                 Type[] types;
@@ -57,62 +53,50 @@ namespace ToolSets.Shared
                     types = ex.Types.Where(t => t != null).ToArray()!;
                 }
 
-                // 1. 找到所有目标类型
+                // 只找 Node2D 的子类
                 var newTypeNames = types
                     .Where(t => t != null && typeof(Godot.Node2D).IsAssignableFrom(t))
-                    .Where(t =>
-                        t.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                            .Any(f => typeof(ILogger).IsAssignableFrom(f.FieldType) ||
-                                      typeof(ILoggerFactory).IsAssignableFrom(f.FieldType)) ||
-                        t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                            .Any(p => typeof(ILogger).IsAssignableFrom(p.PropertyType) ||
-                                      typeof(ILoggerFactory).IsAssignableFrom(p.PropertyType))
-                    )
                     .Select(t => t.FullName!)
                     .ToList();
 
-				// 2. 把旧规则转字典，方便查找
-				var dict = _filterRules.ToDictionary(r => r.TypeName, r => r);
+                // 2. 把旧规则转字典，方便查找
+                var dict = _filterRules.ToDictionary(r => r.TypeName, r => r);
 
-				// 3. 同步删除不存在的类型
-				foreach (var key in dict.Keys.ToList())
-				{
-					if (!newTypeNames.Contains(key))
-						dict.Remove(key);
-				}
+                // 3. 同步删除不存在的类型
+                foreach (var key in dict.Keys.ToList())
+                {
+                    if (!newTypeNames.Contains(key))
+                        dict.Remove(key);
+                }
 
-				// 4. 只添加新的，不覆盖旧的状态
-				foreach (var typeName in newTypeNames)
-				{
-					if (!dict.ContainsKey(typeName))
-					{
-						dict[typeName] = new LogFilterRule
-						{
-							TypeName = typeName,
-							FieldOrPropertyName = string.Empty,
-							IsEnabled = true, // 默认启用
-							LogLevel = "Information"
-						};
-					}
-				}
+                // 4. 只添加新的，不覆盖旧的状态
+                foreach (var typeName in newTypeNames)
+                {
+                    if (!dict.ContainsKey(typeName))
+                    {
+                        dict[typeName] = new LogFilterRule
+                        {
+                            TypeName = typeName,
+                            FieldOrPropertyName = string.Empty,
+                            IsEnabled = true, // 默认启用
+                            LogLevel = "Information"
+                        };
+                    }
+                }
 
-				// 5. 更新到 _filterRules
-				_filterRules = dict.Values.ToList();
+                // 5. 更新到 _filterRules
+                _filterRules = dict.Values.ToList();
                 SaveFilterRules(_filterRules);
 
-				return _filterRules;
+                return _filterRules;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"扫描程序集失败: {ex.Message}");
                 return _filterRules;
             }
-            finally
-            {
-                // 卸载 AssemblyLoadContext
-                context.Unload();
-            }
         }
+
         public List<LogFilterRule> GetFilterRules()
         {
             return _filterRules;

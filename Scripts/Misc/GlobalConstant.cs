@@ -9,7 +9,7 @@ namespace DDemo.Scripts.Misc
 	public  class GlobalConstant
 	{
 		/// <summary>
-		/// 感知系统多久感知一次，默认0.8s
+		/// 感知系统多久感知一次，默认0.6s
 		/// </summary>
 		public const float PerceptionIntervel = 0.6f;
 	}
