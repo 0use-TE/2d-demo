@@ -30,7 +30,7 @@ children = [SubResource("BTCheckVar_u28hq"), SubResource("BTPlayAnimation_5y3gw"
 script = ExtResource("1_c0ysr")
 
 [sub_resource type="BBVariant" id="BBVariant_kjsci"]
-resource_name = "<null>"
+resource_name = "false"
 saved_value = false
 type = 1
 

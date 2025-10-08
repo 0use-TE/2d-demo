@@ -21,5 +21,11 @@ namespace DDemo.ai.Extensions
             var key = typeof(T).FullName!;
             return blackboard.GetVar(key).As<T>();
         }
+
+        public static T GetVar<[MustBeVariant]T>(this Blackboard blackboard,string key)
+        {
+            var value = blackboard.GetVar(key).As<T>();
+            return value;
+        }
     }
 }

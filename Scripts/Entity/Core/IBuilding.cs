@@ -1,3 +1,4 @@
+using DDemo.Scripts.Misc.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,6 @@ namespace DDemo.Scripts.Entity.Core
 {
     internal interface IBuilding
     {
+        E_TeamType TeamType { get; }
     }
 }

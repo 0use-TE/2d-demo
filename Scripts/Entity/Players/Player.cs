@@ -1,10 +1,10 @@
-using AutoMapper;
 using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
+using DDemo.ai.Extensions;
 using DDemo.Scripts.Entity.Core;
+using DDemo.Scripts.Entity.Core.Stats;
 using DDemo.Scripts.Misc.Extensions;
-using DDemo.Scripts.Stats.PlayerStats;
 using Godot;
 using Godot.DependencyInjection.Attributes;
 using System;
@@ -14,11 +14,6 @@ public partial class Player : PlayerBase
 {
 	public override void _Notification(int what) => this.Notify(what);
 
-	[Inject]
-	private IMapper Mapper { get; set; } = default!;
-	[Export]
-	public CharacterStatsResource? CharacterStatsResource { get; set; }
-	private CharacterStatsDto _characterStatsDto=new CharacterStatsDto();
 	
 	//Input-Related
 	private PlayerInput _playerInput = new PlayerInput();
@@ -29,16 +24,13 @@ public partial class Player : PlayerBase
 	//Attack
 	private PlayerMeleeAttackState ?_playerMeleeAttackState;
 	private PlayerRemoteAttackState? _playerRemoteAttackState;
-
 	private bool _isAttack;
 	private int _attackIndex = 0;
-    public override void InitChatacterStats()
-    {
-		_characterStatsDto = Mapper.Map<CharacterStatsDto>(CharacterStatsResource);
-    }
 
 	protected override void ConfigureStateMachine()
 	{
+
+
 		_playerIdleState = new PlayerIdleState(StateMachine);
 		_playerWalkState = new PlayerWalkState(StateMachine);
 		_playerMeleeAttackState = new PlayerMeleeAttackState(StateMachine);
@@ -54,20 +46,18 @@ public partial class Player : PlayerBase
 			AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) < 0.1f && Mathf.Abs(_playerInput.Vertical) < .1f, _playerIdleState).
 			AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
 			AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
-			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * _characterStatsDto.HorizontalMoveSpeed, _playerInput.Vertical * _characterStatsDto.VerticalMoveSpeed));
+			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * GetVar<float>(StatStrings.HorizontalMoveSpeed), _playerInput.Vertical * GetVar<float>(StatStrings.HorizontalMoveSpeed)));
 
 		//MeleeAttack
 		_playerMeleeAttackState.AddEnter(() => _isAttack = true).AddEnter(() => SetVelocity(0, 0))
 			.AddEnter(() => _attackIndex = Random.Shared.Next(0, 2))
-			.AddEnter(()=>AnimationPlayer.Play("Attack"+(_attackIndex+1)))
-			.AddTransitions(() => !_isAttack, _playerIdleState)
-			.AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal *_characterStatsDto.MeleeAttackMoveSpeed, _playerInput.Vertical *_characterStatsDto.MeleeAttackMoveSpeed));
+			.AddEnter(() => AnimationPlayer.Play("Attack" + (_attackIndex + 1)))
+			.AddTransitions(() => !_isAttack, _playerIdleState);
 
 		//RemoteAttack
 		_playerRemoteAttackState.AddEnter(() => _isAttack = true).AddEnter(() => _attackIndex = 2)
-            .AddEnter(() => AnimationPlayer.Play("Attack" + (_attackIndex+1)))
-            .AddTransitions(() => !_isAttack, _playerIdleState)
-			.AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal *_characterStatsDto.RemoteAttackMoveSpeed, 0));
+			.AddEnter(() => AnimationPlayer.Play("Attack" + (_attackIndex + 1)))
+			.AddTransitions(() => !_isAttack, _playerIdleState);
 
 		//Set Initial State
 		StateMachine.SetInitialState(_playerIdleState);

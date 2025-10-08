@@ -2,6 +2,8 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using DDemo.ai.Extensions;
+using DDemo.Scripts.Entity.Core.AttackSystem.Core;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -17,19 +19,32 @@ namespace DDemo.Scripts.Entity.Core
 	{
         public override void _Notification(int what) => this.Notify(what);
 
-        public StateMachine StateMachine { get; private set; } = new StateMachine();
+		public StateMachine StateMachine { get; private set; } = new StateMachine();
+		private BlackboardPlan ?_blackboardPlan;
+		[Export]
+		private BlackboardPlan BlackboardPlan {
+			get => _blackboardPlan??throw new NullReferenceException("没有设置数值呢，请点击角色为其添加黑板😋");
+			set => _blackboardPlan = value;
+		}
 
+
+		private Blackboard _blackboard=default!;
+
+		public T GetVar<T>(string key)
+		{
+			return _blackboard.GetVar<T>(key);
+        }
         public override void _Ready()
 		{
 			base._Ready();
+			//创建黑板
+			_blackboard=BlackboardPlan.CreateBlackboard(this);
+
 			//设置阵营
 			TeamType = Misc.Enums.E_TeamType.Player;
             ConfigureStateMachine();
-			InitChatacterStats();
             AnimationPlayer.AnimationFinished += AnimationPlayer_AnimationFinished;
         }
-		public abstract void InitChatacterStats();
-
 		protected abstract void AnimationPlayer_AnimationFinished(StringName animName);
 
         protected abstract void ConfigureStateMachine();
