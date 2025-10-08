@@ -1,3 +1,4 @@
+using DDemo.Scripts.Entity.Core.AttackSystem.Core;
 using DDemo.Scripts.Misc.Enums;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core
 {
-    internal interface IBuilding:IEntity
+    public interface IEntity:IDamageable
     {
+        E_TeamType TeamType { get; set; }
     }
 }

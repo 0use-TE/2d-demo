@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core
 {
-	public interface ICharacter
+	public interface ICharacter:IEntity
 	{
-        E_TeamType TeamType { get; set; }
-
 		CharacterBody2D CharacterBody2D { get; }
 		AnimatedSprite2D AnimatedSprite2D { get; }
 		AnimationPlayer AnimationPlayer { get; }

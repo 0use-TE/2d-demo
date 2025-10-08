@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core.AttackSystem.Core
 {
-    internal interface IDamageable
+    public interface IDamageable
     {
         void TakeDamage(Node2D attacker,int attackValue);
     }
