@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core.AttackSystem.Core
 {
-    internal interface IAttackEnemy
+    public interface IAttackEnemy
     {
         void AttackEnemy();
     }

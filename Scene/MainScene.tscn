@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://co3kunw1miigi"]
+[gd_scene load_steps=10 format=3 uid="uid://co3kunw1miigi"]
 
 [ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
 [ext_resource type="Script" uid="uid://1b2puv4fqdw0" path="res://Scripts/GameIn/GameInManager.cs" id="1_ly247"]
+[ext_resource type="PackedScene" uid="uid://b5ros0ru8ojuu" path="res://Scene/UIScene/TestHPUI.tscn" id="2_i8335"]
 [ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
+[ext_resource type="Script" uid="uid://dulbtulbdrdpe" path="res://Scripts/UI/TestHpui.cs" id="3_u8a2y"]
 [ext_resource type="BlackboardPlan" uid="uid://cl0suy8k8qrli" path="res://Resources/Player/TestPlayerBlackboard.tres" id="4_nr04c"]
 [ext_resource type="Script" uid="uid://dsnlrub0fns4n" path="res://Scripts/Test/TestDebug.cs" id="5_ly247"]
 [ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="6_ly247"]
@@ -12,6 +14,9 @@
 texture_filter = 1
 script = ExtResource("1_ly247")
 TestMainBase = NodePath("MainBase")
+
+[node name="TestHpui" parent="." instance=ExtResource("2_i8335")]
+script = ExtResource("3_u8a2y")
 
 [node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
 

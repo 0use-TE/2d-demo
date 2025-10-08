@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace DDemo.Scripts.Entity.Core
 {
 	[Meta(typeof(IAutoNode))]
-public	abstract partial class CharacterBase: CharacterBody2D, ICharacter ,IDamageable
+public	abstract partial class CharacterBase: CharacterBody2D, ICharacter 
 	{
 		public override void _Notification(int what) => this.Notify(what);
 		public CharacterBody2D CharacterBody2D { get; private set; } = default!;
@@ -86,9 +86,10 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter ,IDamag
 		}
 
 
-        public void TakeDamage(Node2D attacker,int attackValue)
+        public virtual void TakeDamage(Node2D attacker,int attackValue)
         {
 
         }
+
     }
 }
