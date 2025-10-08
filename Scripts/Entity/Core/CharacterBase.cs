@@ -23,9 +23,6 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter ,IDamag
 		// 后台字段
 		private AnimationPlayer _animationPlayer = default!;
 		private AnimatedSprite2D _animatedSprite2D = default!;
-		[Export]
-		public Area2D[] Areas { get; set; } = [];
-
 		[Node(nameof(AnimationPlayer))]
 		public AnimationPlayer AnimationPlayer
 		{
@@ -88,7 +85,8 @@ public	abstract partial class CharacterBase: CharacterBody2D, ICharacter ,IDamag
 			Velocity = velocity;
 		}
 
-        public void TakeDamage()
+
+        public void TakeDamage(Node2D attacker,int attackValue)
         {
 
         }

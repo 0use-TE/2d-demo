@@ -1,3 +1,4 @@
+using DDemo.Scripts.Misc.Enums;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core
 {
-    public partial class BuildingBase:StaticBody2D,IBuilding
+    public partial class BuildingBase : StaticBody2D, IBuilding
     {
-
+        public E_TeamType TeamType { get; set; }
     }
 }

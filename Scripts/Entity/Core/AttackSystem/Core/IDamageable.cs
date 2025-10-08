@@ -1,3 +1,4 @@
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace DDemo.Scripts.Entity.Core.AttackSystem.Core
 {
     internal interface IDamageable
     {
-        void TakeDamage();
+        void TakeDamage(Node2D attacker,int attackValue);
     }
 }
