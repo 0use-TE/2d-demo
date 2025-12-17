@@ -535,3 +535,7 @@ debug_color = Color(0.37331, 0.495853, 0.945945, 0.42)
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_gaeqs")
 debug_color = Color(0.523777, 0.569474, 0.18963, 0.42)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.5, -8.9407e-08)
+scale = Vector2(0.65, 0.9)

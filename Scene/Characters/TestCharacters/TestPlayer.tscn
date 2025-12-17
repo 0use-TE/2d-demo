@@ -601,3 +601,5 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_juf7y")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

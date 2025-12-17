@@ -21,27 +21,28 @@ namespace DDemo.Scripts.GameHander
 
             Log.Logger = new LoggerConfiguration()
                 .CreateLogger();
+            
+            services.AddMessagePipe(options => {
+
+            });
 
             services.AddLogging(builder =>
             {
                 builder.AddSerilog(dispose: true);
 #if TOOLS
-                builder.AddFilter((category, logLevel) =>
-                {
-                    var rules= LogFilterService.LoadRules();
-                    var rule = rules
-                        .FirstOrDefault(r => r.TypeName == category);
-                    if (rule == null || !rule.IsEnabled)
-                        return false;
-                    return true;
-                });
+                //builder.AddFilter((category, logLevel) =>
+                //{
+                //    var rules= LogFilterService.LoadRules();
+                //    var rule = rules
+                //        .FirstOrDefault(r => r.TypeName == category);
+                //    if (rule == null || !rule.IsEnabled)
+                //        return false;
+                //    return true;
+                //});
 #endif
             });
             //Godot Services
             services.AddGodotServices();
-
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
         }
     }
 }
