@@ -1,4 +1,4 @@
-[gd_resource type="BlackboardPlan" format=3 uid="uid://cl0suy8k8qrli"]
+[gd_resource type="BlackboardPlan" load_steps=0 format=3 uid="uid://cl0suy8k8qrli"]
 
 [resource]
 var/HorizontalMoveSpeed/name = &"HorizontalMoveSpeed"
