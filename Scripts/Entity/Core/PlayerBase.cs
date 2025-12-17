@@ -4,6 +4,7 @@ using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using DDemo.ai.Extensions;
 using DDemo.Scripts.Entity.Core.AttackSystem.Core;
+using DDemo.Scripts.Misc.Enums;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace DDemo.Scripts.Entity.Core
 			_blackboard=BlackboardPlan.CreateBlackboard(this);
 
 			//设置阵营
-			TeamType = Misc.Enums.E_TeamType.Player;
+			TeamType = E_TeamType.Player;
             ConfigureStateMachine();
             AnimationPlayer.AnimationFinished += AnimationPlayer_AnimationFinished;
         }

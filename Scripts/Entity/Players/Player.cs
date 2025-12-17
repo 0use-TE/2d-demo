@@ -13,10 +13,8 @@ namespace DDemo.Scripts.Entity.Players;
 public partial class Player : PlayerBase
 {
 	public override void _Notification(int what) => this.Notify(what);
-
-	
-	//Input-Related
-	private PlayerInput _playerInput = new PlayerInput();
+    //Input-Related
+    private PlayerInput _playerInput = new PlayerInput();
 
 	//State-Related
 	private PlayerIdleState ?_playerIdleState;
@@ -29,7 +27,6 @@ public partial class Player : PlayerBase
 
 	protected override void ConfigureStateMachine()
 	{
-
 
 		_playerIdleState = new PlayerIdleState(StateMachine);
 		_playerWalkState = new PlayerWalkState(StateMachine);
@@ -64,7 +61,7 @@ public partial class Player : PlayerBase
 	}
     protected override void AnimationPlayer_AnimationFinished(StringName animName)
 	{
-        ILogger.LogInformationWithNodeName(this, $"动画{animName}播放结束!");
+        Logger.LogInformationWithNodeName(this, $"动画{animName}播放结束!");
         _isAttack = false;
         _attackIndex = 0;
     }
