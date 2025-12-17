@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://ehm17p0wa3rx"]
+[gd_scene load_steps=66 format=3 uid="uid://ehm17p0wa3rx"]
 
 [ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Entity/Players/Player.cs" id="1_juf7y"]
 [ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
@@ -8,18 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
 [ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
 [ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
-
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_tl5dv"]
-var/HorizontalMoveSpeed/name = &"HorizontalMoveSpeed"
-var/HorizontalMoveSpeed/type = 3
-var/HorizontalMoveSpeed/value = 50.0
-var/HorizontalMoveSpeed/hint = 0
-var/HorizontalMoveSpeed/hint_string = ""
-var/VerticalMoveSpeed/name = &"VerticalMoveSpeed"
-var/VerticalMoveSpeed/type = 3
-var/VerticalMoveSpeed/value = 50.0
-var/VerticalMoveSpeed/hint = 0
-var/VerticalMoveSpeed/hint_string = ""
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mdlc4"]
 atlas = ExtResource("2_ygxq0")
@@ -599,7 +587,6 @@ height = 18.0
 [node name="TestPlayer" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
 script = ExtResource("1_juf7y")
-BlackboardPlan = SubResource("BlackboardPlan_tl5dv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
