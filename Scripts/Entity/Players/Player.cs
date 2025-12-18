@@ -43,7 +43,7 @@ public partial class Player : PlayerBase
 			AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) < 0.1f && Mathf.Abs(_playerInput.Vertical) < .1f, _playerIdleState).
 			AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
 			AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
-			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * GetVar<float>(StatStrings.HorizontalMoveSpeed), _playerInput.Vertical * GetVar<float>(StatStrings.HorizontalMoveSpeed)));
+			AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * ConfigData.MoveSpeed, _playerInput.Vertical * GetVar<float>(StatStrings.HorizontalMoveSpeed)));
 
 		//MeleeAttack
 		_playerMeleeAttackState.AddEnter(() => _isAttack = true).AddEnter(() => SetVelocity(0, 0))
