@@ -14,6 +14,6 @@ namespace DDemo.Scripts.Entity.Core
     {
         E_TeamType TeamType { get; set; }
         [Export] 
-        EntityStat ?ConfigData { get; set; }
+        EntityStat? ConfigData { get; set; }
     }
 }

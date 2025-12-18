@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EntityStat" load_steps=3 format=3 uid="uid://buxxcd6judhnk"]
+
+[ext_resource type="Script" uid="uid://dpy16ov5484xy" path="res://Scripts/Entity/Core/Stats/AttackStat.cs" id="1_xnyk5"]
+[ext_resource type="Script" uid="uid://d0mvbsum3js84" path="res://Scripts/Entity/Core/Stats/EntityStat.cs" id="2_1cjce"]
+
+[resource]
+script = ExtResource("2_1cjce")
+MaxHp = 100.0
+MoveSpeed = 30.0
+Attacks = Array[ExtResource("1_xnyk5")]([])
+metadata/_custom_type_script = "uid://d0mvbsum3js84"

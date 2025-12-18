@@ -7,17 +7,16 @@ using System;
 /// </summary>
 public partial class FollowTargetTask : BTAction
 {
-    private float _speed;
-    public override void _Setup()
-    {
-        
-        _speed = Blackboard.GetVar("MoveSpeed").As<float>();
-
-    }
+  
     public override Status _Tick(double delta)
     {
         var _ai = Blackboard.Get<AIBase>();
-
+        if(_ai.ConfigData==null)
+        {
+            GD.PushError("角色EntityConfig未配置");
+            return Status.Failure;
+        }
+        var moveSpeed = _ai.ConfigData.MoveSpeed;
         var targetContext = _ai.TargetContext;
         if (targetContext.CurrentTarget.TargetNode != null)
         {
@@ -26,7 +25,7 @@ public partial class FollowTargetTask : BTAction
             var direction = (nextPos - _ai.GlobalPosition).Normalized();
 
             _ai.LoggerBTNode(this, $"正在跟踪敌人{targetContext.CurrentTarget.TargetNode.Name}");
-            _ai.SetVelocity(direction * _speed);
+            _ai.SetVelocity(direction * moveSpeed);
             _ai.MoveAndSlide();
 
             return Status.Running;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://co3kunw1miigi"]
+[gd_scene load_steps=10 format=3 uid="uid://co3kunw1miigi"]
 
 [ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
 [ext_resource type="Script" uid="uid://1b2puv4fqdw0" path="res://Scripts/GameIn/GameInManager.cs" id="1_ly247"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
 [ext_resource type="Script" uid="uid://dulbtulbdrdpe" path="res://Scripts/UI/TestHpui.cs" id="3_u8a2y"]
 [ext_resource type="PackedScene" uid="uid://b3ni2auutji6" path="res://Scene/UIScene/Stats/HPBar.tscn" id="4_e7n4u"]
+[ext_resource type="Resource" uid="uid://ch1a1hcfjt0w2" path="res://Resources/Player/TestPlayerStat.tres" id="4_u8a2y"]
 [ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="6_ly247"]
 [ext_resource type="Texture2D" uid="uid://b32226umijxtp" path="res://Assets/icon.svg" id="7_nr04c"]
 
@@ -17,6 +18,7 @@ TestMainBase = NodePath("MainBase")
 [node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
 
 [node name="TestPlayer" parent="." instance=ExtResource("1_hcm6b")]
+ConfigData = ExtResource("4_u8a2y")
 
 [node name="Camera2D" type="Camera2D" parent="TestPlayer"]
 zoom = Vector2(3, 3)
