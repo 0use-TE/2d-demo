@@ -18,5 +18,14 @@ namespace DDemo.Scripts.Misc.Extensions
             msg += "\n";
             logger.LogInformation(msg);
         }
+        public  static void LogErrWithPush(this ILogger logger, Node node, string content, bool logTime = false)
+        {
+            var msg = $"\nGodot节点类型:{node.Name}\n信息:{content}";
+            if (logTime)
+                msg += $"\n时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}";
+            msg += "\n";
+            GD.PushError(msg);
+            logger.LogError(msg);
+        }
     }
 }

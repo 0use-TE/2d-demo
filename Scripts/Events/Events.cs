@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace DDemo.Scripts.Events
 {
     // 发现敌人：携带引用和数值
-    public record EnemySpotted(Node2D Entity, int CurrentHp, int MaxHp);
+    public record EntitySpotted(Node2D Entity, float CurrentHp, float MaxHp);
     // 敌人消失：只需要知道是谁消失了
-    public record EnemyGone(Node2D Entity);
+    public record EntityGone(Node2D Entity);
     // 血量变化：用于更新现有的血条
-    public record EnemyHealthChanged(Node2D Entity, int CurrentHp, int MaxHp);
+    public record EntityHealthChanged(Node2D Entity, float CurrentHp, float MaxHp);
 }

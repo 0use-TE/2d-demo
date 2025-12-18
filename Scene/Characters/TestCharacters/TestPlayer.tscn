@@ -1,13 +1,23 @@
-[gd_scene load_steps=66 format=3 uid="uid://ehm17p0wa3rx"]
+[gd_scene load_steps=71 format=3 uid="uid://ehm17p0wa3rx"]
 
 [ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Entity/Players/Player.cs" id="1_juf7y"]
+[ext_resource type="Script" uid="uid://dpy16ov5484xy" path="res://Scripts/Entity/Core/Stats/AttackStat.cs" id="2_ola4f"]
 [ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
 [ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
 [ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
+[ext_resource type="Script" uid="uid://d0mvbsum3js84" path="res://Scripts/Entity/Core/Stats/EntityStat.cs" id="3_fhdix"]
 [ext_resource type="Texture2D" uid="uid://2gicvf35nfhd" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack03.png" id="4_tl5dv"]
 [ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
 [ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
 [ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
+[ext_resource type="Script" uid="uid://cjfb4ywwvfh2q" path="res://Scripts/Entity/AI/AIPerception/AttackDetect/AttackArea.cs" id="9_1nhyp"]
+
+[sub_resource type="Resource" id="Resource_33yth"]
+script = ExtResource("3_fhdix")
+MaxHp = 100.0
+MoveSpeed = 50.0
+Attacks = Array[ExtResource("2_ola4f")]([])
+metadata/_custom_type_script = "uid://d0mvbsum3js84"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mdlc4"]
 atlas = ExtResource("2_ygxq0")
@@ -402,6 +412,20 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Attack1"]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackNodes/Attack1")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"AttackEnemy"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_1nhyp"]
 length = 0.8
@@ -584,13 +608,19 @@ _data = {
 radius = 6.0
 height = 18.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tl5dv"]
+radius = 12.0
+height = 24.0
+
 [node name="TestPlayer" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
 script = ExtResource("1_juf7y")
+ConfigData = SubResource("Resource_33yth")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
 animation = &"Attack1"
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -603,3 +633,15 @@ position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_juf7y")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AttackNodes" type="Node2D" parent="."]
+
+[node name="Attack1" type="Node2D" parent="AttackNodes"]
+script = ExtResource("9_1nhyp")
+
+[node name="HitBox" type="Area2D" parent="AttackNodes/Attack1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackNodes/Attack1/HitBox"]
+position = Vector2(8, 0)
+shape = SubResource("CapsuleShape2D_tl5dv")
+debug_color = Color(0.638047, 0.515428, 0.296498, 0.42)

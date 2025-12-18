@@ -11,12 +11,7 @@ public partial class FollowTargetTask : BTAction
     public override Status _Tick(double delta)
     {
         var _ai = Blackboard.Get<AIBase>();
-        if(_ai.ConfigData==null)
-        {
-            GD.PushError("角色EntityConfig未配置");
-            return Status.Failure;
-        }
-        var moveSpeed = _ai.ConfigData.MoveSpeed;
+        var moveSpeed = _ai.RuntimeStats.MoveSpeed;
         var targetContext = _ai.TargetContext;
         if (targetContext.CurrentTarget.TargetNode != null)
         {

@@ -9,6 +9,6 @@ namespace DDemo.Scripts.Entity.Core.AttackSystem.Core
 {
     public interface IDamageable
     {
-        void TakeDamage(Node2D attacker,int attackValue);
+        void TakeDamage(Node2D attacker,float attackValue);
     }
 }

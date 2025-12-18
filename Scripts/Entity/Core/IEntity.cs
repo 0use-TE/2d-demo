@@ -1,3 +1,5 @@
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using DDemo.Scripts.Entity.Core.AttackSystem.Core;
 using DDemo.Scripts.Entity.Core.Stats;
 using DDemo.Scripts.Misc.Enums;
@@ -15,5 +17,6 @@ namespace DDemo.Scripts.Entity.Core
         E_TeamType TeamType { get; set; }
         [Export] 
         EntityStat? ConfigData { get; set; }
+        RuntimeStats RuntimeStats { get;  }
     }
 }
