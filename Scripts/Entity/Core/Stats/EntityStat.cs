@@ -13,8 +13,8 @@ namespace DDemo.Scripts.Entity.Core.Stats
     {
         [ExportGroup("Base Stats")]
         [Export] public float MaxHp = 100.0f;
-        [Export] public float MoveSpeed = 250.0f;
-
+        [Export] public float MoveSpeed = 50.0f;
+        
         [ExportGroup("Abilities")]
         [Export] public Array<AttackStat> Attacks=new Array<AttackStat>();
     }

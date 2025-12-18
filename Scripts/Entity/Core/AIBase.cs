@@ -3,6 +3,7 @@ using Chickensoft.Introspection;
 using DDemo.ai.Extensions;
 using DDemo.Scripts.Entity.AI.AIPerception.Core;
 using DDemo.Scripts.Entity.Core.Context;
+using DDemo.Scripts.Entity.Core.Stats;
 using DDemo.Scripts.GameIn.EnvironmentContext;
 using DDemo.Scripts.Misc;
 using DDemo.Scripts.Misc.Enums;
@@ -13,12 +14,21 @@ using System.Collections.Generic;
 namespace DDemo.Scripts.Entity.Core
 {
     [Meta(typeof(IAutoNode))]
-    public abstract partial class AIBase : CharacterBase, IProvide<AIBase>
+    public abstract partial class AIBase : CharacterBase, IProvide<AIBase>,IProvide<EntityStat>
     {
         public override void _Notification(int what) => this.Notify(what);
 
         public AIBase Value() => this;
-
+        EntityStat IProvide<EntityStat>.Value()
+        {
+            if(ConfigData==null)
+            {
+                GD.PushError("ConfigData不能为空!");
+                return new EntityStat();
+            }
+            return ConfigData;
+        }
+  
         [Node(nameof(BTPlayer))]
         protected BTPlayer BTPlayer { get; set; } = default!;
 
@@ -137,5 +147,7 @@ namespace DDemo.Scripts.Entity.Core
             // Call the this.Provide() method once your dependencies have been initialized.
             this.Provide();
         }
+
+ 
     }
 }

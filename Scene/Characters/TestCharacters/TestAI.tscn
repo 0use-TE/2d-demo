@@ -1,8 +1,9 @@
-[gd_scene load_steps=52 format=3 uid="uid://824k1705eog2"]
+[gd_scene load_steps=53 format=3 uid="uid://824k1705eog2"]
 
 [ext_resource type="Script" uid="uid://0rlgvfw3f8fo" path="res://Scripts/Entity/AI/TestAI/TestAi.cs" id="1_4p1rw"]
 [ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
 [ext_resource type="BehaviorTree" uid="uid://cyt4e2fv2tlqh" path="res://ai/trees/TestTree.tres" id="2_7vr7s"]
+[ext_resource type="Resource" uid="uid://buxxcd6judhnk" path="res://Resources/AI/TestAIStat.tres" id="2_lrb8w"]
 [ext_resource type="Script" uid="uid://cjfb4ywwvfh2q" path="res://Scripts/Entity/AI/AIPerception/AttackDetect/AttackArea.cs" id="4_gaeqs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqbyl"]
@@ -474,6 +475,11 @@ height = 18.0
 radius = 100.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_pqbyl"]
+var/MoveSpeed/name = &"MoveSpeed"
+var/MoveSpeed/type = 3
+var/MoveSpeed/value = 20.0
+var/MoveSpeed/hint = 0
+var/MoveSpeed/hint_string = ""
 binding/EnemyInAttackRadius1 = NodePath("../AttackNodes/Attack1:InAttackAreaDetector")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p1rw"]
@@ -484,6 +490,7 @@ size = Vector2(12, 16)
 [node name="TestAi" type="CharacterBody2D"]
 texture_filter = 1
 script = ExtResource("1_4p1rw")
+ConfigData = ExtResource("2_lrb8w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q4iur")

@@ -30,15 +30,15 @@ namespace DDemo.Scripts.GameHander
             {
                 builder.AddSerilog(dispose: true);
 #if TOOLS
-                builder.AddFilter((category, logLevel) =>
-                {
-                    var rules = LogFilterService.LoadRules();
-                    var rule = rules
-                        .FirstOrDefault(r => r.TypeName == category);
-                    if (rule == null || !rule.IsEnabled)
-                        return false;
-                    return true;
-                });
+                //builder.AddFilter((category, logLevel) =>
+                //{
+                //    var rules = LogFilterService.LoadRules();
+                //    var rule = rules
+                //        .FirstOrDefault(r => r.TypeName == category);
+                //    if (rule == null || !rule.IsEnabled)
+                //        return false;
+                //    return true;
+                //});
 #endif
             });
             //Godot Services
