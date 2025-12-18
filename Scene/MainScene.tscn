@@ -31,6 +31,7 @@ scale = Vector2(0.415, 0.415)
 texture = ExtResource("7_nr04c")
 
 [node name="TestAi" parent="." instance=ExtResource("6_ly247")]
+position = Vector2(112, 34)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
