@@ -55,7 +55,7 @@ namespace ToolSets.Shared
 
                 // 只找 Node2D 的子类
                 var newTypeNames = types
-                    .Where(t => t != null && typeof(Godot.Node2D).IsAssignableFrom(t))
+                    .Where(t => t != null && (typeof(Godot.Node2D).IsAssignableFrom(t))||typeof(Godot.Control).IsAssignableFrom(t))
                     .Select(t => t.FullName!)
                     .ToList();
 
