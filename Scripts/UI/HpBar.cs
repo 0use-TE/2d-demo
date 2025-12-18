@@ -16,7 +16,7 @@ public partial class HpBar : Control
     private Node2D _target = default!;
     private float _yOffset;
 
-    public void Initialize(Node2D target, int current, int max)
+    public void Initialize(Node2D target, float current, float max)
     {
         _target = target;
         // 在初始化时计算高度偏移
@@ -64,7 +64,7 @@ public partial class HpBar : Control
         return 60.0f;
     }
 
-    public void UpdateHealth(int current, int max)
+    public void UpdateHealth(float current, float max)
     {
         ProgressBar.MaxValue = max;
         var tween = CreateTween();

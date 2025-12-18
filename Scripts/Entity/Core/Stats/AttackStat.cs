@@ -13,6 +13,5 @@ namespace DDemo.Scripts.Entity.Core.Stats
         [Export] public string SkillName = "Basic Attack";
         [Export] public float Damage = 10.0f;
         [Export] public float Cooldown = 1.0f;
-        [Export] public float AttackRange = 100.0f;
     }
 }

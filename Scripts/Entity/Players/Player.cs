@@ -32,14 +32,6 @@ public partial class Player : PlayerBase
         _playerWalkState = new PlayerWalkState(StateMachine);
         _playerMeleeAttackState = new PlayerMeleeAttackState(StateMachine);
         _playerRemoteAttackState = new PlayerRemoteAttackState(StateMachine);
-        // 1. 检查必要资源
-        if (ConfigData == null)
-        {
-            // 报警：在编辑器红字显示，并记录到 log
-            GD.PushError($"{Name}: 必须挂载 EntityStat 资源！");
-            return;
-        }
-
         //Idle
         _playerIdleState.AddEnter(() => AnimationPlayer.Play("Idle")).AddEnter(() => SetVelocity(0, 0)).
                 AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) > 0.1f || Mathf.Abs(_playerInput.Vertical) > .1f, _playerWalkState).
@@ -50,7 +42,7 @@ public partial class Player : PlayerBase
             AddTransitions(() => Mathf.Abs(_playerInput.Horizontal) < 0.1f && Mathf.Abs(_playerInput.Vertical) < .1f, _playerIdleState).
             AddTransitions(() => _playerInput.MeleeAttack, _playerMeleeAttackState).
             AddTransitions(() => _playerInput.RemoteAttack, _playerRemoteAttackState).
-            AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * ConfigData.MoveSpeed, _playerInput.Vertical * ConfigData.MoveSpeed));
+            AddPhysicsProcess((delta) => SetVelocity(_playerInput.Horizontal * RuntimeStats.MoveSpeed, _playerInput.Vertical * RuntimeStats.MoveSpeed));
 
         //MeleeAttack
         _playerMeleeAttackState.AddEnter(() => _isAttack = true).AddEnter(() => SetVelocity(0, 0))
@@ -64,7 +56,7 @@ public partial class Player : PlayerBase
             .AddTransitions(() => !_isAttack, _playerIdleState);
 
         //Set Initial State
-        StateMachine.SetInitialState(_playerIdleState);
+        StateMachine.SetInitialState(_playerIdleState); 
     }
     protected override void AnimationPlayer_AnimationFinished(StringName animName)
     {

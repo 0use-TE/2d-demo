@@ -20,14 +20,16 @@ using System.Threading.Tasks;
 namespace DDemo.Scripts.Entity.Core
 {
     [Meta(typeof(IAutoNode))]
-    public abstract partial class CharacterBase : CharacterBody2D, ICharacter
+    public abstract partial class CharacterBase : CharacterBody2D, ICharacter,IProvide<CharacterBase> 
     {
         public override void _Notification(int what) => this.Notify(what);
         public CharacterBody2D CharacterBody2D { get; private set; } = default!;
         [Node("VisibleOnScreenNotifier2D")]
         public VisibleOnScreenNotifier2D VisibilityNotifier { get; private set; } = default!;
-        [Inject] public IPublisher<EnemySpotted> _spottedPub = default!;
-        [Inject] public IPublisher<EnemyGone> _gonePub = default!;
+        [Inject] public IPublisher<EntitySpotted> _spottedPub = default!;
+        [Inject] public IPublisher<EntityGone> _gonePub = default!;
+        [Inject] public IPublisher<EntityHealthChanged> _healthChanged= default!;
+        CharacterBase  IProvide<CharacterBase>.Value() => this;
 
         // 后台字段
         private AnimationPlayer _animationPlayer = default!;
@@ -54,13 +56,28 @@ namespace DDemo.Scripts.Entity.Core
 
         public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
         [Export]
-        public EntityStat ?ConfigData { get; set; }
+        public  EntityStat? ConfigData { get; set; }
+
+        public RuntimeStats RuntimeStats { get; set; } = default!;
 
         public override void _Ready()
         {
             base._Ready();
             Logger = _loggerFactory.CreateLogger(GetType());
             CharacterBody2D = this;
+
+            // 在 Ready 时，ConfigData 已经由 Godot 引擎完成注入
+            if (ConfigData != null)
+            {
+                RuntimeStats = new RuntimeStats(ConfigData);
+            }
+            else
+            {
+                RuntimeStats = new RuntimeStats();
+                GD.PrintErr($"{Name}: BuildingBase 缺少 ConfigData 配置！");
+            }
+            // Call the this.Provide() method once your dependencies have been initialized.
+            this.Provide();
         }
         public void OnResolved()
         {
@@ -68,20 +85,21 @@ namespace DDemo.Scripts.Entity.Core
             VisibilityNotifier.ScreenEntered += () =>
             {
                 Logger.LogInformationWithNodeName(this, "角色进入了屏幕!");
-                _spottedPub.Publish(new EnemySpotted(this, 90, 100));
+                _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             };
             // 离开屏幕发信号
             VisibilityNotifier.ScreenExited += () =>
             {
                 Logger.LogInformationWithNodeName(this, "角色退出了屏幕!");
-                _gonePub.Publish(new EnemyGone(this));
+                _gonePub.Publish(new EntityGone(this));
             };
             if (VisibilityNotifier.IsOnScreen())
             {
                 Logger.LogInformationWithNodeName(this, "角色初始化时进入了屏幕!");
-                _spottedPub.Publish(new EnemySpotted(this, 50, 100));
+                _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             }
         }
+
         public void AddVelocity(float? x = null, float? y = null)
         {
             var velocity = Velocity;
@@ -118,9 +136,10 @@ namespace DDemo.Scripts.Entity.Core
         }
 
 
-        public virtual void TakeDamage(Node2D attacker, int attackValue)
+        public virtual void TakeDamage(Node2D attacker, float attackValue)
         {
-
+            RuntimeStats.CurrentHp -= attackValue;
+            _healthChanged.Publish(new EntityHealthChanged(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
         }
 
     }

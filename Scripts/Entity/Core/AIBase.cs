@@ -14,21 +14,13 @@ using System.Collections.Generic;
 namespace DDemo.Scripts.Entity.Core
 {
     [Meta(typeof(IAutoNode))]
-    public abstract partial class AIBase : CharacterBase, IProvide<AIBase>,IProvide<EntityStat>
+    public abstract partial class AIBase : CharacterBase, IProvide<AIBase>,IProvide<RuntimeStats>
     {
         public override void _Notification(int what) => this.Notify(what);
 
-        public AIBase Value() => this;
-        EntityStat IProvide<EntityStat>.Value()
-        {
-            if(ConfigData==null)
-            {
-                GD.PushError("ConfigData不能为空!");
-                return new EntityStat();
-            }
-            return ConfigData;
-        }
-  
+         AIBase IProvide<AIBase>.Value() => this;
+        RuntimeStats IProvide<RuntimeStats>.Value() => RuntimeStats;
+
         [Node(nameof(BTPlayer))]
         protected BTPlayer BTPlayer { get; set; } = default!;
 
@@ -65,7 +57,7 @@ namespace DDemo.Scripts.Entity.Core
             Area2D.BodyExited += Area2D_BodyExited;
             //配置感知
             ConfigurateTargetPenetration(_targetPerceptions);
-            
+            this.Provide();
         }
 
         public override void _Process(double delta)
@@ -142,12 +134,5 @@ namespace DDemo.Scripts.Entity.Core
 
         }
 
-        public void Setup()
-        {
-            // Call the this.Provide() method once your dependencies have been initialized.
-            this.Provide();
-        }
-
- 
     }
 }
