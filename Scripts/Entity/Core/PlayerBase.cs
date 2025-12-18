@@ -22,24 +22,9 @@ namespace DDemo.Scripts.Entity.Core
 
 		public StateMachine StateMachine { get; private set; } = new StateMachine();
 		private BlackboardPlan ?_blackboardPlan;
-		[Export]
-		private BlackboardPlan BlackboardPlan {
-			get => _blackboardPlan??throw new NullReferenceException("没有设置数值呢，请点击角色为其添加黑板😋");
-			set => _blackboardPlan = value;
-		}
-
-
-		private Blackboard _blackboard=default!;
-
-		public T GetVar<T>(string key)
-		{
-			return _blackboard.GetVar<T>(key);
-        }
         public override void _Ready()
 		{
 			base._Ready();
-			//创建黑板
-			_blackboard=BlackboardPlan.CreateBlackboard(this);
 
 			//设置阵营
 			TeamType = E_TeamType.Player;

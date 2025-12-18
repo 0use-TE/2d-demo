@@ -1,3 +1,4 @@
+using DDemo.Scripts.Entity.Core.Stats;
 using DDemo.Scripts.Misc.Enums;
 using Godot;
 using System;
@@ -11,6 +12,7 @@ namespace DDemo.Scripts.Entity.Core
     public abstract partial class BuildingBase : StaticBody2D, IBuilding
     {
         public E_TeamType TeamType { get; set; }
+        public EntityStat? ConfigData { get; set; }
 
         public virtual void TakeDamage(Node2D attacker, int attackValue)
         {

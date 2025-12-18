@@ -3,6 +3,7 @@ using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using DDemo.Scripts.Entity.Core.AttackSystem.Core;
+using DDemo.Scripts.Entity.Core.Stats;
 using DDemo.Scripts.Events;
 using DDemo.Scripts.Misc.Enums;
 using DDemo.Scripts.Misc.Extensions;
@@ -52,6 +53,9 @@ namespace DDemo.Scripts.Entity.Core
         public ILoggerFactory _loggerFactory = default!;
 
         public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
+        [Export]
+        public EntityStat ?ConfigData { get; set; }
+
         public override void _Ready()
         {
             base._Ready();
