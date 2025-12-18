@@ -3,7 +3,7 @@
 [resource]
 var/MoveSpeed/name = &"MoveSpeed"
 var/MoveSpeed/type = 3
-var/MoveSpeed/value = 45.0
+var/MoveSpeed/value = 36.0
 var/MoveSpeed/hint = 0
 var/MoveSpeed/hint_string = "45"
 var/Attack1Radius/name = &"Attack1Radius"
@@ -11,6 +11,11 @@ var/Attack1Radius/type = 3
 var/Attack1Radius/value = 30.0
 var/Attack1Radius/hint = 0
 var/Attack1Radius/hint_string = "50"
+var/EnemyInAttackRadius/name = &"EnemyInAttackRadius"
+var/EnemyInAttackRadius/type = 1
+var/EnemyInAttackRadius/value = false
+var/EnemyInAttackRadius/hint = 0
+var/EnemyInAttackRadius/hint_string = ""
 var/EnemyInAttackRadius1/name = &"EnemyInAttackRadius1"
 var/EnemyInAttackRadius1/type = 1
 var/EnemyInAttackRadius1/value = false
