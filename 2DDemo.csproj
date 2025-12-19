@@ -51,7 +51,7 @@
 
   <ItemGroup>
 	  <PackageVersion Include="GodotSharp" Version="4.4.1-limboai-v1.4.1.gha" />
-   <PackageReference Include="Chickensoft.AutoInject" Version="2.8.33" />
+   <PackageReference Include="Chickensoft.AutoInject" Version="2.9.17" />
    <PackageReference Include="Chickensoft.AutoInject.Analyzers" Version="2.8.33" />
    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="2.4.38" />
    <PackageReference Include="Chickensoft.Introspection" Version="3.0.2" />
