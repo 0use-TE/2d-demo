@@ -39,6 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="docs\HP等数值显示设计.md" />
+    <None Include="docs\怪物生成器设计.md" />
     <None Include="docs\战斗系统数值设计.md" />
     <None Include="docs\战斗系统设计.md" />
     <None Include="docs\进程.md" />
