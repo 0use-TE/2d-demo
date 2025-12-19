@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://ehm17p0wa3rx"]
+[gd_scene load_steps=72 format=3 uid="uid://ehm17p0wa3rx"]
 
 [ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Entity/Players/Player.cs" id="1_juf7y"]
 [ext_resource type="Script" uid="uid://dpy16ov5484xy" path="res://Scripts/Entity/Core/Stats/AttackStat.cs" id="2_ola4f"]
@@ -415,7 +415,7 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AttackNodes/Attack1")
+tracks/2/path = NodePath("MeleeAttackDetectNodes/Attack1")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -452,6 +452,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Attack2"]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeAttackDetectNodes/Attack2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.566667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"AttackEnemy"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_mdlc4"]
@@ -608,6 +622,9 @@ _data = {
 radius = 6.0
 height = 18.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ola4f"]
+size = Vector2(9, 20)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tl5dv"]
 radius = 12.0
 height = 24.0
@@ -619,7 +636,8 @@ ConfigData = SubResource("Resource_33yth")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
-animation = &"Attack1"
+animation = &"Attack2"
+frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -633,14 +651,25 @@ shape = SubResource("CapsuleShape2D_juf7y")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="AttackNodes" type="Node2D" parent="."]
+[node name="MeleeAttackDetectNodes" type="Node2D" parent="."]
 
-[node name="Attack1" type="Node2D" parent="AttackNodes"]
+[node name="Attack2" type="Node2D" parent="MeleeAttackDetectNodes"]
+script = ExtResource("9_1nhyp")
+AttackID = 1
+
+[node name="HitBox" type="Area2D" parent="MeleeAttackDetectNodes/Attack2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackDetectNodes/Attack2/HitBox"]
+position = Vector2(14.5, -2)
+shape = SubResource("RectangleShape2D_ola4f")
+debug_color = Color(0.748096, 0.45881, 0.117368, 0.42)
+
+[node name="Attack1" type="Node2D" parent="MeleeAttackDetectNodes"]
 script = ExtResource("9_1nhyp")
 
-[node name="HitBox" type="Area2D" parent="AttackNodes/Attack1"]
+[node name="HitBox" type="Area2D" parent="MeleeAttackDetectNodes/Attack1"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackNodes/Attack1/HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackDetectNodes/Attack1/HitBox"]
 position = Vector2(8, 0)
 shape = SubResource("CapsuleShape2D_tl5dv")
 debug_color = Color(0.638047, 0.515428, 0.296498, 0.42)

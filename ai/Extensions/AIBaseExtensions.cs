@@ -14,11 +14,11 @@ namespace DDemo.ai.Extensions
     {
         public static void Logger(this AIBase ai, string message)
         {
-            ai.Logger.LogInformationWithNodeName(ai, message);
+            ai.Logger.LogInfoWithNode(ai, message);
         }
         public static void LoggerBTNode(this AIBase ai, BTTask btTask, string message)
         {
-            ai.Logger.LogInformation($"\n行为树节点{btTask.GetType().Name}\n{message}\n");
+            ai.Logger.LogInfoWithNode(ai,$"\n行为树节点{btTask.GetType().Name}\n{message}\n");
         }
     }
 }

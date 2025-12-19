@@ -56,11 +56,11 @@ public partial class Player : PlayerBase
             .AddTransitions(() => !_isAttack, _playerIdleState);
 
         //Set Initial State
-        StateMachine.SetInitialState(_playerIdleState); 
+        StateMachine.SetInitialState(_playerIdleState);
     }
     protected override void AnimationPlayer_AnimationFinished(StringName animName)
     {
-        Logger.LogInformationWithNodeName(this, $"动画{animName}播放结束!");
+        Logger.LogInfoWithNode(this, $"动画{animName}播放结束!");
         _isAttack = false;
         _attackIndex = 0;
     }

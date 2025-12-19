@@ -9,6 +9,7 @@ using Godot;
 using Godot.DependencyInjection.Attributes;
 using Microsoft.Extensions.Logging;
 using Serilog.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
         private Area2D HitBox { get; set; } = default!;
 
         [Dependency]
-        protected  CharacterBase CharacterBase => this.DependOn<CharacterBase>();
+        protected IEntity Entity => this.DependOn<IEntity>();
         [Inject]
         public ILogger<AttackArea> Logger { get; set; } = default!;
         public override void _Ready()
@@ -38,29 +39,39 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
         /// </summary>
         public async void AttackEnemy()
         {
-            Logger.LogInformationWithNodeName(this, $"{CharacterBase.GetType().Name}尝试发动攻击");
-
-            if (AttackID < 0 || AttackID > CharacterBase.RuntimeStats.Attacks.Count)
+            try
             {
-                Logger.LogErrWithPush(this, "攻击Id不在列表范围内!");
-                return;
+
+                Logger.LogInfoWithNode(this, $"{Entity.GetType().Name}尝试发动攻击");
+
+                if (AttackID < 0 || AttackID > Entity.RuntimeStats.Attacks.Count)
+                {
+                    Logger.LogErrWithPush(this, "攻击Id不在列表范围内!");
+                    return;
+                }
+
+                var data = Entity.RuntimeStats.Attacks[AttackID];
+                var damage = data.Damage;
+                HitBox.Monitoring = true;
+                // ✅ 确保等到下一次物理帧
+                //因为当前帧开启了监控，但是检测必须一个物理帧才能检测到敌人，所以必须await
+                await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+                var objs = HitBox.GetOverlappingBodies();
+                foreach (var obj in objs)
+                {
+                    if (obj == Entity) continue;
+
+                    if (obj is IDamageable damageable)
+                    {
+                        Logger.LogInfoWithNode(this, $"{Entity.GetType().Name}对敌人{obj.Name}造成了{damage}");
+                        damageable.TakeDamage(Entity, damage);
+                    }
+                }
             }
 
-            var data = CharacterBase.RuntimeStats.Attacks[AttackID];
-            var damage = data.Damage;
-            HitBox.Monitoring = true;
-            // ✅ 确保等到下一次物理帧
-            await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-            var objs = HitBox.GetOverlappingBodies();
-            foreach (var obj in objs)
+            catch (Exception ex)
             {
-                if (obj == CharacterBase) continue;
-
-                if (obj is IDamageable damageable)
-                {
-                    Logger.LogInformationWithNodeName(this, $"{CharacterBase.GetType().Name}对敌人{obj.Name}造成了{damage}");
-                    damageable.TakeDamage(CharacterBase, damage);
-                }
+                Logger.LogInfoWithNode(this, $"抛出异常{ex.Message}");
             }
         }
 

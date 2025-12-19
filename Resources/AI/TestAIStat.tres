@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://dpy16ov5484xy"
 
 [resource]
 script = ExtResource("2_1cjce")
-MaxHp = 100.0
+MaxHp = 120.0
 MoveSpeed = 30.0
 Attacks = Array[ExtResource("1_xnyk5")]([SubResource("Resource_xnyk5")])
 metadata/_custom_type_script = "uid://d0mvbsum3js84"

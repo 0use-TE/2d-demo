@@ -306,7 +306,7 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AttackNodes/Attack1")
+tracks/2/path = NodePath("MeleeAttackDetectNodes/Attack1")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -475,7 +475,12 @@ height = 18.0
 radius = 100.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_pqbyl"]
-binding/EnemyInAttackRadius1 = NodePath("../AttackNodes/Attack1:InAttackAreaDetector")
+var/EnemyInAttackRadius1/name = &"EnemyInAttackRadius1"
+var/EnemyInAttackRadius1/type = 1
+var/EnemyInAttackRadius1/value = true
+var/EnemyInAttackRadius1/hint = 0
+var/EnemyInAttackRadius1/hint_string = ""
+binding/EnemyInAttackRadius1 = NodePath("../MeleeAttackDetectNodes/Attack1:InAttackAreaDetector")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4p1rw"]
 size = Vector2(12, 16)
@@ -517,23 +522,23 @@ debug_color = Color(0.418368, 0.561269, 0.619598, 0.42)
 behavior_tree = ExtResource("2_7vr7s")
 blackboard_plan = SubResource("BlackboardPlan_pqbyl")
 
-[node name="AttackNodes" type="Node2D" parent="."]
+[node name="MeleeAttackDetectNodes" type="Node2D" parent="."]
 
-[node name="Attack1" type="Node2D" parent="AttackNodes"]
+[node name="Attack1" type="Node2D" parent="MeleeAttackDetectNodes"]
 position = Vector2(15, 0)
 script = ExtResource("5_devlm")
 
-[node name="Detector" type="Area2D" parent="AttackNodes/Attack1"]
+[node name="Detector" type="Area2D" parent="MeleeAttackDetectNodes/Attack1"]
 position = Vector2(-4.5, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackNodes/Attack1/Detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackDetectNodes/Attack1/Detector"]
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_4p1rw")
 debug_color = Color(0.37331, 0.495853, 0.945945, 0.42)
 
-[node name="HitBox" type="Area2D" parent="AttackNodes/Attack1"]
+[node name="HitBox" type="Area2D" parent="MeleeAttackDetectNodes/Attack1"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackNodes/Attack1/HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackDetectNodes/Attack1/HitBox"]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_gaeqs")
 debug_color = Color(0.523777, 0.569474, 0.18963, 0.42)

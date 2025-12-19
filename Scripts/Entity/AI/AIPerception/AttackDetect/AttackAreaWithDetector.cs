@@ -13,17 +13,19 @@ using System.Text;
 namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
 {
     [Meta(typeof(IAutoNode))]
-    internal partial class AttackAreaWithDetector : AttackArea
+    public partial class AttackAreaWithDetector : AttackArea
     {
         public override void _Notification(int what) => this.Notify(what);
 
         [Node(nameof(Detector))]
         private Area2D Detector { get; set; } = default!;
 
-        public bool InAttackAreaDetector { get; private set; }
         private readonly HashSet<CharacterBase> _detectedEnemies = new();
 
         private AttackStat? attackStat;
+
+        public bool InAttackAreaDetector { get; set; }
+
 
         public override void _Ready()
         {
@@ -36,8 +38,8 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
         }
         private void OnDetectorEntered(Node2D body)
         {
-            if (body == CharacterBase) return;
-            if (body is CharacterBase character && character.TeamType != CharacterBase.TeamType)
+            if (body == Entity) return;
+            if (body is CharacterBase character && character.TeamType != Entity.TeamType)
             {
                 _detectedEnemies.Add(character);
                 InAttackAreaDetector = true;
