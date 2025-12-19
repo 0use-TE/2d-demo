@@ -21,4 +21,4 @@ public partial class TestAi : AIBase
         targetPerceptions.Add(new TestTargetPerceptionImp());
     }
 
-}   
+}
