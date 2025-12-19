@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace DDemo.Scripts.Entity.Core
 {
     [Meta(typeof(IAutoNode))]
-    public abstract partial class CharacterBase : CharacterBody2D, ICharacter,IProvide<CharacterBase> 
+    public abstract partial class CharacterBase : CharacterBody2D, ICharacter,IProvide<IEntity> 
     {
         public override void _Notification(int what) => this.Notify(what);
         public CharacterBody2D CharacterBody2D { get; private set; } = default!;
@@ -29,7 +29,7 @@ namespace DDemo.Scripts.Entity.Core
         [Inject] public IPublisher<EntitySpotted> _spottedPub = default!;
         [Inject] public IPublisher<EntityGone> _gonePub = default!;
         [Inject] public IPublisher<EntityHealthChanged> _healthChanged= default!;
-        CharacterBase  IProvide<CharacterBase>.Value() => this;
+        IEntity IProvide<IEntity>.Value() => this;
 
         // 后台字段
         private AnimationPlayer _animationPlayer = default!;
@@ -57,7 +57,8 @@ namespace DDemo.Scripts.Entity.Core
         public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
         [Export]
         public  EntityStat? ConfigData { get; set; }
-
+        [Node(nameof(MeleeAttackDetectNodes))]
+        public Node2D MeleeAttackDetectNodes { get; set; } = default!;
         public RuntimeStats RuntimeStats { get; set; } = default!;
 
         public override void _Ready()
@@ -84,18 +85,18 @@ namespace DDemo.Scripts.Entity.Core
             // 进入屏幕发信号
             VisibilityNotifier.ScreenEntered += () =>
             {
-                Logger.LogInformationWithNodeName(this, "角色进入了屏幕!");
+                Logger.LogInfoWithNode(this, "角色进入了屏幕!");
                 _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             };
             // 离开屏幕发信号
             VisibilityNotifier.ScreenExited += () =>
             {
-                Logger.LogInformationWithNodeName(this, "角色退出了屏幕!");
+                Logger.LogInfoWithNode(this, "角色退出了屏幕!");
                 _gonePub.Publish(new EntityGone(this));
             };
             if (VisibilityNotifier.IsOnScreen())
             {
-                Logger.LogInformationWithNodeName(this, "角色初始化时进入了屏幕!");
+                Logger.LogInfoWithNode(this, "角色初始化时进入了屏幕!");
                 _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             }
         }
@@ -110,6 +111,14 @@ namespace DDemo.Scripts.Entity.Core
         public override void _Process(double delta)
         {
             base._Process(delta);
+            if (FacingDirection > 0 && MeleeAttackDetectNodes.Scale.X < 0)
+            {
+                MeleeAttackDetectNodes.Scale = new Vector2(1, MeleeAttackDetectNodes.Scale.Y);
+            }
+            else if (FacingDirection < 0 && MeleeAttackDetectNodes.Scale.X > 0)
+            {
+                MeleeAttackDetectNodes.Scale = new Vector2(-1, MeleeAttackDetectNodes.Scale.Y);
+            }
             Flip();
         }
         public void Flip()
@@ -135,8 +144,12 @@ namespace DDemo.Scripts.Entity.Core
             Velocity = velocity;
         }
 
-
-        public virtual void TakeDamage(Node2D attacker, float attackValue)
+        /// <summary>
+        /// 受到攻击
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="attackValue"></param>
+        public virtual void TakeDamage(IEntity attacker, float attackValue)
         {
             RuntimeStats.CurrentHp -= attackValue;
             _healthChanged.Publish(new EntityHealthChanged(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));

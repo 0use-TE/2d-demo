@@ -26,6 +26,6 @@ public partial class TestAnimationEndSignal : Node2D
 
 	private void AnimationPlayer_AnimationFinished(StringName animName)
 	{
-		_logger.LogInformationWithNodeName(this, $"动画:{animName}已经播放完了!");
+		_logger.LogInfoWithNode(this, $"动画:{animName}已经播放完了!");
 	}
 }

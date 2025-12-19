@@ -23,7 +23,7 @@ namespace DDemo.Scripts.Entity.AI
         public ILogger<AIBTInitValueNode> Logger { get; set; } = default!;
         public void OnResolved()
         {
-            Logger.LogInformationWithNodeName(this, "初始化角色数据!");
+            Logger.LogInfoWithNode(this, "初始化角色数据!");
             Blackboard.Set("MoveSpeed", EntityStat.MoveSpeed);
         }
     }

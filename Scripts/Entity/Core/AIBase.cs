@@ -37,8 +37,6 @@ namespace DDemo.Scripts.Entity.Core
         [Node(nameof(NavigationAgent2D))]
         public NavigationAgent2D NavigationAgent2D { get; set; } = default!;
         public TargetContext TargetContext { get; set; } = new TargetContext();
-        [Node(nameof(AttackNodes))]
-        public Node2D AttackNodes { get; set; } = default!;
         public override void _EnterTree()
         {
             BTPlayer.Blackboard.Set(this);
@@ -63,14 +61,6 @@ namespace DDemo.Scripts.Entity.Core
         public override void _Process(double delta)
         {
             base._Process(delta);
-            if (FacingDirection > 0 && AttackNodes.Scale.X < 0)
-            {
-                AttackNodes.Scale = new Vector2(1, AttackNodes.Scale.Y);
-            }
-            else if (FacingDirection < 0 && AttackNodes.Scale.X > 0)
-            {
-                AttackNodes.Scale = new Vector2(-1, AttackNodes.Scale.Y);
-            }
         }
 
         private void Area2D_BodyEntered(Node2D body)
@@ -81,17 +71,17 @@ namespace DDemo.Scripts.Entity.Core
                     return;
                 if (character.TeamType != TeamType)
                 {
-                    Logger.LogInformationWithNodeName(this, $"角色{character.Name}进入了攻击范围!");
+                    Logger.LogInfoWithNode (this, $"角色{character.Name}进入了攻击范围!");
                     _characters.Add(character);
                 }
                 else
                 {
-                    Logger.LogInformationWithNodeName(this, $"非敌对角色{character.Name}进入了攻击范围!");
+                    Logger.LogInfoWithNode(this, $"非敌对角色{character.Name}进入了攻击范围!");
                 }
             }
             else
             {
-                Logger.LogInformationWithNodeName(this, $"非角色{body.Name}进入了攻击范围!");
+                Logger.LogInfoWithNode(this, $"非角色{body.Name}进入了攻击范围!");
             }
         }
         private void Area2D_BodyExited(Node2D body)
@@ -100,7 +90,7 @@ namespace DDemo.Scripts.Entity.Core
             {
                 if (character.TeamType != TeamType)
                 {
-                    Logger.LogInformationWithNodeName(this, $"角色{character.Name}退出了攻击范围!");
+                    Logger.LogInfoWithNode(this, $"角色{character.Name}退出了攻击范围!");
                     if (TargetContext.CurrentTarget.TargetNode == character)
                         TargetContext.CurrentTarget.TargetNode = null;
 
@@ -108,12 +98,12 @@ namespace DDemo.Scripts.Entity.Core
                 }
                 else
                 {
-                    Logger.LogInformationWithNodeName(this, $"非敌对角色{character.Name}退出了攻击范围!");
+                    Logger.LogInfoWithNode(this, $"非敌对角色{character.Name}退出了攻击范围!");
                 }
             }
             else
             {
-                Logger.LogInformationWithNodeName(this, $"非角色{body.Name}退出了攻击范围!");
+                Logger.LogInfoWithNode(this, $"非角色{body.Name}退出了攻击范围!");
             }
         }
 
@@ -124,7 +114,7 @@ namespace DDemo.Scripts.Entity.Core
             //检测策略
             foreach (var item in _targetPerceptions)
             {
-                Logger.LogInformationWithNodeName(this, $"执行了策略{item.GetType().Name}");
+                Logger.LogInfoWithNode(this, $"执行了策略{item.GetType().Name}");
                 item.TargetPerception(this, _characters, _buildings, MapContext, Logger, TargetContext);
             }
         }

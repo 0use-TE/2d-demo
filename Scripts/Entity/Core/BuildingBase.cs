@@ -1,3 +1,5 @@
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
 using DDemo.Scripts.Entity.Core.Stats;
 using DDemo.Scripts.Misc.Enums;
 using Godot;
@@ -9,12 +11,16 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core
 {
-    public abstract partial class BuildingBase : StaticBody2D, IBuilding
+    [Meta(typeof(IAutoNode))]
+    public abstract partial class BuildingBase : StaticBody2D, IBuilding,IProvide<IEntity>
     {
+        public override void _Notification(int what) => this.Notify(what);
+
         public E_TeamType TeamType { get; set; }
         public EntityStat? ConfigData { get; set; }
 
         public RuntimeStats RuntimeStats { get; set; } = default!;
+        IEntity IProvide<IEntity>.Value() => this;
         public override void _Ready()
         {
             base._Ready();
@@ -29,8 +35,14 @@ namespace DDemo.Scripts.Entity.Core
                 RuntimeStats = new RuntimeStats();
                 GD.PrintErr($"{Name}: BuildingBase 缺少 ConfigData 配置！");
             }
+            this.Provide();
         }
-        public virtual void TakeDamage(Node2D attacker, float attackValue)
+        /// <summary>
+        /// 暂未思考建筑物
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="attackValue"></param>
+        public virtual void TakeDamage(IEntity attacker, float attackValue)
         {
 
         }

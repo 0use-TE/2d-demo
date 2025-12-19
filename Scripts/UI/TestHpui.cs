@@ -36,7 +36,7 @@ public partial class TestHpui : Control
                 AddChild(bar);
                 bar.Initialize(x.Entity, x.CurrentHp, x.MaxHp);
                 _activeBars[x.Entity] = bar;
-                Logger.LogInformationWithNodeName(this, $"为实体{x.Entity.Name}添加了血条");
+                Logger.LogInfoWithNode(this, $"为实体{x.Entity.Name}添加了血条");
             }
         }).AddTo(bag);
 
@@ -47,7 +47,7 @@ public partial class TestHpui : Control
                 bar.QueueFree();
                 _activeBars.Remove(x.Entity);
             }
-            Logger.LogInformationWithNodeName(this, $"为实体{x.Entity.Name}移除了血条");
+            Logger.LogInfoWithNode(this, $"为实体{x.Entity.Name}移除了血条");
         }).AddTo(bag);
 
         // 3. 订阅血量更新
