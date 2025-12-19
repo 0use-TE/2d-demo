@@ -152,6 +152,7 @@ namespace DDemo.Scripts.Entity.Core
         public virtual void TakeDamage(IEntity attacker, float attackValue)
         {
             RuntimeStats.CurrentHp -= attackValue;
+
             _healthChanged.Publish(new EntityHealthChanged(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
         }
 

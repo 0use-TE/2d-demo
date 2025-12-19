@@ -32,7 +32,6 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
         {
             base._Ready();
             HitBox.Monitoring = false; // 默认关闭
-
         }
 
         public void StartAttack()
