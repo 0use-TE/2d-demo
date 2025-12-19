@@ -34,10 +34,20 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
             HitBox.Monitoring = false; // 默认关闭
 
         }
+
+        public void StartAttack()
+        {
+            HitBox.Monitoring = true;
+        }
+        public void EndAttack()
+        {
+            HitBox.Monitoring = false;
+        }
+
         /// <summary>
         /// 动画帧直接调用，用于执行攻击逻辑
         /// </summary>
-        public async void AttackEnemy()
+        public void AttackEnemy()
         {
             try
             {
@@ -52,10 +62,6 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
 
                 var data = Entity.RuntimeStats.Attacks[AttackID];
                 var damage = data.Damage;
-                HitBox.Monitoring = true;
-                // ✅ 确保等到下一次物理帧
-                //因为当前帧开启了监控，但是检测必须一个物理帧才能检测到敌人，所以必须await
-                await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
                 var objs = HitBox.GetOverlappingBodies();
                 foreach (var obj in objs)
                 {
@@ -68,7 +74,6 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.AttackDetect
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logger.LogInfoWithNode(this, $"抛出异常{ex.Message}");
