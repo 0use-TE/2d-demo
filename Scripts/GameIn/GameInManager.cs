@@ -25,7 +25,7 @@ namespace DDemo.Scripts.GameIn
 		[Export]
 		private Node2D? TestMainBase { get; set; }
 		[Inject]
-		private ILogger<GameInManager> _logger=default!;
+		public ILogger<GameInManager> Logger=default!;
 
 		private PlayerContext _playerContext = new PlayerContext();
 		private AIUnitContext _aiUnitContext = new AIUnitContext();

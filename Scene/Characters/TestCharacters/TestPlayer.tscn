@@ -620,7 +620,6 @@ ConfigData = SubResource("Resource_33yth")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
 animation = &"Attack1"
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
