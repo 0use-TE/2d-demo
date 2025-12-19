@@ -2,6 +2,7 @@ using Godot;
 using Godot.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.ObjectPool;
 using Serilog;
 using System;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace DDemo.Scripts.GameHander
             services.AddMessagePipe(options => {
 
             });
+
+            services.AddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>();
 
             services.AddLogging(builder =>
             {
