@@ -1,0 +1,23 @@
+using Chickensoft.Introspection;
+using Godot;
+using Godot.DependencyInjection.Attributes;
+using Microsoft.Extensions.Logging;
+using Chickensoft.AutoInject;
+using Dash.Scripts.GameIn.EnvironmentContext;
+namespace Dash.Scripts.Test
+{
+	[Meta(typeof(IAutoNode))]
+	public partial class TestDebug:Node2D
+	{
+        public override void _Notification(int what) => this.Notify(what);
+
+		[Dependency]
+		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
+        public void OnResolved()
+		{
+        }
+        public override void _Process(double delta)
+		{
+        }
+    }
+}

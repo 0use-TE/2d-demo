@@ -1,0 +1,24 @@
+using Dash.Scripts.Entity.Core;
+using Dash.Scripts.Misc.Extensions;
+using Godot;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dash.AI.Extensions
+{
+    public static class AIBaseExtensions
+    {
+        public static void Logger(this AIBase ai, string message)
+        {
+            ai.Logger.LogInfoWithNode(ai, message);
+        }
+        public static void LoggerBTNode(this AIBase ai, BTTask btTask, string message)
+        {
+            ai.Logger.LogInfoWithNode(ai,$"\n行为树节点{btTask.GetType().Name}\n{message}\n");
+        }
+    }
+}
