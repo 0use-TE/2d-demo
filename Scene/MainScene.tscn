@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://co3kunw1miigi"]
+[gd_scene load_steps=10 format=3 uid="uid://co3kunw1miigi"]
 
 [ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
 [ext_resource type="Script" uid="uid://1b2puv4fqdw0" path="res://Scripts/GameIn/GameInManager.cs" id="1_ly247"]
+[ext_resource type="PackedScene" uid="uid://b5ros0ru8ojuu" path="res://Scene/UIScene/TestHPUI.tscn" id="2_i8335"]
 [ext_resource type="PackedScene" uid="uid://clnaknyr31g2p" path="res://Scene/LevelMap/TestMap/TestMap.tscn" id="3_l7vlk"]
-[ext_resource type="Resource" uid="uid://b50x558mqtlau" path="res://Resources/Player/TestPlayer.tres" id="4_i8335"]
-[ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="5_l7vlk"]
-[ext_resource type="Script" uid="uid://dsnlrub0fns4n" path="res://Scripts/Test/TestDebug.cs" id="5_ly247"]
+[ext_resource type="Script" uid="uid://dulbtulbdrdpe" path="res://Scripts/UI/TestHpui.cs" id="3_u8a2y"]
+[ext_resource type="PackedScene" uid="uid://b3ni2auutji6" path="res://Scene/UIScene/Stats/HPBar.tscn" id="4_e7n4u"]
+[ext_resource type="Resource" uid="uid://ch1a1hcfjt0w2" path="res://Resources/Player/TestPlayerStat.tres" id="4_u8a2y"]
+[ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="6_ly247"]
 [ext_resource type="Texture2D" uid="uid://b32226umijxtp" path="res://Assets/icon.svg" id="7_nr04c"]
 
 [node name="GameInManager" type="Node2D" node_paths=PackedStringArray("TestMainBase")]
@@ -16,21 +18,34 @@ TestMainBase = NodePath("MainBase")
 [node name="TestMap" parent="." instance=ExtResource("3_l7vlk")]
 
 [node name="TestPlayer" parent="." instance=ExtResource("1_hcm6b")]
-CharacterStatsResource = ExtResource("4_i8335")
+ConfigData = ExtResource("4_u8a2y")
 
 [node name="Camera2D" type="Camera2D" parent="TestPlayer"]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
 
-[node name="Debug" type="Node2D" parent="."]
-position = Vector2(-128, 7)
-script = ExtResource("5_ly247")
-
-[node name="TestAi" parent="." instance=ExtResource("5_l7vlk")]
-position = Vector2(133, -12)
-
 [node name="MainBase" type="Sprite2D" parent="."]
 position = Vector2(-186, 226)
 scale = Vector2(0.415, 0.415)
 texture = ExtResource("7_nr04c")
+
+[node name="TestAi" parent="." instance=ExtResource("6_ly247")]
+position = Vector2(112, 34)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TestHpui" parent="CanvasLayer" instance=ExtResource("2_i8335")]
+anchors_preset = -1
+anchor_left = -0.165
+anchor_top = -0.166
+anchor_right = 0.167
+anchor_bottom = 0.168
+offset_left = 190.08
+offset_top = 107.568
+offset_right = -192.384
+offset_bottom = -108.864
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("3_u8a2y")
+HpBarPrefab = ExtResource("4_e7n4u")

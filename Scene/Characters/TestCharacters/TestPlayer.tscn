@@ -1,13 +1,23 @@
-[gd_scene load_steps=66 format=3 uid="uid://ehm17p0wa3rx"]
+[gd_scene load_steps=72 format=3 uid="uid://ehm17p0wa3rx"]
 
 [ext_resource type="Script" uid="uid://15tmw8tok1pw" path="res://Scripts/Entity/Players/Player.cs" id="1_juf7y"]
+[ext_resource type="Script" uid="uid://dpy16ov5484xy" path="res://Scripts/Entity/Core/Stats/AttackStat.cs" id="2_ola4f"]
 [ext_resource type="Texture2D" uid="uid://c7bw1cw06jt4h" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Idle.png" id="2_ulie7"]
 [ext_resource type="Texture2D" uid="uid://65sd5fr7nc40" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack01.png" id="2_ygxq0"]
 [ext_resource type="Texture2D" uid="uid://cpdqefdqijxoi" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack02.png" id="3_04plg"]
+[ext_resource type="Script" uid="uid://d0mvbsum3js84" path="res://Scripts/Entity/Core/Stats/EntityStat.cs" id="3_fhdix"]
 [ext_resource type="Texture2D" uid="uid://2gicvf35nfhd" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Attack03.png" id="4_tl5dv"]
 [ext_resource type="Texture2D" uid="uid://dcma045hjp8vu" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Death.png" id="5_tl5dv"]
 [ext_resource type="Texture2D" uid="uid://bv6g1rocpmc6r" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Walk.png" id="6_1nhyp"]
 [ext_resource type="Texture2D" uid="uid://b2pq014nosrwq" path="res://Assets/brackeys_platformer_assets/Characters/Soldier/Soldier with shadows/Soldier-Hurt.png" id="6_mdlc4"]
+[ext_resource type="Script" uid="uid://cjfb4ywwvfh2q" path="res://Scripts/Entity/AI/AIPerception/AttackDetect/AttackArea.cs" id="9_1nhyp"]
+
+[sub_resource type="Resource" id="Resource_33yth"]
+script = ExtResource("3_fhdix")
+MaxHp = 100.0
+MoveSpeed = 50.0
+Attacks = Array[ExtResource("2_ola4f")]([])
+metadata/_custom_type_script = "uid://d0mvbsum3js84"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mdlc4"]
 atlas = ExtResource("2_ygxq0")
@@ -402,6 +412,26 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Attack1"]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeAttackDetectNodes/Attack1")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0666667, 0.333333, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"StartAttack"
+}, {
+"args": [],
+"method": &"AttackEnemy"
+}, {
+"args": [],
+"method": &"EndAttack"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_1nhyp"]
 length = 0.8
@@ -428,6 +458,26 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Attack2"]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeAttackDetectNodes/Attack2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0666667, 0.566667, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"StartAttack"
+}, {
+"args": [],
+"method": &"AttackEnemy"
+}, {
+"args": [],
+"method": &"EndAttack"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_mdlc4"]
@@ -584,13 +634,22 @@ _data = {
 radius = 6.0
 height = 18.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ola4f"]
+size = Vector2(9, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tl5dv"]
+radius = 12.0
+height = 24.0
+
 [node name="TestPlayer" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
 script = ExtResource("1_juf7y")
+ConfigData = SubResource("Resource_33yth")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_juf7y")
-animation = &"Attack1"
+animation = &"Attack2"
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -601,3 +660,28 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_juf7y")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="MeleeAttackDetectNodes" type="Node2D" parent="."]
+
+[node name="Attack2" type="Node2D" parent="MeleeAttackDetectNodes"]
+script = ExtResource("9_1nhyp")
+AttackID = 1
+
+[node name="HitBox" type="Area2D" parent="MeleeAttackDetectNodes/Attack2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackDetectNodes/Attack2/HitBox"]
+position = Vector2(14.5, -2)
+shape = SubResource("RectangleShape2D_ola4f")
+debug_color = Color(0.748096, 0.45881, 0.117368, 0.42)
+
+[node name="Attack1" type="Node2D" parent="MeleeAttackDetectNodes"]
+script = ExtResource("9_1nhyp")
+
+[node name="HitBox" type="Area2D" parent="MeleeAttackDetectNodes/Attack1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackDetectNodes/Attack1/HitBox"]
+position = Vector2(8, 0)
+shape = SubResource("CapsuleShape2D_tl5dv")
+debug_color = Color(0.638047, 0.515428, 0.296498, 0.42)

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EntityStat" load_steps=5 format=3 uid="uid://ch1a1hcfjt0w2"]
+
+[ext_resource type="Script" uid="uid://dpy16ov5484xy" path="res://Scripts/Entity/Core/Stats/AttackStat.cs" id="1_422tn"]
+[ext_resource type="Script" uid="uid://d0mvbsum3js84" path="res://Scripts/Entity/Core/Stats/EntityStat.cs" id="2_kg364"]
+
+[sub_resource type="Resource" id="Resource_422tn"]
+script = ExtResource("1_422tn")
+SkillName = "Basic Attack"
+Damage = 15.0
+Cooldown = 1.0
+metadata/_custom_type_script = "uid://dpy16ov5484xy"
+
+[sub_resource type="Resource" id="Resource_kg364"]
+script = ExtResource("1_422tn")
+SkillName = "Basic Attack"
+Damage = 20.0
+Cooldown = 1.0
+metadata/_custom_type_script = "uid://dpy16ov5484xy"
+
+[resource]
+script = ExtResource("2_kg364")
+MaxHp = 100.0
+MoveSpeed = 50.0
+Attacks = Array[ExtResource("1_422tn")]([SubResource("Resource_422tn"), SubResource("Resource_kg364")])
+metadata/_custom_type_script = "uid://d0mvbsum3js84"

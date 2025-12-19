@@ -1,7 +1,6 @@
 using Chickensoft.Introspection;
 using Godot;
 using Godot.DependencyInjection.Attributes;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using Chickensoft.AutoInject;
 using DDemo.Scripts.GameIn.EnvironmentContext;
@@ -16,7 +15,6 @@ namespace DDemo.Scripts.Test
 		private PlayerContext _playerContext => this.DependOn<PlayerContext>();
         public void OnResolved()
 		{
-
         }
         public override void _Process(double delta)
 		{

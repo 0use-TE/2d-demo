@@ -18,20 +18,25 @@ namespace DDemo.Scripts.GameIn
 	public partial class GameInManager : Node2D,
 		IProvide<PlayerContext>,
 		IProvide<AIUnitContext>,
-		IProvide<MapContext>
+		IProvide<MapContext>,
+		IProvide<EntityInCameraContext>
 	{
 		public override void _Notification(int what) => this.Notify(what);
 		[Export]
 		private Node2D? TestMainBase { get; set; }
 		[Inject]
-		private ILogger<GameInManager> _logger=default!;
+		public ILogger<GameInManager> Logger=default!;
 
 		private PlayerContext _playerContext = new PlayerContext();
 		private AIUnitContext _aiUnitContext = new AIUnitContext();
 		private MapContext _mapContext = new MapContext();
-		PlayerContext IProvide<PlayerContext>.Value() => _playerContext;
+		private EntityInCameraContext _entityInCameraContext = new EntityInCameraContext();
+
+
+        PlayerContext IProvide<PlayerContext>.Value() => _playerContext;
 		AIUnitContext IProvide<AIUnitContext>.Value() => _aiUnitContext;
 		MapContext IProvide<MapContext>.Value() => _mapContext;
+		EntityInCameraContext IProvide<EntityInCameraContext>.Value() => _entityInCameraContext;
             
 		public void OnReady()
 		{
@@ -44,5 +49,7 @@ namespace DDemo.Scripts.GameIn
             // Call the this.Provide() method once your dependencies have been initialized.
             this.Provide();
         }
+
+   
     }
 }

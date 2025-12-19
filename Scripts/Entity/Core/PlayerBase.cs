@@ -2,6 +2,9 @@ using CharacterModule.StateMachineModule;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
+using DDemo.ai.Extensions;
+using DDemo.Scripts.Entity.Core.AttackSystem.Core;
+using DDemo.Scripts.Misc.Enums;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -17,19 +20,17 @@ namespace DDemo.Scripts.Entity.Core
 	{
         public override void _Notification(int what) => this.Notify(what);
 
-        public StateMachine StateMachine { get; private set; } = new StateMachine();
-
+		public StateMachine StateMachine { get; private set; } = new StateMachine();
+		private BlackboardPlan ?_blackboardPlan;
         public override void _Ready()
 		{
 			base._Ready();
+
 			//设置阵营
-			TeamType = Misc.Enums.E_TeamType.Player;
+			TeamType = E_TeamType.Player;
             ConfigureStateMachine();
-			InitChatacterStats();
             AnimationPlayer.AnimationFinished += AnimationPlayer_AnimationFinished;
         }
-		public abstract void InitChatacterStats();
-
 		protected abstract void AnimationPlayer_AnimationFinished(StringName animName);
 
         protected abstract void ConfigureStateMachine();

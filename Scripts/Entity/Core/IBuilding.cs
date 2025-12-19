@@ -1,3 +1,4 @@
+using DDemo.Scripts.Misc.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDemo.Scripts.Entity.Core
 {
-    internal interface IBuilding
+    internal interface IBuilding:IEntity
     {
     }
 }

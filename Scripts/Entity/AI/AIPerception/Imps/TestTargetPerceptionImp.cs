@@ -22,7 +22,7 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.Imps
              .FirstOrDefault();
             if (nearestCharacter != null)
             {
-                logger.LogInformationWithNodeName(ai, $"角色{nearestCharacter.Name}被设置为了角色攻击目标!");
+                logger.LogInfoWithNode(ai, $"角色{nearestCharacter.Name}被设置为了角色攻击目标!");
                 targetContext.CurrentTarget.TargetNode = nearestCharacter;
             }
             else
@@ -30,11 +30,11 @@ namespace DDemo.Scripts.Entity.AI.AIPerception.Imps
                 var manBaseNode = mapContext.TargetPos.FirstOrDefault();
                 if (manBaseNode != null)
                 {
-                    logger.LogInformationWithNodeName(ai, $"大本营{manBaseNode.Name}被设置为了角色攻击目标!");
+                    logger.LogInfoWithNode(ai, $"大本营{manBaseNode.Name}被设置为了角色攻击目标!");
                     targetContext.CurrentTarget.TargetNode = manBaseNode;
                 }
             }
-            logger.LogInformationWithNodeName(ai, $"找不到任何攻击目标!");
+            logger.LogInfoWithNode(ai, $"找不到任何攻击目标!");
         }
     }
 }
