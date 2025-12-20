@@ -1,9 +1,14 @@
+using System;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
+using GameDevTools.Services;
+using GameDevTools.Services.DataPersistences;
 using GameDevTools.ViewModels;
 using GameDevTools.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,16 +42,25 @@ namespace GameDevTools
                 .CreateLogger();
 
             var serviceColllection = new ServiceCollection();
+            serviceColllection.AddSingleton<INotificationService, NotificationService>();
+            serviceColllection.AddSingleton<IJsonPersistenceService, JsonPersistenceService>();
             //Logging
             serviceColllection.AddLogging(builder =>
             {
-                builder.AddSerilog(dispose:true);
+                builder.AddSerilog(dispose: true);
             });
 
             //Pupulate ServiceCollection To DryIoc
             containerRegistry.GetContainer().Populate(serviceColllection);
 
             // Register you Services, Views, Dialogs, etc.
+
+        }
+        protected override void OnInitialized()
+        {
+            //参数化NotificationHost
+            Container.Resolve<INotificationService>().SetHostWindow((MainWindow as Window) ?? throw new InvalidOperationException("主窗口设置失败!"));
+            base.OnInitialized();
         }
     }
 }

@@ -1,0 +1,49 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:avalonia="using:Material.Icons.Avalonia"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:viewmodels="using:GameDevTools.ViewModels"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:DataType="viewmodels:MainViewModel"
+             x:Class="GameDevTools.Views.MainView">
+  <SplitView DisplayMode="CompactInline" x:Name="MySplitView"  OpenPaneLength="150" >
+    <SplitView.Pane>
+      <StackPanel Orientation="Vertical" >
+        <StackPanel.Styles>
+          <Style Selector="avalonia|MaterialIcon">
+            <Setter Property="Width" Value="22"></Setter>
+            <Setter Property="Height" Value="22"></Setter>
+          </Style>
+          <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="Transparent"></Setter>
+          </Style>
+          <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent"></Setter>
+          </Style>
+          <Style Selector="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+          </Style>
+        </StackPanel.Styles>
+        <Button HorizontalAlignment="Left">
+          <Interaction.Behaviors>
+            <EventTriggerBehavior EventName="Click">
+              <SplitViewTogglePaneAction TargetSplitView="{Binding #MySplitView}" />
+            </EventTriggerBehavior>
+          </Interaction.Behaviors>
+          <avalonia:MaterialIcon Kind="Menu"></avalonia:MaterialIcon>
+        </Button>
+        <Button>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <avalonia:MaterialIcon Kind="Filter"></avalonia:MaterialIcon>
+            <TextBlock VerticalAlignment="Center" IsVisible="{Binding #MySplitView.IsPaneOpen}">日志过滤器</TextBlock>
+          </StackPanel>
+        </Button>
+      </StackPanel>
+    </SplitView.Pane>
+
+    <ContentControl Content="{Binding Page}"></ContentControl>
+  </SplitView>
+</UserControl>

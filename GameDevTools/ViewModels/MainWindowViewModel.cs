@@ -1,14 +1,23 @@
+using Avalonia.Styling;
+using Prism.Commands;
+
 namespace GameDevTools.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         public MainWindowViewModel()
         {
-            Title = "Welcome to Prism.Avalonia!";
+            SwitchThemeCommand = new DelegateCommand(() =>
+            {
+                if (App.Current == null)
+                    return;
+                if (App.Current.RequestedThemeVariant == ThemeVariant.Dark)
+                    App.Current.RequestedThemeVariant = ThemeVariant.Light;
+                else
+                    App.Current.RequestedThemeVariant=ThemeVariant.Dark;
+            });
         }
+        public DelegateCommand SwitchThemeCommand { get; set; }
 
-#pragma warning disable CA1822 // Mark members as static
-        public string Greeting => "Hello from, Prism.Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
     }
 }

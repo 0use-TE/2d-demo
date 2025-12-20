@@ -4,12 +4,16 @@
              xmlns:local="using:GameDevTools"
              xmlns:materialIcons="using:Material.Icons.Avalonia"
              xmlns:semi="https://irihi.tech/semi"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Light">
   <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-  
+
+  <Application.DataTemplates>
+    <local:ViewLocator></local:ViewLocator>
+  </Application.DataTemplates>
+
   <Application.Styles>
     <semi:SemiTheme></semi:SemiTheme>
     <semi:SemiPopupAnimations></semi:SemiPopupAnimations>
-     <materialIcons:MaterialIconStyles />
+    <materialIcons:MaterialIconStyles />
   </Application.Styles>
 </Application>

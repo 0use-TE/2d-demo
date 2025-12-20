@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CharacterModule\CharacterModule.csproj" />
+    <ProjectReference Include="..\GameDevTools.Share\GameDevTools.Share.csproj" />
   </ItemGroup>
 
 </Project>

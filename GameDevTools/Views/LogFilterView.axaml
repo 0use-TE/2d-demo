@@ -1,0 +1,32 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="using:GameDevTools.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="GameDevTools.Views.LogFilterView"
+             x:DataType="viewmodels:LogFilterViewModel">
+
+  <Border Margin="4" Padding="4" BorderBrush="LightGray" BorderThickness="1">
+    <Grid RowDefinitions="30,2,*">
+      <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+
+        <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
+          <Button>扫描</Button>
+          <Button>全部</Button>
+          <Button>清空</Button>
+        </StackPanel>
+
+        <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="2" Orientation="Horizontal">
+           <Button>选择Dll</Button>
+        </StackPanel>
+      </Grid>
+
+      <Separator Grid.Row="1"></Separator>
+
+      <StackPanel Grid.Row="2">
+
+      </StackPanel>
+    </Grid>
+  </Border>
+</UserControl>
