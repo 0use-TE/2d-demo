@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace ToolSets.Views
+namespace GameDevTools.Views
 {
     /// <summary>Main window view.</summary>
     public partial class MainWindow : Window
