@@ -1,5 +1,6 @@
 using GameDevTools.Share;
 using GameDevTools.Share.ShareModel.LogFilter;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -24,7 +25,6 @@ namespace Dash.Scripts.GameHandler.Services
 
             // 2. 初始加载
             LoadConfig();
-
             // 3. 启动文件监听 (实现运行时热更新)
             var directory = Path.GetDirectoryName(_configPath);
             if (Directory.Exists(directory))
@@ -43,7 +43,7 @@ namespace Dash.Scripts.GameHandler.Services
             try
             {
                 // 防止 Avalonia 正在写入时导致的 IO 占用错误，尝试读取
-                using var stream = File.Open(_configPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                using var stream = File.Open(_configPath, FileMode.Open, System.IO.FileAccess.Read, FileShare.ReadWrite);
                 var model = JsonSerializer.Deserialize<LogFilterSaveModel>(stream);
 
                 if (model?.SavedNodes != null)
@@ -63,12 +63,12 @@ namespace Dash.Scripts.GameHandler.Services
             }
         }
 
-        public bool IsAllowed(string categoryName)
+        public bool IsAllowed(string? categoryName)
         {
-            // 如果配置为空，默认全部放行（或者根据你的喜好改为全部拦截）
-            if (_enabledNames.IsEmpty) return false;
+            // 如果配置为空，默认全部放行
+            if(string.IsNullOrEmpty(categoryName)) return true;
 
-            return !_enabledNames.Contains(categoryName);
+            return _enabledNames.Contains(categoryName);
         }
 
         public void Dispose() => _watcher?.Dispose();

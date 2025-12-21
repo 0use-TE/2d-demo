@@ -9,7 +9,7 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+namespace Dash.Scripts.Entity.AI;
 [Meta(typeof(IAutoNode))]
 public partial class TestAi : AIBase
 {

@@ -22,7 +22,6 @@ namespace Dash.Scripts.GameHander
             //Godot Services
             services.AddGodotServices();
 
-            GD.PushError("Ouse");
             services.AddMessagePipe(options =>
             {
 
@@ -32,7 +31,10 @@ namespace Dash.Scripts.GameHander
             services.AddSingleton<ILogFilterService>(filterService);
             services.AddLogging(builder =>
             {
-                builder.AddFilter((captuee, level) => true);
+                builder.AddFilter((capegory, level) =>
+                {
+                    return filterService.IsAllowed(capegory);
+                });
             });
         }
     }
