@@ -9,24 +9,45 @@
 
   <Border Margin="4" Padding="4" BorderBrush="LightGray" BorderThickness="1">
     <Grid RowDefinitions="30,2,*">
-      <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+      <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <Grid  ColumnDefinitions="Auto,*,Auto">
 
-        <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
-          <Button>扫描</Button>
-          <Button>全部</Button>
-          <Button>清空</Button>
-        </StackPanel>
+          <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
+            <Button>扫描</Button>
+            <Button>全部</Button>
+            <Button>清空</Button>
+          </StackPanel>
 
-        <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="2" Orientation="Horizontal">
-           <Button>选择Dll</Button>
-        </StackPanel>
-      </Grid>
+          <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="2" Orientation="Horizontal">
+            <Button ToolTip.Tip="点击查看Dll路径" Content="{Binding SelectDllName}">
+              <Button.Flyout>
+                <Flyout >
+                  <Border Padding="2"  VerticalAlignment="Center" Margin="0" >
+                    <TextBox Text="{Binding SelectDllPath}" IsReadOnly="True" FontWeight="SemiBold"></TextBox>
+                  </Border>
+                </Flyout>
+              </Button.Flyout>
+            </Button>
+            <Button>
+              <Interaction.Behaviors>
+                <ButtonClickEventTriggerBehavior>
+                  <OpenFilePickerAction  Command="{Binding SelectFileCommad}" FileTypeFilter="Godots'dll|*.dll;"></OpenFilePickerAction>
+                </ButtonClickEventTriggerBehavior>
+              </Interaction.Behaviors>
+              选择Dll
+            </Button>
+          </StackPanel>
+        </Grid>
+      </ScrollViewer>
+
 
       <Separator Grid.Row="1"></Separator>
 
-      <StackPanel Grid.Row="2">
+      <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+        <StackPanel >
 
-      </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
     </Grid>
   </Border>
 </UserControl>

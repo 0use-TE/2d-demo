@@ -35,7 +35,7 @@
           </Interaction.Behaviors>
           <avalonia:MaterialIcon Kind="Menu"></avalonia:MaterialIcon>
         </Button>
-        <Button>
+        <Button Command="{Binding NavigateToLogFilter}">
           <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <avalonia:MaterialIcon Kind="Filter"></avalonia:MaterialIcon>
             <TextBlock VerticalAlignment="Center" IsVisible="{Binding #MySplitView.IsPaneOpen}">日志过滤器</TextBlock>
@@ -44,6 +44,6 @@
       </StackPanel>
     </SplitView.Pane>
 
-    <ContentControl Content="{Binding Page}"></ContentControl>
+    <ContentControl  prism:RegionManager.RegionName="MainView"></ContentControl>
   </SplitView>
 </UserControl>

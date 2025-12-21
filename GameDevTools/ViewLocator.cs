@@ -10,53 +10,35 @@ namespace GameDevTools;
 
 internal class ViewLocator : IDataTemplate
 {
-    // 静态缓存：ViewModelType -> ViewType
-    private static readonly Dictionary<Type, Type> Cache  = new();
-    private static readonly Lock Lock = new();
-
     public Control? Build(object? data)
     {
-        if (data is null)
-            return null;
+        if (data == null) return null;
 
-        var viewModelType = data.GetType();
+        // 1. 获取对应的 View 类型名称
+        // 替换后 View 命名为: MyProject.Views.MainView
+        var viewTypeName = data.GetType().FullName?.Replace("ViewModel", "View");
 
-        if (!TryGetViewType(viewModelType, out var viewType))
+        if (string.IsNullOrEmpty(viewTypeName)) return new TextBlock { Text = "无效的类型名称" };
+
+        var viewType = Type.GetType(viewTypeName);
+        if (viewType != null)
         {
-            return new TextBlock
-            {
-                Text = $"Not Found: {viewModelType.FullName}"
-            };
+            // 2. 实例化 View
+            var view = (Control)Activator.CreateInstance(viewType)!;
+
+            // 3. 关键：设置 DataContext
+            // 这样 View 就能访问到 ViewModel 里的属性和命令
+            view.DataContext = data;
+
+            return view;
         }
 
-        return (Control)Activator.CreateInstance(viewType)!;
+        return new TextBlock { Text = $"找不到视图: {viewTypeName}" };
     }
 
     public bool Match(object? data)
     {
+        // 只要是继承自 ViewModelBase 的数据对象，都由这个 Locator 处理
         return data is ViewModelBase;
-    }
-
-    private static bool TryGetViewType(Type viewModelType, out Type viewType)
-    {
-        lock (Lock)
-        {
-            // 1️⃣ 命中缓存
-            if (Cache.TryGetValue(viewModelType, out viewType!))
-                return true;
-
-            // 2️⃣ 计算 View 类型名
-            var viewTypeName = viewModelType.FullName!.Replace("ViewModel", "View");
-
-            viewType = Type.GetType(viewTypeName)!;
-
-            // 3️⃣ 找不到直接返回 false（不缓存）
-            if (viewType is null)
-                return false;
-
-            // 4️⃣ 写入缓存
-            Cache[viewModelType] = viewType;
-            return true;
-        }
     }
 }

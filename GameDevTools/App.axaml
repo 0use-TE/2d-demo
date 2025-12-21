@@ -7,10 +7,6 @@
              RequestedThemeVariant="Light">
   <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-  <Application.DataTemplates>
-    <local:ViewLocator></local:ViewLocator>
-  </Application.DataTemplates>
-
   <Application.Styles>
     <semi:SemiTheme></semi:SemiTheme>
     <semi:SemiPopupAnimations></semi:SemiPopupAnimations>
