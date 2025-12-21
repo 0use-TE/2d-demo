@@ -26,9 +26,10 @@ namespace Dash.Scripts.Entity.Core
         public CharacterBody2D CharacterBody2D { get; private set; } = default!;
         [Node("VisibleOnScreenNotifier2D")]
         public VisibleOnScreenNotifier2D VisibilityNotifier { get; private set; } = default!;
-        [Inject] public IPublisher<EntitySpotted> _spottedPub = default!;
-        [Inject] public IPublisher<EntityGone> _gonePub = default!;
-        [Inject] public IPublisher<EntityHealthChanged> _healthChanged = default!;
+        [Inject] public IPublisher<EntitySpottedEvent> _spottedPub = default!;
+        [Inject] public IPublisher<EntityGoneEvent> _gonePub = default!;
+        [Inject] public IPublisher<EntityHealthChangedEvent> _healthChanged = default!;
+        [Inject] public IPublisher<EntityDeadEvent>  _entityDeadEvent= default!;
         IEntity IProvide<IEntity>.Value() => this;
 
         // 后台字段
@@ -60,7 +61,7 @@ namespace Dash.Scripts.Entity.Core
         [Node(nameof(MeleeAttackDetectNodes))]
         public Node2D MeleeAttackDetectNodes { get; set; } = default!;
         public RuntimeStats RuntimeStats { get; set; } = default!;
-
+        public E_ControllerType ControllerType { get; set; }
         public override void _Ready()
         {
             base._Ready();
@@ -86,20 +87,20 @@ namespace Dash.Scripts.Entity.Core
             VisibilityNotifier.ScreenEntered += () =>
             {
                 Logger.LogInfoWithNode(this, "角色进入了屏幕!");
-                _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
+                _spottedPub.Publish(new EntitySpottedEvent(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             };
             // 离开屏幕发信号
             VisibilityNotifier.ScreenExited += () =>
             {
                 Logger.LogInfoWithNode(this, "角色退出了屏幕!");
-                _gonePub.Publish(new EntityGone(this));
+                _gonePub.Publish(new EntityGoneEvent(this));
             };
 
             // 手动触发一次初始状态
             if (VisibilityNotifier.IsOnScreen())
             {
                 Logger.LogInfoWithNode(this, "角色初始在屏幕上!");
-                _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
+                _spottedPub.Publish(new EntitySpottedEvent(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             }
 
         }
@@ -156,8 +157,16 @@ namespace Dash.Scripts.Entity.Core
         {
             RuntimeStats.CurrentHp -= attackValue;
 
-            _healthChanged.Publish(new EntityHealthChanged(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
+            _healthChanged.Publish(new EntityHealthChangedEvent(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
+            //I am dead!
+            if (RuntimeStats.CurrentHp <= 0)
+                Die();
         }
 
+        public virtual void Die()
+        {
+            Logger.LogInfoWithNode(this, $"角色{RuntimeStats.Name}死亡！");
+            _entityDeadEvent.Publish(new EntityDeadEvent(this));
+        }
     }
 }

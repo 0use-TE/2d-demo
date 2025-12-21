@@ -4,6 +4,7 @@ using Godot;
 using Godot.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.ObjectPool;
 using Serilog;
 using System;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Dash.Scripts.GameHander
             //Godot Services
             services.AddGodotServices();
 
-            //services.AddSingleton<DefaultObjectPoolProvider>();
+            services.AddSingleton<DefaultObjectPoolProvider>();
 
             services.AddMessagePipe(options =>
             {

@@ -15,9 +15,9 @@ public partial class TestHpui : Control
     [Export] public PackedScene HpBarPrefab { get; set; } = default!;
 
     // 注入订阅器
-    [Inject] public ISubscriber<EntitySpotted> _spottedSub = default!;
-    [Inject] public ISubscriber<EntityGone> _goneSub = default!;
-    [Inject] public ISubscriber<EntityHealthChanged> _healthSub = default!;
+    [Inject] public ISubscriber<EntitySpottedEvent> _spottedSub = default!;
+    [Inject] public ISubscriber<EntityGoneEvent> _goneSub = default!;
+    [Inject] public ISubscriber<EntityHealthChangedEvent> _healthSub = default!;
     [Inject] public ILogger<TestHpui> Logger=default!;
     // 字典：Key是敌人节点，Value是对应的UI血条
     private readonly Dictionary<Node2D, HpBar> _activeBars = new();

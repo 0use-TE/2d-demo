@@ -20,6 +20,8 @@ namespace Dash.Scripts.Entity.Core
         public EntityStat? ConfigData { get; set; }
 
         public RuntimeStats RuntimeStats { get; set; } = default!;
+        public E_ControllerType ControllerType { get; set; }
+
         IEntity IProvide<IEntity>.Value() => this;
         public override void _Ready()
         {
@@ -45,6 +47,10 @@ namespace Dash.Scripts.Entity.Core
         public virtual void TakeDamage(IEntity attacker, float attackValue)
         {
 
+        }
+
+        public void Die()
+        {
         }
     }
 }

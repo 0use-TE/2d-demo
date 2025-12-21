@@ -12,6 +12,7 @@ namespace Dash.Scripts.Entity.Core.Stats
     public partial class EntityStat:Resource
     {
         [ExportGroup("Base Stats")]
+        [Export] public string Name { get; set; } = "暂无";
         [Export] public float MaxHp = 100.0f;
         [Export] public float MoveSpeed = 50.0f;
         

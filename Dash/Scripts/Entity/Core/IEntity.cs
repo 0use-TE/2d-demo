@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 
 namespace Dash.Scripts.Entity.Core
 {
-    public interface IEntity:IDamageable
+    public interface IEntity : IDamageable
     {
         E_TeamType TeamType { get; set; }
-        [Export] 
+        E_ControllerType ControllerType { get; set; }
+        [Export]
         EntityStat? ConfigData { get; set; }
-        RuntimeStats RuntimeStats { get;  }
+        RuntimeStats RuntimeStats { get; }
     }
 }

@@ -27,7 +27,8 @@ namespace Dash.Scripts.Entity.Core
 			base._Ready();
 
 			//设置阵营
-			TeamType = E_TeamType.Player;
+			TeamType = E_TeamType.Order;
+			ControllerType = E_ControllerType.Human;
             ConfigureStateMachine();
             AnimationPlayer.AnimationFinished += AnimationPlayer_AnimationFinished;
         }

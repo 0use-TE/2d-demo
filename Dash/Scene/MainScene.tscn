@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://co3kunw1miigi"]
+[gd_scene load_steps=11 format=3 uid="uid://co3kunw1miigi"]
 
 [ext_resource type="PackedScene" uid="uid://ehm17p0wa3rx" path="res://Scene/Characters/TestCharacters/TestPlayer.tscn" id="1_hcm6b"]
 [ext_resource type="Script" uid="uid://1b2puv4fqdw0" path="res://Scripts/GameIn/GameInManager.cs" id="1_ly247"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://dulbtulbdrdpe" path="res://Scripts/UI/TestHpui.cs" id="3_u8a2y"]
 [ext_resource type="PackedScene" uid="uid://b3ni2auutji6" path="res://Scene/UIScene/Stats/HPBar.tscn" id="4_e7n4u"]
 [ext_resource type="Resource" uid="uid://ch1a1hcfjt0w2" path="res://Resources/Player/TestPlayerStat.tres" id="4_u8a2y"]
-[ext_resource type="PackedScene" uid="uid://824k1705eog2" path="res://Scene/Characters/TestCharacters/TestAI.tscn" id="6_ly247"]
 [ext_resource type="Texture2D" uid="uid://b32226umijxtp" path="res://Assets/icon.svg" id="7_nr04c"]
+[ext_resource type="PackedScene" uid="uid://unlwwi7kla3m" path="res://Scene/TestNode/TestEnemySpawer.tscn" id="9_u8a2y"]
+[ext_resource type="Script" uid="uid://bvuwqbgdc3seu" path="res://Scripts/GameIn/CharacterSpawner.cs" id="10_e7n4u"]
 
 [node name="GameInManager" type="Node2D" node_paths=PackedStringArray("TestMainBase")]
 texture_filter = 1
@@ -47,5 +48,6 @@ position = Vector2(-186, 226)
 scale = Vector2(0.415, 0.415)
 texture = ExtResource("7_nr04c")
 
-[node name="TestAi" parent="." instance=ExtResource("6_ly247")]
-position = Vector2(112, 34)
+[node name="TestEnemySpawer" parent="." instance=ExtResource("9_u8a2y")]
+position = Vector2(63, -48)
+script = ExtResource("10_e7n4u")
