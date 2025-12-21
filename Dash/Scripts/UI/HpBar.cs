@@ -33,7 +33,6 @@ public partial class HpBar : Control
             Vector2 screenPos = _target.GetGlobalTransformWithCanvas().Origin;
 
             // 核心：即使在这里，也需要考虑 target 的实时 Scale 
-            // 如果你希望血条高度随缩放动态变化，就用 _yOffset * _target.Scale.Y
             float dynamicOffset = _yOffset * _target.GlobalScale.Y;
 
             // 居中对齐并应用偏移

@@ -22,6 +22,8 @@ namespace Dash.Scripts.GameHander
             //Godot Services
             services.AddGodotServices();
 
+            //services.AddSingleton<DefaultObjectPoolProvider>();
+
             services.AddMessagePipe(options =>
             {
 

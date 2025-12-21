@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Dash.Scripts.Entity.Core
 {
     [Meta(typeof(IAutoNode))]
-    public abstract partial class CharacterBase : CharacterBody2D, ICharacter,IProvide<IEntity> 
+    public abstract partial class CharacterBase : CharacterBody2D, ICharacter, IProvide<IEntity>
     {
         public override void _Notification(int what) => this.Notify(what);
         public CharacterBody2D CharacterBody2D { get; private set; } = default!;
@@ -28,7 +28,7 @@ namespace Dash.Scripts.Entity.Core
         public VisibleOnScreenNotifier2D VisibilityNotifier { get; private set; } = default!;
         [Inject] public IPublisher<EntitySpotted> _spottedPub = default!;
         [Inject] public IPublisher<EntityGone> _gonePub = default!;
-        [Inject] public IPublisher<EntityHealthChanged> _healthChanged= default!;
+        [Inject] public IPublisher<EntityHealthChanged> _healthChanged = default!;
         IEntity IProvide<IEntity>.Value() => this;
 
         // 后台字段
@@ -56,7 +56,7 @@ namespace Dash.Scripts.Entity.Core
 
         public int FacingDirection { get; set; } = 1; // 1表示向右，-1表示向左
         [Export]
-        public  EntityStat? ConfigData { get; set; }
+        public EntityStat? ConfigData { get; set; }
         [Node(nameof(MeleeAttackDetectNodes))]
         public Node2D MeleeAttackDetectNodes { get; set; } = default!;
         public RuntimeStats RuntimeStats { get; set; } = default!;
@@ -94,11 +94,14 @@ namespace Dash.Scripts.Entity.Core
                 Logger.LogInfoWithNode(this, "角色退出了屏幕!");
                 _gonePub.Publish(new EntityGone(this));
             };
+
+            // 手动触发一次初始状态
             if (VisibilityNotifier.IsOnScreen())
             {
-                Logger.LogInfoWithNode(this, "角色初始化时进入了屏幕!");
+                Logger.LogInfoWithNode(this, "角色初始在屏幕上!");
                 _spottedPub.Publish(new EntitySpotted(this, RuntimeStats.CurrentHp, RuntimeStats.MaxHp));
             }
+
         }
 
         public void AddVelocity(float? x = null, float? y = null)
