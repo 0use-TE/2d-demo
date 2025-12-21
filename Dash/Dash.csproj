@@ -3,7 +3,7 @@
 		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
-		<RootNamespace>DDemo</RootNamespace>
+		<RootNamespace>Dash</RootNamespace>
 		<NoWarn>$(NoWarn);NU1605</NoWarn>
 
 		<!-- Catch compiler-mismatch issues with the Introspection generator -->

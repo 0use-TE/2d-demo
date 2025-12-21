@@ -1,3 +1,5 @@
+using Dash.Scripts.GameHandler.Services;
+using GameDevTools.Share.ShareModel.LogFilter;
 using Godot;
 using Godot.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,31 +19,21 @@ namespace Dash.Scripts.GameHander
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-
-            Log.Logger = new LoggerConfiguration()
-                .CreateLogger();
-            
-            services.AddMessagePipe(options => {
-
-            });
-
-            services.AddLogging(builder =>
-            {
-                builder.AddSerilog(dispose: true);
-#if TOOLS
-                //builder.AddFilter((category, logLevel) =>
-                //{
-                //    var rules = LogFilterService.LoadRules();
-                //    var rule = rules
-                //        .FirstOrDefault(r => r.TypeName == category);
-                //    if (rule == null || !rule.IsEnabled)
-                //        return false;
-                //    return true;
-                //});
-#endif
-            });
             //Godot Services
             services.AddGodotServices();
+
+            GD.PushError("Ouse");
+            services.AddMessagePipe(options =>
+            {
+
+            });
+
+            var filterService = new LogFilterService();
+            services.AddSingleton<ILogFilterService>(filterService);
+            services.AddLogging(builder =>
+            {
+                builder.AddFilter((captuee, level) => true);
+            });
         }
     }
 }

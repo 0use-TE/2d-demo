@@ -6,16 +6,18 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="GameDevTools.Views.LogFilterView"
              x:DataType="viewmodels:LogFilterViewModel">
-
+  <UserControl.KeyBindings>
+    <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveCommand}"></KeyBinding>
+  </UserControl.KeyBindings>
   <Border Margin="4" Padding="4" BorderBrush="LightGray" BorderThickness="1">
-    <Grid RowDefinitions="30,2,*">
+    <Grid RowDefinitions="34,2,*">
       <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
         <Grid  ColumnDefinitions="Auto,*,Auto">
 
           <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="0" Orientation="Horizontal">
-            <Button>扫描</Button>
-            <Button>全部</Button>
-            <Button>清空</Button>
+            <Button Command="{Binding SelectAllCommand}">全部选择</Button>
+            <Button Command="{Binding ClearAllCommand}">清空选择</Button>
+            <TextBox Watermark="过滤类型..." Foreground="Black" FontWeight="SemiBold" MinWidth="100"  MaxWidth="200" Text="{Binding FilterDllName}"></TextBox>
           </StackPanel>
 
           <StackPanel Spacing="2" VerticalAlignment="Center" Grid.Column="2" Orientation="Horizontal">
@@ -36,6 +38,18 @@
               </Interaction.Behaviors>
               选择Dll
             </Button>
+            <Button Command="{Binding ScanGodotDllInfoCommand}">扫描</Button>
+            <Button Command="{Binding SaveCommand}">
+              <Interaction.Behaviors>
+                <DataTriggerBehavior Binding="{Binding IsDirty}" ComparisonCondition="Equal" Value="True">
+                  <ChangePropertyAction PropertyName="Background" Value="Red"></ChangePropertyAction>
+                </DataTriggerBehavior>
+                <DataTriggerBehavior Binding="{Binding IsDirty}" ComparisonCondition="Equal" Value="False">
+                  <ChangePropertyAction PropertyName="Background" Value="Green"></ChangePropertyAction>
+                </DataTriggerBehavior>
+              </Interaction.Behaviors>
+              保存
+            </Button>
           </StackPanel>
         </Grid>
       </ScrollViewer>
@@ -44,9 +58,40 @@
       <Separator Grid.Row="1"></Separator>
 
       <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-        <StackPanel >
+        <ListBox Grid.Row="2"
+                 ItemsSource="{Binding DisplayNodes}"
+                 Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="viewmodels:LogFilterViewModel+NodeFilterItem">
+              <Border BorderBrush="#11AAAAAA"
+                      BorderThickness="0,0,0,1"
+                      Padding="12,8"
+                      Background="Transparent">
+                <Interaction.Behaviors>
+                  <EventTriggerBehavior EventName="PointerPressed">
+                    <ChangePropertyAction TargetObject="{Binding}"
+                                          PropertyName="IsEnabled"
+                                          Value="{Binding !IsEnabled}"/>
+                  </EventTriggerBehavior>
+                </Interaction.Behaviors>
 
-        </StackPanel>
+                <Grid ColumnDefinitions="*, Auto">
+                  <TextBlock Grid.Column="0"
+                             Text="{Binding FullName}"
+                             VerticalAlignment="Center"
+                             TextTrimming="CharacterEllipsis"
+                             FontWeight="{Binding IsEnabled, Converter={x:Static ObjectConverters.IsNotNull}, ConverterParameter=SemiBold}"/>
+
+                  <CheckBox Grid.Column="1"
+                            IsChecked="{Binding IsEnabled}"
+                            IsHitTestVisible="False"
+                            MinWidth="0"
+                            VerticalAlignment="Center"/>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
       </ScrollViewer>
     </Grid>
   </Border>

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GameDevTools.Misc
+namespace GameDevTools.Share.Misc
 {
-    internal static class Settings
+    public static class Settings
     {
         public const string JsonStorageBasePathName = "GameDevTools";
     }

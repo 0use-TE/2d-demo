@@ -3,7 +3,6 @@ using Chickensoft.Introspection;
 using Dash.Scripts.Entity.AI.AIPerception.Core;
 using Dash.Scripts.Entity.AI.AIPerception.Imps;
 using Dash.Scripts.Entity.Core;
-using Dash.Scripts.Entity.Core.Context;
 using Dash.Scripts.GameIn.EnvironmentContext;
 using Dash.Scripts.Misc.Enums;
 using Godot;

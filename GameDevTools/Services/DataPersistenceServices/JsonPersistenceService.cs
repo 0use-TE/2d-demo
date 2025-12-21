@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using GameDevTools.Extensions;
-using GameDevTools.Misc;
+using GameDevTools.Share;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.FileIO;
 
@@ -24,14 +24,8 @@ namespace GameDevTools.Services.DataPersistenceServices
         {
             try
             {
-                var directory = Path.Combine(GetApplicationDataFolder(), Settings.JsonStorageBasePathName);
-                Directory.CreateDirectory(directory); // 确保目录存在
-
-                var loadPath = Path.Combine(directory, key);
-
-                // 确保扩展名是 .json
-                if (!Path.HasExtension(loadPath) || Path.GetExtension(loadPath).ToLower() != ".json")
-                    loadPath += ".json";
+                //直接获取文件
+                var loadPath = SharedPathProvider.GetConfigFilePath(key);
 
                 // 如果文件不存在，直接创建默认对象并保存
                 if (!File.Exists(loadPath))
@@ -53,6 +47,7 @@ namespace GameDevTools.Services.DataPersistenceServices
             {
                 _logger.LogErrorWithArea(E_LogArea.FileIO, ex, "加载 JSON 文件失败: {key}", key);
                 return new T();
+                throw;
             }
         }
 
@@ -60,24 +55,12 @@ namespace GameDevTools.Services.DataPersistenceServices
         {
             try
             {
-                // 1. 构建目录路径
-                var directory = Path.Combine(GetApplicationDataFolder(), Settings.JsonStorageBasePathName);
-                Directory.CreateDirectory(directory); // 确保目录存在
+                // 1. 直接从共享逻辑获取完整路径
+                var savePath = SharedPathProvider.GetConfigFilePath(key);
 
-                // 2. 构建文件路径
-                var savePath = Path.Combine(directory, key);
-
-                // 3. 确保扩展名是 .json
-                if (!Path.HasExtension(savePath) || Path.GetExtension(savePath).ToLower() != ".json")
-                    savePath += ".json";
-
-                // 4. 如果传入对象为空，则创建默认对象
                 if (value == null)
-                {
                     value = new T();
-                }
 
-                // 5. 序列化为 JSON
                 var json = JsonSerializer.Serialize(value, _jsonSerializerOptions);
 
                 File.WriteAllText(savePath, json);
@@ -87,8 +70,8 @@ namespace GameDevTools.Services.DataPersistenceServices
             catch (Exception ex)
             {
                 _logger.LogErrorWithArea(E_LogArea.FileIO, ex, "保存 JSON 文件失败: {key}", key);
+                throw;
             }
         }
-
     }
 }

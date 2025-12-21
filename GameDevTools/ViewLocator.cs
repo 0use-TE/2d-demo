@@ -15,7 +15,6 @@ internal class ViewLocator : IDataTemplate
         if (data == null) return null;
 
         // 1. 获取对应的 View 类型名称
-        // 替换后 View 命名为: MyProject.Views.MainView
         var viewTypeName = data.GetType().FullName?.Replace("ViewModel", "View");
 
         if (string.IsNullOrEmpty(viewTypeName)) return new TextBlock { Text = "无效的类型名称" };
@@ -27,7 +26,6 @@ internal class ViewLocator : IDataTemplate
             var view = (Control)Activator.CreateInstance(viewType)!;
 
             // 3. 关键：设置 DataContext
-            // 这样 View 就能访问到 ViewModel 里的属性和命令
             view.DataContext = data;
 
             return view;

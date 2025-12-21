@@ -83,7 +83,20 @@ namespace GameDevTools
 
         private void App_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
+            var regionManager = Container.Resolve<IRegionManager>();
 
+            foreach (var region in regionManager.Regions)
+            {
+                // 1. 遍历区域内所有的 View
+                foreach (var view in region.Views)
+                {
+                    // 2. 尝试从 View 的 DataContext 获取 VM
+                    // 这里判断是否实现了 IViewModelDataInit 接口
+                    if (view is AvaloniaObject avaloniaObj &&
+                        avaloniaObj.GetValue(Control.DataContextProperty) is IViewModelDataInit vm)
+                        vm.Save();
+                }
+            }
         }
     }
 }

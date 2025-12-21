@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="2DDemo"
+config/name="Dash"
 run/main_scene="uid://co3kunw1miigi"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://Assets/icon.svg"
@@ -27,7 +27,8 @@ window/stretch/aspect="keep_width"
 
 [dotnet]
 
-project/assembly_name="2DDemo"
+project/assembly_name="Dash"
+project/solution_directory="D:\\常用\\桌面\\MyProject\\Dash"
 
 [editor_plugins]
 
