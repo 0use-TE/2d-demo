@@ -1,0 +1,29 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:avalonia="using:Material.Icons.Avalonia"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GameDevTools.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:GameDevTools.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GameDevTools.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/logo.ico"
+        Title="{Binding Title}">
+
+  <DockPanel>
+    <Border DockPanel.Dock="Top" Height="45" BorderBrush="LightGray"  Padding="8" BorderThickness="0 0 0 1">
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+          <TextBlock FontWeight="SemiBold"  FontSize="18" VerticalAlignment="Center">GameDevTools</TextBlock>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Grid.Column="2">
+          <Button Command="{Binding SwitchThemeCommand}">
+            <avalonia:MaterialIcon Kind="ThemeLightDark"></avalonia:MaterialIcon>
+          </Button>
+        </StackPanel>
+      </Grid>
+    </Border>
+    <local:MainView></local:MainView>
+  </DockPanel>
+</Window>

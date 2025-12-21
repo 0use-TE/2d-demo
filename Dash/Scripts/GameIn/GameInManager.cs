@@ -1,0 +1,55 @@
+using Chickensoft.AutoInject;
+using Chickensoft.Introspection;
+using Dash.Scripts.Entity.Core;
+using Dash.Scripts.GameHander;
+using Dash.Scripts.GameIn.EnvironmentContext;
+using Godot;
+using Godot.DependencyInjection.Attributes;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dash.Scripts.GameIn
+{
+	[Meta(typeof(IAutoNode))]
+	public partial class GameInManager : Node2D,
+		IProvide<PlayerContext>,
+		IProvide<AIUnitContext>,
+		IProvide<MapContext>,
+		IProvide<EntityInCameraContext>
+	{
+		public override void _Notification(int what) => this.Notify(what);
+		[Export]
+		private Node2D? TestMainBase { get; set; }
+		[Inject]
+		public ILogger<GameInManager> Logger=default!;
+
+		private PlayerContext _playerContext = new PlayerContext();
+		private AIUnitContext _aiUnitContext = new AIUnitContext();
+		private MapContext _mapContext = new MapContext();
+		private EntityInCameraContext _entityInCameraContext = new EntityInCameraContext();
+
+
+        PlayerContext IProvide<PlayerContext>.Value() => _playerContext;
+		AIUnitContext IProvide<AIUnitContext>.Value() => _aiUnitContext;
+		MapContext IProvide<MapContext>.Value() => _mapContext;
+		EntityInCameraContext IProvide<EntityInCameraContext>.Value() => _entityInCameraContext;
+            
+		public void OnReady()
+		{
+			if(TestMainBase != null) 
+			_mapContext.TargetPos.Add(TestMainBase);
+		}
+
+        public void Setup()
+        {
+            // Call the this.Provide() method once your dependencies have been initialized.
+            this.Provide();
+        }
+
+   
+    }
+}
