@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0rlgvfw3f8fo" path="res://Scripts/Entity/AI/TestAI/TestAi.cs" id="1_4p1rw"]
 [ext_resource type="Texture2D" uid="uid://bc07o778gv7fi" path="res://Assets/brackeys_platformer_assets/Characters/Orc/Orc with shadows/Orc.png" id="1_pqbyl"]
-[ext_resource type="BehaviorTree" uid="uid://cyt4e2fv2tlqh" path="res://ai/trees/TestTree.tres" id="2_7vr7s"]
+[ext_resource type="BehaviorTree" uid="uid://cyt4e2fv2tlqh" path="res://AI/trees/TestTree.tres" id="2_7vr7s"]
 [ext_resource type="Resource" uid="uid://buxxcd6judhnk" path="res://Resources/AI/TestAIStat.tres" id="2_lrb8w"]
 [ext_resource type="Script" uid="uid://dl78qapfbqt8w" path="res://Scripts/Entity/AI/AIPerception/AttackDetect/AttackAreaWithDetector.cs" id="5_devlm"]
 

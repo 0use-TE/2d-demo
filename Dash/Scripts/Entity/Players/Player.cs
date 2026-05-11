@@ -10,7 +10,7 @@ using Godot.DependencyInjection.Attributes;
 using System;
 namespace Dash.Scripts.Entity.Players;
 
-[Meta(typeof(IAutoConnect))]
+[Meta(typeof(IAutoNode))]
 public partial class Player : PlayerBase
 {
     public override void _Notification(int what) => this.Notify(what);

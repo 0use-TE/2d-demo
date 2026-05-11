@@ -47,6 +47,7 @@
     <None Include="Scripts\GameHandler\DependencyInjectionNode.cs.uid" />
     <None Include="Scripts\GameHandler\DiRegistration.cs.uid" />
     <None Include="GameDocs\环境上下文设计.md" />
+    <None Include="GameDocs\依赖注入_AutoInject与MSDI.md" />
   </ItemGroup>
 
   <ItemGroup>
